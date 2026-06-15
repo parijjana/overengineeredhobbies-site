@@ -189,13 +189,33 @@
       justify-content: space-between; margin-bottom: 0.75rem; gap: 1rem;
     }
     .card-title {
-      font-family: var(--font-display); font-size: 1.45rem;
-      color: var(--text-bright); letter-spacing: 0.02em;
+      font-family: var(--font-display); font-size: 1.2rem;
+      color: var(--text-bright); letter-spacing: 0.05em;
     }
+
+    /* ── PROGRESS BAR ────────────────────────────────── */
+    .progress-container {
+      margin-bottom: 1.25rem;
+    }
+    .progress-label {
+      font-family: var(--font-mono); font-size: 10px;
+      color: var(--text-dim); display: flex; justify-content: space-between;
+      margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .progress-bar {
+      height: 4px; background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border); overflow: hidden; position: relative;
+    }
+    .progress-fill {
+      height: 100%; background: var(--accent); width: 0%;
+      transition: width 1s ease-out;
+    }
+
     .card-badge {
       font-family: var(--font-mono); font-size: 10px; padding: 2px 8px;
-      background: var(--tag); color: var(--tag-text);
+      background: rgba(255,255,255,0.05); color: var(--text-dim);
       letter-spacing: 0.08em; white-space: nowrap; flex-shrink: 0;
+      border: 1px solid var(--border);
     }
     .card-meta {
       font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
@@ -766,9 +786,50 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+  // ── Project Progress Loading
+  async function loadProjectProgress() {
+    try {
+      const response = await fetch('assets/progress.json');
+      if (!response.ok) return;
+      const data = await response.json();
+
+      document.querySelectorAll('.card').forEach(card => {
+        const link = card.querySelector('.card-link');
+        if (!link) return;
+
+        // Extract repo name from GitHub URL
+        const href = link.getAttribute('href');
+        const match = href.match(/github\.com\/parijjana\/([^\/\s?#]+)/i);
+        if (!match) return;
+
+        const repoName = match[1];
+        const progress = data[repoName];
+
+        if (progress && progress.status === 'success') {
+          const container = document.createElement('div');
+          container.className = 'progress-container';
+          container.innerHTML = `
+            <div class="progress-label">
+              <span>Roadmap Completion</span>
+              <span>${progress.implemented} / ${progress.total} Features</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${progress.percentage}%"></div>
+            </div>
+          `;
+
+          // Insert before the description paragraph
+          const p = card.querySelector('p');
+          if (p) card.insertBefore(container, p);
+        }
+      });
+    } catch (e) {
+      console.warn('Failed to load project progress:', e);
+    }
+  }
+  loadProjectProgress();
 </script>
 
 </body>
-</html>
-
 </html>
