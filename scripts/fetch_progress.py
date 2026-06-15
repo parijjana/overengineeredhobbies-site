@@ -2,37 +2,49 @@ import urllib.request
 import re
 import json
 import os
+import sys
 
-# Configuration: Repositories to track progress for
+# ── CONFIGURATION ──────────────────────────────────────────────────────────
+# Add the exact repository names you want to track here.
+# The script will only attempt to fetch FEATURE_TRACKER.md for these repos.
 REPOS = [
-    "GASTROTATOR_ANDROID",
-    "AULOS",
-    "KALKRA",
-    "pellucid",
-    "contexthistory",
     "lore",
-    "thesign"
+    "thesign",
+    "contexthistory",
+    "pellucid",
+    "KALKRA",
+    "AULOS",
+    "GASTROTATOR_ANDROID"
 ]
 
 USER = "parijjana"
 BASE_URL = "https://raw.githubusercontent.com/{user}/{repo}/main/FEATURE_TRACKER.md"
 OUTPUT_FILE = "assets/progress.json"
+TIMEOUT = 10 # Seconds
+
+# ────────────────────────────────────────────────────────────────────────────
 
 def fetch_and_parse(repo):
     url = BASE_URL.format(user=USER, repo=repo)
-    print(f"Fetching {url}...")
+    print(f"Fetching {repo} roadmap...")
     try:
-        with urllib.request.urlopen(url) as response:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as response:
             content = response.read().decode('utf-8')
             
             # Count [x] and [ ]
-            # Using regex to find markdown task list patterns
+            # Patterns: "- [x]", "- [X]", "- [ ]"
             implemented = len(re.findall(r'-\s+\[x\]', content, re.IGNORECASE))
             planned = len(re.findall(r'-\s+\[\s\]', content, re.IGNORECASE))
             
             total = implemented + planned
-            percentage = round((implemented / total * 100), 1) if total > 0 else 0
+            if total == 0:
+                print(f"  ! Found FEATURE_TRACKER.md for {repo} but no features defined.")
+                return None
+                
+            percentage = round((implemented / total * 100), 1)
             
+            print(f"  + Success: {implemented}/{total} features tracked.")
             return {
                 "implemented": implemented,
                 "planned": planned,
@@ -40,29 +52,34 @@ def fetch_and_parse(repo):
                 "percentage": percentage,
                 "status": "success"
             }
+            
     except urllib.error.HTTPError as e:
         if e.code == 404:
-            print(f"Warning: FEATURE_TRACKER.md not found for {repo}")
-            return {"status": "not_found"}
+            print(f"  - Skipping {repo}: FEATURE_TRACKER.md not found.")
         else:
-            print(f"Error fetching {repo}: {e}")
-            return {"status": "error", "message": str(e)}
+            print(f"  - Error fetching {repo} (HTTP {e.code}): {e.reason}")
+        return None
     except Exception as e:
-        print(f"Unexpected error for {repo}: {e}")
-        return {"status": "error", "message": str(e)}
+        print(f"  - Unexpected error for {repo}: {e}")
+        return None
 
 def main():
     # Ensure assets directory exists
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     
     results = {}
-    for repo in REPOS:
-        results[repo] = fetch_and_parse(repo)
+    print(f"Starting progress synchronization for {USER}...")
     
+    for repo in REPOS:
+        data = fetch_and_parse(repo)
+        if data:
+            results[repo] = data
+    
+    # Save the successful results
     with open(OUTPUT_FILE, "w") as f:
         json.dump(results, f, indent=2)
     
-    print(f"Progress data saved to {OUTPUT_FILE}")
+    print(f"\nDone! Progress data for {len(results)} projects saved to {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     main()
