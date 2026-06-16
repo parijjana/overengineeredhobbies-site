@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LORE — overengineeredhobbies.dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #f1e05a;
+      --accent-dim: rgba(241, 224, 90, 0.10);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      min-height: calc(100vh - 60px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .about-section {
+      padding: 4rem;
+      border-right: 1px solid var(--border);
+      background: rgba(13, 26, 46, 0.4);
+    }
+
+    .timeline-section {
+      padding: 4rem;
+      background: rgba(8, 17, 31, 0.6);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 2.5rem 0 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }
+
+    .tech-stack {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .tag {
+      font-family: var(--font-mono); font-size: 10px; padding: 4px 10px;
+      border: 1px solid var(--border); color: var(--tag-text); background: var(--tag);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-github {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-right: 10px;
+      margin-bottom: 2rem;
+    }
+    .btn-github:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    /* ── TIMELINE ────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem; top: 0.5rem;
+      width: 11px; height: 11px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-item.planned::before {
+      border-color: var(--text-dim);
+    }
+    
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .timeline-item.planned .timeline-date { color: var(--text-dim); }
+
+    .timeline-content h3 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-content p {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+      margin-bottom: 0;
+    }
+
+    .architecture-box {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text);
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      main { grid-template-columns: 1fr; }
+      .about-section { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+      .timeline-section { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: LORE</div>
+</nav>
+
+<main>
+  <section class="about-section">
+    <div class="label">SECTION 03 — KNOWLEDGE SYSTEMS</div>
+    <h1>LORE</h1>
+    
+    <div class="tech-stack">
+      <span class="tag">NODE.JS</span>
+      <span class="tag">LANCEDB</span>
+      <span class="tag">TRANSFORMERS.JS</span>
+      <span class="tag">MCP</span>
+    </div>
+
+    <a href="https://github.com/parijjana/lore" class="btn-github">VIEW ON GITHUB →</a>
+
+    <p>Lore is a cross-project technical knowledge management system for AI agents. It uses semantic search powered by LanceDB and local CPU-based embeddings to archive and retrieve architectural lessons learned across different workspaces.</p>
+
+    <h2>CORE PHILOSOPHY</h2>
+    <p>Designed to provide AI agents with a "global memory," Lore enables the sharing of insights between unrelated projects. It supports hierarchical knowledge tiers, from raw observations to synthesized best practices, with full provenance tracking and a recursive audit system.</p>
+
+    <h2>TECHNICAL ARCHITECTURE</h2>
+    <div class="architecture-box">
+<pre>
+AI Agent (Gemini/Claude)
+  ↓ queries
+Lore MCP Server (Node.js)
+  ↓ indexes/searches
+LanceDB (Vector Store) + JSONL (Backup)
+</pre>
+    </div>
+
+    <h2>KEY CAPABILITIES</h2>
+    <p>• <strong>Semantic Retrieval:</strong> Finds lessons by meaning and intent using local embeddings (all-MiniLM-L6-v2).<br>
+    • <strong>Automated Harvesting:</strong> Scans workspaces to extract lessons from markdown files and memory logs.<br>
+    • <strong>Proactive Wisdom:</strong> Agents check the archive automatically before proposing architectural solutions.</p>
+  </section>
+
+  <section class="timeline-section">
+    <div class="label">PROJECT TIMELINE</div>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-24</span>
+        <div class="timeline-content">
+          <h3>Automated Knowledge Harvesting</h3>
+          <p>Implemented logic to scan workspaces and extract lessons from LESSONS_LEARNT.md and memory files.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Semantic Search & Proactive Intelligence</h3>
+          <p>Established the semantic search engine, hierarchical knowledge tiers, and the Proactive Intelligence Protocol.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Provenance & Ancestry Tracking</h3>
+          <p>Implemented full tracking of knowledge origins and evolution through recursive audit systems.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Knowledge Health Diagnostics</h3>
+          <p>Built-in tools for measuring the relevance and consistency of the archived technical lessons.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Admin Isolation & Hybrid Storage</h3>
+          <p>Implemented secure administrative layers and dual-storage (LanceDB + JSONL) for resilience.</p>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Visual Knowledge Graph</h3>
+          <p>UI interface to visualize semantic connections between archived technical lessons.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Cloud Embedding Support</h3>
+          <p>Optional integration with cloud providers for higher-dimension embedding performance.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Advanced De-duplication</h3>
+          <p>Cross-archive entity resolution to ensure a single source of truth for all synthesized wisdom.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Multi-User Permission Layers</h3>
+          <p>Support for shared organizational knowledge bases with granular access control for different agent roles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

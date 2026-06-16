@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GASTROTATOR — overengineeredhobbies.dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #e8a020;
+      --accent-dim: rgba(232,160,32,0.10);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      min-height: calc(100vh - 60px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .about-section {
+      padding: 4rem;
+      border-right: 1px solid var(--border);
+      background: rgba(13, 26, 46, 0.4);
+    }
+
+    .timeline-section {
+      padding: 4rem;
+      background: rgba(8, 17, 31, 0.6);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 2.5rem 0 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }
+
+    .tech-stack {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .tag {
+      font-family: var(--font-mono); font-size: 10px; padding: 4px 10px;
+      border: 1px solid var(--border); color: var(--tag-text); background: var(--tag);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-github {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-right: 10px;
+      margin-bottom: 2rem;
+    }
+    .btn-github:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    /* ── TIMELINE ────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem; top: 0.5rem;
+      width: 11px; height: 11px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-item.planned::before {
+      border-color: var(--text-dim);
+    }
+    
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .timeline-item.planned .timeline-date { color: var(--text-dim); }
+
+    .timeline-content h3 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-content p {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+      margin-bottom: 0;
+    }
+
+    .architecture-box {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text);
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      main { grid-template-columns: 1fr; }
+      .about-section { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+      .timeline-section { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: GASTROTATOR</div>
+</nav>
+
+<main>
+  <section class="about-section">
+    <div class="label">SECTION 02 — ANDROID APPLICATIONS</div>
+    <h1>GASTROTATOR</h1>
+    
+    <div class="tech-stack">
+      <span class="tag">FLUTTER</span>
+      <span class="tag">GEMINI_AI</span>
+      <span class="tag">SQLITE</span>
+      <span class="tag">ANDROID</span>
+    </div>
+
+    <a href="https://github.com/parijjana/GASTROTATOR_ANDROID" class="btn-github">VIEW ON GITHUB →</a>
+    <a href="https://play.google.com/store/apps/details?id=com.gastrotator.app" class="btn-github">VIEW ON PLAY STORE →</a>
+
+    <p>GastRotator is an AI-powered recipe manager for the kinetic kitchen. It uses Google Gemini AI to analyze YouTube transcripts and extract structured recipes, nutritional data, and cooking steps instantly.</p>
+
+    <h2>CORE PHILOSOPHY</h2>
+    <p>Built as a local-first, privacy-centric application, GastRotator ensures all your recipes and data stay on your device. It features a high-impact, editorial-style interface designed for focus during active cooking, with automated conversions for nutritional intelligence.</p>
+
+    <h2>SYSTEM ARCHITECTURE</h2>
+    <div class="architecture-box">
+<pre>
+Kinetic Feast UI (Flutter)
+  ↓ providers
+Import Manager (YoutubeExplode / Gemini)
+  ↓ persists
+Local Storage (SQLite / Encrypted Prefs)
+</pre>
+    </div>
+
+    <h2>KEY CAPABILITIES</h2>
+    <p>• <strong>Magic YouTube Import:</strong> Simply share a video to extract a full, structured recipe via AI.<br>
+    • <strong>Nutritional Intelligence:</strong> Automated estimation of calories and weight in SI units.<br>
+    • <strong>Editorial Design:</strong> Monochromatic depth and asymmetric layouts for a premium digital cookbook feel.</p>
+  </section>
+
+  <section class="timeline-section">
+    <div class="label">PROJECT TIMELINE</div>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2026-04-18</span>
+        <div class="timeline-content">
+          <h3>Local-First Persistence & Data Portability</h3>
+          <p>Implemented offline-first SQLite storage and standardized JSON export/import for full recipe data portability.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-04-18</span>
+        <div class="timeline-content">
+          <h3>Smart Utility & Diagnostic Logging</h3>
+          <p>Built the Volume-to-Weight conversion utility and implemented a terminal-style diagnostic log viewer for debugging.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-04-12</span>
+        <div class="timeline-content">
+          <h3>Magic YouTube Import & Intelligence</h3>
+          <p>Integration with YouTube transcripts and Gemini AI for automated structured recipe and nutritional extraction.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-04-12</span>
+        <div class="timeline-content">
+          <h3>Kinetic Feast UI Foundation</h3>
+          <p>Established the asymmetric editorial design system and high-impact monochromatic visual style.</p>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Kinetic Weekly Planner</h3>
+          <p>Foundational zero-waste meal planning logic and integrated scheduler interface.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Dynamic AI Module Manager</h3>
+          <p>Pluggable architecture for swapping different LLM providers for recipe analysis and enrichment.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>The Vision Engine</h3>
+          <p>On-device computer vision for automated ingredient detection and text extraction from physical cookbooks.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Pantry-to-Plate</h3>
+          <p>Intelligent recipe suggestions based on current local inventory and ingredient expiration dates.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Blog Fluff Eliminator</h3>
+          <p>Automated cleanup of "story-first" web recipes, extracting only relevant steps and ingredients.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Hands-Free Assistant</h3>
+          <p>Voice-activated navigation and timer management for active cooking sessions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

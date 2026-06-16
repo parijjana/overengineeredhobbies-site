@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTEXTHISTORY — overengineeredhobbies.dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #3572a5;
+      --accent-dim: rgba(53, 114, 165, 0.10);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      min-height: calc(100vh - 60px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .about-section {
+      padding: 4rem;
+      border-right: 1px solid var(--border);
+      background: rgba(13, 26, 46, 0.4);
+    }
+
+    .timeline-section {
+      padding: 4rem;
+      background: rgba(8, 17, 31, 0.6);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 2.5rem 0 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }
+
+    .tech-stack {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .tag {
+      font-family: var(--font-mono); font-size: 10px; padding: 4px 10px;
+      border: 1px solid var(--border); color: var(--tag-text); background: var(--tag);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-github {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-right: 10px;
+      margin-bottom: 2rem;
+    }
+    .btn-github:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    /* ── TIMELINE ────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem; top: 0.5rem;
+      width: 11px; height: 11px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    .timeline-item.planned::before {
+      border-color: var(--text-dim);
+    }
+    
+    .timeline-date {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .timeline-item.planned .timeline-date { color: var(--text-dim); }
+
+    .timeline-content h3 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-content p {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+      margin-bottom: 0;
+    }
+
+    .architecture-box {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text);
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      main { grid-template-columns: 1fr; }
+      .about-section { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+      .timeline-section { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: CONTEXTHISTORY</div>
+</nav>
+
+<main>
+  <section class="about-section">
+    <div class="label">SECTION 05 — AGENT INFRASTRUCTURE</div>
+    <h1>CONTEXTHISTORY</h1>
+    
+    <div class="tech-stack">
+      <span class="tag">PYTHON</span>
+      <span class="tag">MCP</span>
+      <span class="tag">SQLITE</span>
+      <span class="tag">UV</span>
+    </div>
+
+    <a href="https://github.com/parijjana/contexthistory" class="btn-github">VIEW ON GITHUB →</a>
+
+    <p>ContextHistory is an evolutionary memory infrastructure for AI agents. It tracks, stores, and evolves project context over time, allowing agents to "remember" architectural decisions, engineering preferences, and past breakthroughs across multiple sessions.</p>
+
+    <h2>CORE PHILOSOPHY</h2>
+    <p>By treating context as a living entity that needs to be distilled and archived, ContextHistory prevents information rot and agent amnesia. It provides a standards-compliant MCP server that integrates seamlessly with Gemini CLI, Claude, and Cursor, featuring automated environment validation and sandbox repair.</p>
+
+    <h2>SYSTEM ARCHITECTURE</h2>
+    <div class="architecture-box">
+<pre>
+AI Agent (Gemini/Claude)
+  ↓ MCP Tools
+Librarian (Parser/Distiller)
+  ↓ manages
+Memory Databases (Archeology/Orchestration)
+</pre>
+    </div>
+
+    <h2>KEY CAPABILITIES</h2>
+    <p>• <strong>Context Archeology:</strong> Automatic recovery and injection of relevant historical context into active sessions.<br>
+    • <strong>Semantic Distillation:</strong> Compression of verbose session logs into concise architectural insights.<br>
+    • <strong>Governance & Repair:</strong> Automated conflict resolution and environment restoration for broken sandboxes.</p>
+  </section>
+
+  <section class="timeline-section">
+    <div class="label">PROJECT TIMELINE</div>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-19</span>
+        <div class="timeline-content">
+          <h3>Distributed Governance & Skills</h3>
+          <p>Implemented memory consistency management across workspaces and specialized agent skills for proactive memory usage.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-19</span>
+        <div class="timeline-content">
+          <h3>Cross-Agent Setup Utility</h3>
+          <p>Built-in tools for unifying configuration and skillsets across different AI agent platforms (Gemini, Claude, Cursor).</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-18</span>
+        <div class="timeline-content">
+          <h3>Sandbox Repair Engine</h3>
+          <p>Built automated utilities for restoring broken project environments and configurations in the background.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-11</span>
+        <div class="timeline-content">
+          <h3>Environment Validation</h3>
+          <p>Implemented strict pre-flight checks for project dependencies and system integrity before agent initialization.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-10</span>
+        <div class="timeline-content">
+          <h3>Core Infrastructure & MCP</h3>
+          <p>Launched the prototype MCP server, SQLite trace matrix, and the evolutionary memory distillation protocol.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-10</span>
+        <div class="timeline-content">
+          <h3>Multi-Database Orchestration</h3>
+          <p>Implemented the "Librarian" layer for managing multiple isolated memory databases for different workspaces.</p>
+        </div>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Visual Memory Dashboard</h3>
+          <p>Flutter-based interface for browsing and managing project evolution timelines and session histories.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Semantic Vector Search</h3>
+          <p>Advanced retrieval using local embeddings to find historical context by intent and similarity.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Cloud Sync & Backup</h3>
+          <p>Optional encrypted off-site storage for memory databases and architectural insights.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Real-time Event Streaming</h3>
+          <p>Live memory synchronization across active agents during collaborative multi-agent development sessions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

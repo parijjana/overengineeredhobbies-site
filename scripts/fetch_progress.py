@@ -64,22 +64,31 @@ def fetch_and_parse(repo):
         return None
 
 def main():
+    # Use CLI arguments if provided, otherwise use the default REPOS list
+    target_repos = sys.argv[1:] if len(sys.argv) > 1 else REPOS
+    
+    if not target_repos:
+        print("No repositories specified. Please provide repo names as arguments or update REPOS in the script.")
+        return
+
     # Ensure assets directory exists
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     
     results = {}
     print(f"Starting progress synchronization for {USER}...")
     
-    for repo in REPOS:
+    for repo in target_repos:
         data = fetch_and_parse(repo)
         if data:
             results[repo] = data
     
     # Save the successful results
-    with open(OUTPUT_FILE, "w") as f:
-        json.dump(results, f, indent=2)
-    
-    print(f"\nDone! Progress data for {len(results)} projects saved to {OUTPUT_FILE}")
+    if results:
+        with open(OUTPUT_FILE, "w") as f:
+            json.dump(results, f, indent=2)
+        print(f"\nDone! Progress data for {len(results)} projects saved to {OUTPUT_FILE}")
+    else:
+        print("\nNo progress data fetched. Output file not updated.")
 
 if __name__ == "__main__":
     main()
