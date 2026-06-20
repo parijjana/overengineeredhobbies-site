@@ -66,20 +66,35 @@ TEMPLATE = """<!DOCTYPE html>
     main {{
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      min-height: calc(100vh - 60px);
+      height: calc(100vh - 60px);
       max-width: 1400px;
       margin: 0 auto;
+      overflow: hidden;
     }}
 
     .about-section {{
       padding: 4rem;
       border-right: 1px solid var(--border);
       background: rgba(13, 26, 46, 0.4);
+      overflow-y: auto;
+      height: 100%;
+      -ms-overflow-style: none;  /* IE/Edge */
+      scrollbar-width: none;  /* Firefox */
+    }}
+    .about-section::-webkit-scrollbar {{
+      display: none; /* Chrome/Safari/Opera */
     }}
 
     .timeline-section {{
       padding: 4rem;
       background: rgba(8, 17, 31, 0.6);
+      overflow-y: auto;
+      height: 100%;
+      -ms-overflow-style: none;  /* IE/Edge */
+      scrollbar-width: none;  /* Firefox */
+    }}
+    .timeline-section::-webkit-scrollbar {{
+      display: none; /* Chrome/Safari/Opera */
     }}
 
     .label {{
@@ -198,9 +213,9 @@ TEMPLATE = """<!DOCTYPE html>
     }}
 
     @media (max-width: 1000px) {{
-      main {{ grid-template-columns: 1fr; }}
-      .about-section {{ border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }}
-      .timeline-section {{ padding: 2rem; }}
+      main {{ grid-template-columns: 1fr; height: auto; overflow: visible; }}
+      .about-section {{ border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; overflow-y: visible; height: auto; }}
+      .timeline-section {{ padding: 2rem; overflow-y: visible; height: auto; }}
     }}
   </style>
 </head>
