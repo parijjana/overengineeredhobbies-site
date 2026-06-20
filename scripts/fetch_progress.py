@@ -161,6 +161,11 @@ def fetch_and_parse(repo, local_paths):
         
         favicon_path = fetch_project_favicon(repo, local_path)
         
+        # Auto-detect local privacy policy file in website projects/ directory
+        privacy_filename = f"{repo.lower()}_privacy.html"
+        privacy_filepath = os.path.join("projects", privacy_filename)
+        privacy_url = privacy_filename if os.path.exists(privacy_filepath) else None
+        
         print(f"  + Success: {implemented_count}/{len(features)} features tracked.")
         return {
             "about": about_text,
@@ -171,7 +176,8 @@ def fetch_and_parse(repo, local_paths):
             "links": {
                 "github": github_url,
                 "playstore": playstore_url,
-                "favicon": favicon_path
+                "favicon": favicon_path,
+                "privacy": privacy_url
             },
             "features": features,
             "percentage": percentage,
