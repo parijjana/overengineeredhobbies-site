@@ -391,7 +391,6 @@
     <a href="#about">~/about</a>
     <a href="#projects">~/projects</a>
     <a href="#apps">~/apps</a>
-    <a href="#downloads">~/downloads</a>
     <!-- <a href="#blog">~/blog</a> -->
   </ul>
 </nav>
@@ -629,10 +628,10 @@
   </div>
 </section>
 
-<!-- ── APPS ──────────────────────────────────────────── -->
+<!-- ── APPS & DOWNLOADS ─────────────────────────────── -->
 <section id="apps">
-  <p class="section-label">SECTION 03 — ANDROID APPLICATIONS <span class="rev-stamp">REV A</span></p>
-  <h2 class="section-title">APPS</h2>
+  <p class="section-label">SECTION 03 — APPLICATIONS & BUILDS <span class="rev-stamp">REV A</span></p>
+  <h2 class="section-title">APPS & DOWNLOADS</h2>
   <div class="card-grid">
 
     <div class="card reveal">
@@ -654,52 +653,53 @@
       <a href="projects/gastrotator_android.html" class="card-link">VIEW PROJECT DETAILS →</a>
     </div>
 
-    <div class="card card-placeholder reveal" style="transition-delay:0.07s">
-      <div class="card-placeholder-inner">
-        <div class="ph-label">// next release pending</div>
-        <div class="ph-title">COMING SOON</div>
+    <div class="card reveal" style="transition-delay:0.07s">
+      <div class="card-header">
+        <div class="card-title">PELLUCID</div>
+        <div class="card-badge">WINDOWS</div>
+      </div>
+      <div class="card-meta">
+        <span>v0.1.0</span>
+        <span>FLUTTER</span>
+        <span>DESKTOP</span>
+      </div>
+      <p>The official desktop build of Pellucid. A minimalist writing environment for Windows featuring a translucent Ghost UI and versioned cloud sync via Google Drive.</p>
+      <div class="card-tags">
+        <span class="tag">PRODUCTIVITY</span>
+        <span class="tag">MINIMALIST</span>
+        <span class="tag">DESKTOP</span>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
+        <a href="https://github.com/parijjana/pellucid/releases" class="card-link" style="margin-top: 0;">⊞ WINDOWS .exe</a>
+        <a href="projects/pellucid.html" class="card-link" style="margin-top: 0; color: var(--accent);">DETAILS →</a>
+      </div>
+    </div>
+
+    <div class="card reveal" style="transition-delay:0.14s">
+      <div class="card-header">
+        <div class="card-title">CONTEXTHISTORY</div>
+        <div class="card-badge">AGENT SKILL</div>
+      </div>
+      <div class="card-meta">
+        <span>v0.1.0</span>
+        <span>PYTHON</span>
+        <span>MCP</span>
+      </div>
+      <p>An evolutionary memory system for AI agents. Provides infrastructure for tracking, storing, and evolving context over time. Features automated environment validation and sandbox repair.</p>
+      <div class="card-tags">
+        <span class="tag">AI AGENTS</span>
+        <span class="tag">SQLITE</span>
+        <span class="tag">UTILITY</span>
+      </div>
+      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
+        <a href="https://github.com/parijjana/contexthistory" class="card-link" style="margin-top: 0;">📦 INSTALL</a>
+        <a href="projects/contexthistory.html" class="card-link" style="margin-top: 0; color: var(--accent);">DETAILS →</a>
       </div>
     </div>
 
   </div>
-</section>
-
-<!-- ── DOWNLOADS ──────────────────────────────────────── -->
-<section id="downloads">
-  <p class="section-label">SECTION 04 — DESKTOP BUILDS <span class="rev-stamp">REV A</span></p>
-  <h2 class="section-title">DOWNLOADS</h2>
-
-  <div class="dl-card reveal">
-    <div>
-      <div class="dl-title">PELLUCID</div>
-      <div class="card-meta" style="margin:0.25rem 0 0.5rem">
-        <span>v0.1.0</span><span>FLUTTER</span><span>DESKTOP</span>
-      </div>
-      <div class="dl-desc">The official desktop build of Pellucid. A minimalist writing environment for Windows. Native performance and high-transparency design.</div>
-    </div>
-    <div class="dl-buttons">
-      <a href="https://github.com/parijjana/pellucid/releases" class="btn-dl">⊞ WINDOWS .exe</a>
-      <a href="https://github.com/parijjana/pellucid" class="btn-dl">⌘ SOURCE CODE</a>
-    </div>
-  </div>
-
-  <div class="dl-card reveal" style="transition-delay:0.08s">
-    <div>
-      <div class="dl-title">CONTEXTHISTORY</div>
-      <div class="card-meta" style="margin:0.25rem 0 0.5rem">
-        <span>v0.1.0</span><span>PYTHON</span><span>AGENT SKILL</span>
-      </div>
-      <div class="dl-desc">An evolutionary memory system for AI agents. Provides infrastructure for tracking, storing, and evolving context over time. Features automated environment validation and sandbox repair.</div>
-    </div>
-    <div class="dl-buttons">
-      <a href="https://github.com/parijjana/contexthistory" class="btn-dl">⑂ SOURCE CODE</a>
-      <a href="https://github.com/parijjana/contexthistory/releases" class="btn-dl">⌘ RELEASES</a>
-      <a href="https://github.com/parijjana/contexthistory#installation" class="btn-dl">📦 INSTALL</a>
-    </div>
-  </div>
-
-  <div class="dl-note">
-    // All releases also available on <a href="https://github.com/parijjana">GitHub Releases</a>.
+  <div class="dl-note" style="margin-top: 2.5rem; border-top: 1px dashed var(--border); padding-top: 1.5rem; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">
+    // All releases also available on <a href="https://github.com/parijjana" style="color: var(--accent); text-decoration: none;">GitHub Releases</a>.
     Hosted on Cloudflare R2 for fast global downloads.
   </div>
 </section>
