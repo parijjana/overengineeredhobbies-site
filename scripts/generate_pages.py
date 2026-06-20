@@ -208,7 +208,10 @@ TEMPLATE = """<!DOCTYPE html>
 
 <nav>
   <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
-  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: {project_id}</div>
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: {project_id}</div>
+    <img src="{favicon_url}" alt="Project Icon" style="height: 40px; width: 40px; border-radius: 8px; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+  </div>
 </nav>
 
 <main>
