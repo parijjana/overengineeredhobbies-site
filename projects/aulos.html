@@ -20,7 +20,7 @@
       --text-dim: #3f5f85;
       --text-bright: #ddeeff;
       --accent: #e8a020;
-      --accent-dim: rgba(232,160,32,0.10);
+      --accent-dim: rgba(232, 160, 32, 0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'Fira Code', monospace;
       --font-body: 'Lora', serif;
@@ -205,23 +205,23 @@
 
 <main>
   <section class="about-section">
-    <div class="label">SECTION 02 — AUDIO SYSTEMS</div>
+    <div class="label">PROJECT CONTEXT</div>
     <h1>AULOS</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span>
-      <span class="tag">DART</span>
-      <span class="tag">JUST_AUDIO</span>
-      <span class="tag">DRIFT</span>
-      <span class="tag">OFFLINE-FIRST</span>
+      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">JUST_AUDIO</span><span class="tag">DRIFT</span>
     </div>
 
-    <a href="https://github.com/parijjana/AULOS" class="btn-github">VIEW ON GITHUB →</a>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/parijjana/AULOS" class="btn-github">VIEW ON GITHUB →</a>
+      
+      
+    </div>
 
-    <p>Aulos is a high-performance, offline-first local audio player designed for focus and architectural elegance. It serves as a unified hub for Music, Podcasts, Audiobooks, and Radio, built with a strict adherence to SOLID principles and a strategy-pattern playback engine.</p>
+    <p>A high-performance, offline-first local audio player designed for focus and architectural elegance. It serves as a unified hub for Music, Podcasts, Audiobooks, and Radio.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Built with "Overengineered" quality at its heart, Aulos features a completely decoupled architecture where the Domain layer depends on nothing, and all external APIs are gated through rate-limited dispatchers. It prioritizes data integrity and platform-native performance, especially on Windows and Android.</p>
+    <p>Built with "Overengineered" quality at its heart, Aulos features a completely decoupled architecture where the Domain layer depends on nothing.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
@@ -235,133 +235,102 @@ Data Layer (Drift / Services)
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• <strong>Strategy-Pattern Playback:</strong> Contextual UI and controls that adapt automatically to the media type being played.<br>
-    • <strong>Aesthetic Systems:</strong> Winamp-style frequency visualizers and custom-painted waveform seekbars running at 30fps.<br>
-    • <strong>Hardened Resilience:</strong> Native thread-safety guarding for Windows (WinRT) and async disposal protection across all ViewModels.</p>
+    <p>• Strategy-Pattern Playback: Contextual UI and controls that adapt automatically to the media type.<br><br>• Aesthetic Systems: Winamp-style frequency visualizers and custom-painted waveform seekbars.<br><br>• Hardened Resilience: Native thread-safety guarding for Windows (WinRT) and async disposal protection.<br><br># Feature Tracker</p>
   </section>
 
   <section class="timeline-section">
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-06-15</span>
         <div class="timeline-content">
-          <h3>LibriVox Storefront</h3>
-          <p>Public domain audiobook discovery with live streaming and download-to-local capabilities.</p>
+          <h3>LibriVox Storefront: Public domain audiobook discovery with live streaming and download-to-local capabilities.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Local Music Library</h3>
-          <p>High-performance filesystem indexing with metadata and artwork extraction.</p>
+          <h3>Local Music Library: High-performance filesystem indexing with metadata and artwork extraction.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Podcast Discovery Suite</h3>
-          <p>Full RSS-based browser with trending categories, show notes (HTML), and timestamp seeking.</p>
+          <h3>Podcast Discovery Suite: Full RSS-based browser with trending categories, show notes (HTML), and timestamp seeking.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Internet Radio Suite</h3>
-          <p>Worldwide station browser with live metadata (codec, bitrate) and "Add to Library" support.</p>
+          <h3>Internet Radio Suite: Worldwide station browser with live metadata (codec, bitrate) and "Add to Library" support.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Adaptive Now Playing UI</h3>
-          <p>Contextual controls that change based on media type (e.g., skip-10s for podcasts vs. next-track for music).</p>
+          <h3>Adaptive Now Playing UI: Contextual controls that change based on media type (e.g., skip-10s for podcasts vs. next-track for music).</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Aesthetic Systems</h3>
-          <p>Winamp-style frequency visualizers and zero-CPU track-specific waveform seekbars.</p>
+          <h3>Aesthetic Systems: Winamp-style frequency visualizers and zero-CPU track-specific waveform seekbars.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Responsive Layouts</h3>
-          <p>Mobile-to-Desktop adaptive views including compact/overlay modes for small viewports.</p>
+          <h3>Responsive Layouts: Mobile-to-Desktop adaptive views including compact/overlay modes for small viewports.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-12</span>
         <div class="timeline-content">
-          <h3>Hardened Database Architecture</h3>
-          <p>Modularized Drift databases for isolated storage of music, audiobooks, and radio data.</p>
+          <h3>Hardened Database Architecture: Modularized Drift databases for isolated storage of music, audiobooks, and radio data.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-11</span>
         <div class="timeline-content">
-          <h3>Universal Media Support</h3>
-          <p>Unified playback strategies for Music, Podcasts, Audiobooks, Radio, and Noise.</p>
+          <h3>Universal Media Support: Unified playback strategies for Music, Podcasts, Audiobooks, Radio, and Noise.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-06</span>
         <div class="timeline-content">
-          <h3>Cross-Device Sync</h3>
-          <p>Secure cryptographic handshake and discovery services for host/client role-agnostic logic.</p>
+          <h3>Cross-Device Sync: Secure cryptographic handshake and discovery services for host/client role-agnostic logic.</h3>
         </div>
       </div>
-
-      <!-- Roadmap -->
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Jamendo Music Integration</h3>
-          <p>High-quality royalty-free music streaming and discovery (Core implemented, UI currently parked).</p>
+          <h3>Jamendo Music Integration: High-quality royalty-free music streaming and discovery (Core implemented, UI currently parked).</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Advanced Smart Playlists</h3>
-          <p>Rule-based automated queue generation (ratings and metadata-driven).</p>
+          <h3>Advanced Smart Playlists: Rule-based automated queue generation (ratings and metadata-driven).</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Deep Metadata Enrichment</h3>
-          <p>Extended integration with MusicBrainz and Wikimedia for rich artist biographies and high-res covers.</p>
+          <h3>Deep Metadata Enrichment: Extended integration with MusicBrainz and Wikimedia for rich artist biographies and high-res covers.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Wikipedia Knowledge Integration</h3>
-          <p>Structured information display for artists, authors, podcast hosts/guests, and radio station history.</p>
+          <h3>Wikipedia Knowledge Integration: Structured information display for artists, authors, podcast hosts/guests, and radio station history.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Visualizer Expansion</h3>
-          <p>Additional pluggable visualizer painters and theme-reactive coloring.</p>
+          <h3>Visualizer Expansion: Additional pluggable visualizer painters and theme-reactive coloring.</h3>
         </div>
       </div>
     </div>

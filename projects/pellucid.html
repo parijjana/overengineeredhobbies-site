@@ -19,8 +19,8 @@
       --text: #8aaed0;
       --text-dim: #3f5f85;
       --text-bright: #ddeeff;
-      --accent: #7ec8e3;
-      --accent-dim: rgba(126, 200, 227, 0.10);
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'Fira Code', monospace;
       --font-body: 'Lora', serif;
@@ -205,23 +205,23 @@
 
 <main>
   <section class="about-section">
-    <div class="label">SECTION 04 — PRODUCTIVITY TOOLS</div>
+    <div class="label">PROJECT CONTEXT</div>
     <h1>PELLUCID</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span>
-      <span class="tag">DART</span>
-      <span class="tag">GOOGLE_DRIVE_API</span>
-      <span class="tag">SQLITE</span>
-      <span class="tag">CROSS-PLATFORM</span>
+      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">GOOGLE_DRIVE_API</span><span class="tag">SQLITE</span>
     </div>
 
-    <a href="https://github.com/parijjana/pellucid" class="btn-github">VIEW ON GITHUB →</a>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/parijjana/pellucid" class="btn-github">VIEW ON GITHUB →</a>
+      
+      <a href="pellucid_privacy.html" class="btn-github">PRIVACY POLICY →</a>
+    </div>
 
-    <p>Pellucid is a minimalist, distraction-free writing application designed for creative flow. It features a translucent "Ghost UI" and high-performance native performance on desktop and mobile, with seamless versioned cloud sync via Google Drive.</p>
+    <p>A minimalist, distraction-free writing application designed for creative flow. Features a translucent "Ghost UI" and seamless versioned cloud sync via Google Drive.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Pellucid eliminates UI clutter, focusing entirely on the words. It incorporates structured research management through a bidirectional connection graph and automates metadata tasks like bibliography generation, ensuring writers stay in the zone.</p>
+    <p>Pellucid eliminates UI clutter to focus entirely on words, while providing structured research management through a bidirectional connection graph.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
@@ -235,93 +235,126 @@ Research Notes (Bidirectional Graph)
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• <strong>Ghost UI:</strong> A low-contrast, highly-transparent interface that recedes during active writing.<br>
-    • <strong>Versioned Sync:</strong> Automatic manuscript snapshots and restoration points in the cloud.<br>
-    • <strong>Knowledge Integration:</strong> Side-by-side research notes with automated attribution syncing.</p>
+    <p>• Ghost UI: Low-contrast, highly-transparent interface for deep focus.<br>• Versioned Sync: Automatic manuscript snapshots and cloud restoration points.<br>• Knowledge Integration: Side-by-side research notes with automated attribution.<br><br># Feature Tracker</p>
   </section>
 
   <section class="timeline-section">
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-05-27</span>
         <div class="timeline-content">
-          <h3>Cross-Platform Support & Mobile UX</h3>
-          <p>Finalized desktop-to-mobile responsive rebrand and implemented mobile-optimized UX pulltabs.</p>
+          <h3>Cross-Platform Support: Native builds for Windows, macOS, Linux, Android, and iOS.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-27</span>
+        <div class="timeline-content">
+          <h3>Mobile-Optimized UX: Responsive UI adjustments for mobile (e.g., word-count priority, hidden system info, pinch-to-zoom).</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-26</span>
         <div class="timeline-content">
-          <h3>Glassmorphic Palette & Search</h3>
-          <p>Implemented command palette, in-place search highlighting, and advanced Table of Contents navigation.</p>
+          <h3>Glassmorphic Command Palette: Global search overlay with keyboard-centric navigation and centered scrolling.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-26</span>
+        <div class="timeline-content">
+          <h3>In-Place Search Highlighting: Case-insensitive highlighting across the editor, ToC, and notes.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-26</span>
+        <div class="timeline-content">
+          <h3>Advanced ToC Search: Quick-jump search capabilities specifically within the Table of Contents.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-25</span>
         <div class="timeline-content">
-          <h3>Revision History & Auto-Sync</h3>
-          <p>Built the snapshot restoration engine and configurable background synchronization logic.</p>
+          <h3>Revision History & Snapshots: View and restore project snapshots directly from Google Drive.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-25</span>
+        <div class="timeline-content">
+          <h3>Configurable Auto-Sync: User-defined cloud sync intervals with SQLite persistence.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-22</span>
         <div class="timeline-content">
-          <h3>Cloud Sync & Research Suite</h3>
-          <p>Integrated Google Drive API for manuscript versioning and built the sidebar for bidirectional research notes.</p>
+          <h3>Cloud Sync Engine: Versioned auto-save and sync using Google Drive API.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-22</span>
         <div class="timeline-content">
-          <h3>Pellucid Battery Guard</h3>
-          <p>Low-energy display mode utilizing adaptive transparency and reduced GPU rendering.</p>
+          <h3>Research & Notes Sidebar: Dedicated interface for managing research, category grouping, and bidirectional linking.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Automated Bibliography: Attribution lists synced to a dedicated # Attributions chapter at the end of the manuscript.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Pellucid Battery Guard: Low-contrast battery monitoring with high-visibility alerts for low power.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-21</span>
         <div class="timeline-content">
-          <h3>Minimalist Focus UI</h3>
-          <p>Initial release of the "Ghost UI" distraction-free environment for creative writing.</p>
+          <h3>Minimalist Focus UI: High-transparency "Ghost UI" with a centered editor and minimal distractions.</h3>
         </div>
       </div>
-
-      <!-- Roadmap -->
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Google Cloud Production Access</h3>
-          <p>Elevating the Drive API integration to a production-grade verified application status.</p>
+          <h3>Google Cloud Production Access: Elevating the Drive API integration from testing to a production-grade verified application.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Microsoft Store Listing</h3>
-          <p>Official distribution via MSIX packaging and Windows Store certification.</p>
+          <h3>Microsoft Store Listing: Official distribution via the Windows Store for seamless installation and updates.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>IARC Certification</h3>
-          <p>Global age rating certification for cross-platform app store listings.</p>
+          <h3>MSIX Packaging & Signing: Generating and signing secure Windows app packages for store distribution.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Cloud Conflict Resolution</h3>
-          <p>Advanced diff-and-merge logic for resolving multi-device manuscript edits.</p>
+          <h3>IARC Certification: Completion of age rating questionnaire and store compliance reviews.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Visual Storefront Assets: Production of high-res screenshots and feature graphics for the Microsoft Store.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Project Categorization: Systematic tagging and filtering for genre-based project organization.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Cloud Conflict Resolution: User interface for resolving version mismatches between local and cloud storage.</h3>
         </div>
       </div>
     </div>

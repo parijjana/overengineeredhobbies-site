@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THE SIGN — overengineeredhobbies.dev</title>
+  <title>THESIGN — overengineeredhobbies.dev</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -19,8 +19,8 @@
       --text: #8aaed0;
       --text-dim: #3f5f85;
       --text-bright: #ddeeff;
-      --accent: #ffcc33;
-      --accent-dim: rgba(255, 204, 51, 0.10);
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'Fira Code', monospace;
       --font-body: 'Lora', serif;
@@ -200,29 +200,30 @@
 
 <nav>
   <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
-  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: THE_SIGN</div>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: THESIGN</div>
 </nav>
 
 <main>
   <section class="about-section">
-    <div class="label">SECTION 06 — INTERACTIVE EXPERIENCES</div>
-    <h1>THE SIGN</h1>
+    <div class="label">PROJECT CONTEXT</div>
+    <h1>THESIGN</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span>
-      <span class="tag">FLAME</span>
-      <span class="tag">FORGE2D</span>
-      <span class="tag">WEB</span>
+      <span class="tag">FLUTTER</span><span class="tag">FLAME</span><span class="tag">FORGE2D</span><span class="tag">WEB</span>
     </div>
 
-    <a href="https://github.com/parijjana/thesign" class="btn-github">VIEW ON GITHUB →</a>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/parijjana/thesign" class="btn-github">VIEW ON GITHUB →</a>
+      
+      
+    </div>
 
-    <p>The Sign is a minimalist 2D puzzle-platformer rendered in the style of public-safety signage. It features a language-free experience where everything from puzzles to navigation is communicated through symbols, teaching real-world concepts like optics and mechanics.</p>
+    <p>A minimalist 2D puzzle-platformer rendered in the style of public-safety signage. Features symbolic gameplay where mechanics are taught without written language.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Designed with "Kindness by Design," The Sign eliminates death and punishment. Failure results in a friendly "Excavator Claw" scoop-and-reset, ensuring the game remains accessible and enjoyable for players of all ages, including children.</p>
+    <p>Designed with "Kindness by Design," The Sign eliminates death and punishment, focusing on accessible, non-lethal physics challenges for all ages.</p>
 
-    <h2>GAME ARCHITECTURE</h2>
+    <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
 <pre>
 Flame Game Loop
@@ -234,133 +235,114 @@ Claw Reset / Puzzle Scripts
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• <strong>Symbolic Gameplay:</strong> A strictly wordless environment using universal signage visual language.<br>
-    • <strong>Forgiving Mechanics:</strong> Kinematic movement with coyote-time and non-lethal failure resets.<br>
-    • <strong>Educational Puzzles:</strong> Physics-based challenges covering mechanics, optics, and chemistry.</p>
+    <p>• Symbolic Gameplay: Wordless environment using universal signage visuals.<br>• Forgiving Mechanics: Kinematic movement with non-lethal failure resets.<br>• Educational Puzzles: Physics-based challenges covering mechanics and optics.<br><br># Feature Tracker</p>
   </section>
 
   <section class="timeline-section">
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-06-14</span>
         <div class="timeline-content">
-          <h3>Forgiving Movement System</h3>
-          <p>Implemented kinematic character movement with coyote-time, non-lethal reset system, and "Claw" recovery logic.</p>
+          <h3>Forgiving Movement System: Simple run + jump controller with coyote-time and jump buffering.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-14</span>
         <div class="timeline-content">
-          <h3>Level Pipeline & World Validation</h3>
-          <p>Built a node-based JSON level loader with an automated validator to ensure no puzzles are unsolvable.</p>
+          <h3>Non-Lethal Reset System: "Excavator Claw" that scoops the player back to the start of the room on failure.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-14</span>
         <div class="timeline-content">
-          <h3>Multi-Discipline Puzzles</h3>
-          <p>Implemented core logic for diverse puzzle types including optics, mechanical gears, and chemical mixing.</p>
+          <h3>Data-Driven Level Pipeline: JSON-based loading for corridors, hubs, and puzzle rooms.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-14</span>
         <div class="timeline-content">
-          <h3>Castle Maze Navigation</h3>
-          <p>Initial implementation of the non-linear "Castle Maze" hub and symbolic navigation markers.</p>
+          <h3>Multi-Discipline Puzzles: Implementation of Mechanics (levers, stacking) and Optics (mirror routing) puzzles.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-06-14</span>
+        <div class="timeline-content">
+          <h3>Castle Maze Navigation: Hub-and-spoke world graph with node transitions and unlock rules.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-06-14</span>
+        <div class="timeline-content">
+          <h3>Automated World Validation: No-soft-lock validator to ensure the world.json graph is always traversable.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-06-13</span>
         <div class="timeline-content">
-          <h3>Persistent Save System</h3>
-          <p>Implemented multi-profile autosave and resume functionality integrated with the level transition pipeline.</p>
+          <h3>Persistent Save System: Multi-profile autosave and resume functionality.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-12</span>
         <div class="timeline-content">
-          <h3>Symbol Legend & Collection</h3>
-          <p>Built the wordless sticker book for tracking earned stamps and discovering lore etchings.</p>
+          <h3>Symbol Legend & Collection: Wordless sticker book for tracking earned stamps and lore etchings.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-11</span>
         <div class="timeline-content">
-          <h3>Signage Visual Language</h3>
-          <p>Established the strict "hard black ink" visual style guide and universal symbol vocabulary.</p>
+          <h3>Signage Visual Language: Hard black ink lines and flat fills, language-free symbolic gameplay.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-06-11</span>
         <div class="timeline-content">
-          <h3>Flame Engine Integration</h3>
-          <p>Established the core Flame rendering loop and integrated Forge2D for physics-based puzzle interactions.</p>
+          <h3>Flame Engine Integration: Core game loop and rendering for Web and Windows.</h3>
         </div>
       </div>
-
-      <!-- Roadmap -->
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Full Game Shell</h3>
-          <p>Implementation of the branded title screen, avatar selection, and cohesive symbolic navigation.</p>
+          <h3>Full Game Shell: Branded title screen, profile/avatar selection, and cohesive menu navigation.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Mobile Touch Controls</h3>
-          <p>Optimized virtual joystick and contextual tap-to-interact systems for small viewports.</p>
+          <h3>Mobile Touch Controls: On-screen d-pad and action buttons with runtime pointer detection.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Inventory & Field Kit UI</h3>
-          <p>A wordless interface for managing collected mechanical components and optics tools.</p>
+          <h3>Inventory & Field Kit UI: Management of carried tools (portable pulley, pocket mirror) and artifacts.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Wordless Hint System</h3>
-          <p>Dynamic puzzle assistance using environmental symbols and ghost-path visualizations.</p>
+          <h3>Wordless Hint System: Opt-in "Lightbulb Halo" providing visual guidance for puzzle targets.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Audio Experience</h3>
-          <p>Minimalist foley and ambient soundscapes designed to provide feedback without using spoken language.</p>
+          <h3>Audio Experience: Implementation of CC0-licensed ambient music and contextual SFX.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Visual Style Overhaul</h3>
-          <p>Replacement of programmer-drawn art with high-fidelity SVG components and multi-part character animations.</p>
+          <h3>Visual Style Overhaul: High-fidelity SVG art replacement for programmer-drawn components and icons.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Storefront Distribution</h3>
-          <p>Finalizing builds for Web, Play Store, and Steam with localized store metadata.</p>
+          <h3>Storefront Distribution: Official publishing to Web, Windows, and Mobile platforms.</h3>
         </div>
       </div>
     </div>

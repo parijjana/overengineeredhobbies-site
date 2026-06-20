@@ -1,0 +1,366 @@
+import json
+import os
+import re
+
+INPUT_FILE = "assets/projects_data.json"
+OUTPUT_DIR = "projects"
+
+TEMPLATE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} — overengineeredhobbies.dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {{
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: {accent_color};
+      --accent-dim: {accent_dim_color};
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }}
+
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    
+    body {{
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }}
+
+    nav {{
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }}
+    .nav-logo {{
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }}
+    .nav-logo span {{ color: var(--text-dim); }}
+
+    main {{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      min-height: calc(100vh - 60px);
+      max-width: 1400px;
+      margin: 0 auto;
+    }}
+
+    .about-section {{
+      padding: 4rem;
+      border-right: 1px solid var(--border);
+      background: rgba(13, 26, 46, 0.4);
+    }}
+
+    .timeline-section {{
+      padding: 4rem;
+      background: rgba(8, 17, 31, 0.6);
+    }}
+
+    .label {{
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }}
+    .label::before {{ content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }}
+
+    h1 {{
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 2rem;
+    }}
+
+    h2 {{
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 2.5rem 0 1rem;
+      letter-spacing: 0.05em;
+    }}
+
+    p {{ margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }}
+
+    .tech-stack {{
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+    }}
+    .tag {{
+      font-family: var(--font-mono); font-size: 10px; padding: 4px 10px;
+      border: 1px solid var(--border); color: var(--tag-text); background: var(--tag);
+      letter-spacing: 0.05em;
+    }}
+
+    .btn-github {{
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-right: 10px;
+      margin-bottom: 2rem;
+    }}
+    .btn-github:hover {{
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }}
+
+    /* ── TIMELINE ────────────────────────────────────── */
+    .timeline {{
+      position: relative;
+      padding-left: 2rem;
+    }}
+    .timeline::before {{
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }}
+
+    .timeline-item {{
+      position: relative;
+      margin-bottom: 2.5rem;
+    }}
+    .timeline-item::before {{
+      content: '';
+      position: absolute;
+      left: -2.35rem; top: 0.5rem;
+      width: 11px; height: 11px;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      z-index: 1;
+    }}
+    .timeline-item.planned::before {{
+      border-color: var(--text-dim);
+    }}
+    
+    .timeline-date {{
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      display: block;
+    }}
+    .timeline-item.planned .timeline-date {{ color: var(--text-dim); }}
+
+    .timeline-content h3 {{
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }}
+    .timeline-content p {{
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-dim);
+      margin-bottom: 0;
+    }}
+
+    .architecture-box {{
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text);
+      overflow-x: auto;
+      margin-top: 2rem;
+    }}
+
+    @media (max-width: 1000px) {{
+      main {{ grid-template-columns: 1fr; }}
+      .about-section {{ border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }}
+      .timeline-section {{ padding: 2rem; }}
+    }}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: {project_id}</div>
+</nav>
+
+<main>
+  <section class="about-section">
+    <div class="label">PROJECT CONTEXT</div>
+    <h1>{title}</h1>
+    
+    <div class="tech-stack">
+      {stack_html}
+    </div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="{github_url}" class="btn-github">VIEW ON GITHUB →</a>
+      {playstore_html}
+      {privacy_html}
+    </div>
+
+    <p>{about_text}</p>
+
+    <h2>CORE PHILOSOPHY</h2>
+    <p>{philosophy_text}</p>
+
+    <h2>SYSTEM ARCHITECTURE</h2>
+    <div class="architecture-box">
+<pre>
+{architecture_text}
+</pre>
+    </div>
+
+    <h2>KEY CAPABILITIES</h2>
+    <p>{capabilities_text}</p>
+  </section>
+
+  <section class="timeline-section">
+    <div class="label">PROJECT TIMELINE</div>
+    
+    <div class="timeline">
+      {timeline_html}
+    </div>
+  </section>
+</main>
+
+</body>
+</html>
+"""
+
+ACCENT_COLORS = {
+    "AULOS": "#e8a020",
+    "lore": "#e8a020",
+    "KALKRA": "#e8a020",
+    "pellucid": "#e8a020",
+    "contexthistory": "#e8a020",
+    "GASTROTATOR_ANDROID": "#e8a020",
+    "thesign": "#e8a020"
+}
+
+def hex_to_rgba(hex_color, alpha):
+    hex_color = hex_color.lstrip('#')
+    lv = len(hex_color)
+    rgb = tuple(int(hex_color[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+    return f"rgba({rgb[0]}, {rgb[1]}, {rgb[2]}, {alpha})"
+
+def clean_text(text):
+    if not text: return ""
+    # Strip bold (**) and italic (*) or (_)
+    text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)
+    text = re.sub(r'\*(.*?)\*', r'\1', text)
+    text = re.sub(r'__(.*?)__', r'\1', text)
+    text = re.sub(r'_(.*?)_', r'\1', text)
+    
+    # Standardize bullet points
+    text = text.replace("• ", "• ").replace("* ", "• ").replace("- ", "• ")
+    
+    # Handle explicit <br> if present
+    text = text.replace("<br>", "\n")
+    # Convert newlines to <br> for HTML rendering
+    text = text.replace("\n", "<br>")
+    return text
+
+def generate_pages():
+    if not os.path.exists(INPUT_FILE):
+        print(f"Error: {INPUT_FILE} not found. Run fetch_progress.py first.")
+        return
+
+    with open(INPUT_FILE, "r") as f:
+        data = json.load(f)
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    for repo, project in data.items():
+        title = repo.upper().replace("_ANDROID", "")
+        project_id = repo.upper()
+        
+        # Color Logic
+        accent = ACCENT_COLORS.get(repo, "#e8a020")
+        accent_dim = hex_to_rgba(accent, 0.10)
+
+        # Stack HTML
+        stack_html = "".join([f'<span class="tag">{s}</span>' for s in project.get("stack", [])])
+        
+        # External Links
+        github_url = project.get("links", {}).get("github", "#")
+        playstore_url = project.get("links", {}).get("playstore")
+        playstore_html = f'<a href="{playstore_url}" class="btn-github">VIEW ON PLAY STORE →</a>' if playstore_url else ""
+        privacy_url = project.get("links", {}).get("privacy")
+        privacy_html = f'<a href="{privacy_url}" class="btn-github">PRIVACY POLICY →</a>' if privacy_url else ""
+
+        # Timeline HTML
+        timeline_items = []
+        # Sort features: done (newest first) then todo
+        done_features = sorted([f for f in project["features"] if f["status"] == "done"], 
+                                key=lambda x: x["date"] or "0000-00-00", reverse=True)
+        todo_features = [f for f in project["features"] if f["status"] == "todo"]
+
+        for feat in done_features:
+            timeline_items.append(f"""
+      <div class="timeline-item">
+        <span class="timeline-date">{feat['date'] or 'COMPLETED'}</span>
+        <div class="timeline-content">
+          <h3>{clean_text(feat['name'])}</h3>
+        </div>
+      </div>""")
+
+        for feat in todo_features:
+            timeline_items.append(f"""
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>{clean_text(feat['name'])}</h3>
+        </div>
+      </div>""")
+
+        html_content = TEMPLATE.format(
+            title=title,
+            project_id=project_id,
+            accent_color=accent,
+            accent_dim_color=accent_dim,
+            stack_html=stack_html,
+            github_url=github_url,
+            playstore_html=playstore_html,
+            privacy_html=privacy_html,
+            about_text=clean_text(project.get("about", "Project documentation in progress.")),
+            philosophy_text=clean_text(project.get("philosophy", "")),
+            architecture_text=project.get("architecture", "Architecture diagram pending."),
+            capabilities_text=clean_text(project.get("capabilities", "")),
+            timeline_html="".join(timeline_items)
+        )
+
+        output_path = os.path.join(OUTPUT_DIR, f"{repo.lower()}.html")
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(html_content)
+        
+        print(f"Generated {output_path}")
+
+if __name__ == "__main__":
+    generate_pages()

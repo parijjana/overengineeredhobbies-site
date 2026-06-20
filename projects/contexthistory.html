@@ -19,8 +19,8 @@
       --text: #8aaed0;
       --text-dim: #3f5f85;
       --text-bright: #ddeeff;
-      --accent: #3572a5;
-      --accent-dim: rgba(53, 114, 165, 0.10);
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'Fira Code', monospace;
       --font-body: 'Lora', serif;
@@ -205,22 +205,23 @@
 
 <main>
   <section class="about-section">
-    <div class="label">SECTION 05 — AGENT INFRASTRUCTURE</div>
+    <div class="label">PROJECT CONTEXT</div>
     <h1>CONTEXTHISTORY</h1>
     
     <div class="tech-stack">
-      <span class="tag">PYTHON</span>
-      <span class="tag">MCP</span>
-      <span class="tag">SQLITE</span>
-      <span class="tag">UV</span>
+      <span class="tag">PYTHON</span><span class="tag">MCP</span><span class="tag">SQLITE</span><span class="tag">UV</span>
     </div>
 
-    <a href="https://github.com/parijjana/contexthistory" class="btn-github">VIEW ON GITHUB →</a>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/parijjana/contexthistory" class="btn-github">VIEW ON GITHUB →</a>
+      
+      
+    </div>
 
-    <p>ContextHistory is an evolutionary memory infrastructure for AI agents. It tracks, stores, and evolves project context over time, allowing agents to "remember" architectural decisions, engineering preferences, and past breakthroughs across multiple sessions.</p>
+    <p>Evolutionary memory infrastructure for AI agents. It tracks and evolves project context over time, allowing agents to "remember" architectural decisions across multiple sessions.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>By treating context as a living entity that needs to be distilled and archived, ContextHistory prevents information rot and agent amnesia. It provides a standards-compliant MCP server that integrates seamlessly with Gemini CLI, Claude, and Cursor, featuring automated environment validation and sandbox repair.</p>
+    <p>By treating context as a living entity that needs to be distilled and archived, ContextHistory prevents information rot and agent amnesia in long-term projects.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
@@ -234,93 +235,90 @@ Memory Databases (Archeology/Orchestration)
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• <strong>Context Archeology:</strong> Automatic recovery and injection of relevant historical context into active sessions.<br>
-    • <strong>Semantic Distillation:</strong> Compression of verbose session logs into concise architectural insights.<br>
-    • <strong>Governance & Repair:</strong> Automated conflict resolution and environment restoration for broken sandboxes.</p>
+    <p>• Context Archeology: Automatic recovery and injection of historical context.<br>• Semantic Distillation: Compression of verbose logs into actionable insights.<br>• Governance & Repair: Automated conflict resolution and sandbox restoration.<br><br># Feature Tracker</p>
   </section>
 
   <section class="timeline-section">
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-05-19</span>
         <div class="timeline-content">
-          <h3>Distributed Governance & Skills</h3>
-          <p>Implemented memory consistency management across workspaces and specialized agent skills for proactive memory usage.</p>
+          <h3>Agent Skill Integration: Specialized SKILL.md guidance for proactive memory utilization and pattern recognition.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-19</span>
         <div class="timeline-content">
-          <h3>Cross-Agent Setup Utility</h3>
-          <p>Built-in tools for unifying configuration and skillsets across different AI agent platforms (Gemini, Claude, Cursor).</p>
+          <h3>Cross-Agent Setup Utility: Automated configuration scripts for Claude Desktop and other MCP-compatible environments.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-19</span>
+        <div class="timeline-content">
+          <h3>Distributed Governance: governance.py for managing memory consistency and conflict resolution across multiple workspaces.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-18</span>
         <div class="timeline-content">
-          <h3>Sandbox Repair Engine</h3>
-          <p>Built automated utilities for restoring broken project environments and configurations in the background.</p>
+          <h3>Sandbox Repair Engine: Automated repair_sandbox.py for restoring broken project environments and configurations.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-11</span>
         <div class="timeline-content">
-          <h3>Environment Validation</h3>
-          <p>Implemented strict pre-flight checks for project dependencies and system integrity before agent initialization.</p>
+          <h3>Environment Validation: env_validator.py for ensuring runtime compatibility and dependency integrity.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-10</span>
         <div class="timeline-content">
-          <h3>Core Infrastructure & MCP</h3>
-          <p>Launched the prototype MCP server, SQLite trace matrix, and the evolutionary memory distillation protocol.</p>
+          <h3>Context Archeology: Automatic recovery and injection of relevant historical context from previous sessions.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-10</span>
         <div class="timeline-content">
-          <h3>Multi-Database Orchestration</h3>
-          <p>Implemented the "Librarian" layer for managing multiple isolated memory databases for different workspaces.</p>
+          <h3>Semantic Distillation: Automated compression of verbose logs into actionable architectural insights and handoff reports.</h3>
         </div>
       </div>
-
-      <!-- Roadmap -->
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-10</span>
+        <div class="timeline-content">
+          <h3>Local MCP Server: Standards-compliant Model Context Protocol server for seamless integration with Gemini CLI, Claude, and Cursor.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-10</span>
+        <div class="timeline-content">
+          <h3>Multi-Database Orchestration: Isolated storage tiers for archeology, orchestration, and purgatory management.</h3>
+        </div>
+      </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Visual Memory Dashboard</h3>
-          <p>Flutter-based interface for browsing and managing project evolution timelines and session histories.</p>
+          <h3>Visual Memory Dashboard: Flutter-based interface for browsing, searching, and managing project evolution timelines.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Semantic Vector Search</h3>
-          <p>Advanced retrieval using local embeddings to find historical context by intent and similarity.</p>
+          <h3>Semantic Vector Search: Advanced retrieval using local embeddings to find history by intent rather than keywords.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Cloud Sync & Backup</h3>
-          <p>Optional encrypted off-site storage for memory databases and architectural insights.</p>
+          <h3>Cloud Sync & Backup: Optional secure backup and synchronization of project memories across devices.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Real-time Event Streaming</h3>
-          <p>Live memory synchronization across active agents during collaborative multi-agent development sessions.</p>
+          <h3>Real-time Event Streaming: WebSocket-based event bus for live memory updates across connected agents.</h3>
         </div>
       </div>
     </div>

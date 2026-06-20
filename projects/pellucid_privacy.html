@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIVACY POLICY — PELLUCID — overengineeredhobbies.dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 60px);
+    }
+
+    .policy-container {
+      background: rgba(13, 26, 46, 0.6);
+      border: 1px solid var(--border);
+      padding: 4rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .last-updated {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 3rem 0 1rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }
+    
+    ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    li::before {
+      content: '•';
+      color: var(--accent);
+      position: absolute;
+      left: -1.25rem;
+      font-weight: bold;
+    }
+
+    .highlight-box {
+      background: var(--surface-raised);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-family: var(--font-body);
+    }
+    .highlight-box p {
+      margin-bottom: 0;
+    }
+
+    .btn-back {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-top: 2rem;
+    }
+    .btn-back:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .policy-container { padding: 2rem; }
+      main { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: PELLUCID_PRIVACY</div>
+</nav>
+
+<main>
+  <div class="policy-container">
+    <div class="label">COMPLIANCE & TRANSPARENCY</div>
+    <h1>PRIVACY POLICY</h1>
+    <div class="last-updated">LAST UPDATED: JUNE 20, 2026</div>
+
+    <p>This Privacy Policy describes how <strong>Pellucid</strong> (the "Application") handles your data. Pellucid is designed as a minimalist, distraction-free creative writing client built with a local-first philosophy.</p>
+
+    <div class="highlight-box">
+      <p><strong>Core Privacy Principle:</strong> We do not run or host servers that store, process, or transmit your writing. Your manuscripts, research notes, and application settings remain entirely under your control.</p>
+    </div>
+
+    <h2>1. INFORMATION COLLECTION AND USE</h2>
+    <p>Pellucid does not collect, harvest, or share any personal information. All operational data is stored directly on your local device.</p>
+    <ul>
+      <li><strong>Manuscripts and Notes:</strong> Your text is persisted locally in an on-device SQLite database. It is never transmitted to us or any unauthorized third party.</li>
+      <li><strong>Settings and Preferences:</strong> Configuration values (such as font choices, theme settings, and interface toggles) are kept on your local filesystem.</li>
+    </ul>
+
+    <h2>2. GOOGLE DRIVE SYNC ENGINE</h2>
+    <p>Pellucid offers an optional versioned cloud-sync feature utilizing the Google Drive API. If you explicitly choose to authorize and enable this feature:</p>
+    <ul>
+      <li><strong>Scope of Access:</strong> The Application requests access specifically to read, write, and create files in a dedicated Pellucid directory within your personal Google Drive storage. It does not access, modify, or scan any other files on your Google Drive.</li>
+      <li><strong>Authentication:</strong> Authentication is handled securely on your device directly through Google's OAuth2 authorization services. We never receive, process, or store your Google account password or login credentials.</li>
+      <li><strong>Data Transfer:</strong> Manuscripts and restoration snapshots are transferred directly between your device and Google's secure servers. We are not an intermediary in this process and have no access to this data stream.</li>
+    </ul>
+
+    <h2>3. THIRD-PARTY SERVICES</h2>
+    <p>Since Pellucid uses third-party APIs for synchronization and hosting (such as Google Drive APIs and Google Play Services), their respective privacy policies apply to those interactions. We encourage you to review the Google Privacy Policy for more information on how Google manages user data.</p>
+
+    <h2>4. DATA RETENTION AND DELETION</h2>
+    <p>Because all data is stored locally on your device or in your personal Google Drive account:</p>
+    <ul>
+      <li>Uninstalling the Application from your device will delete the local SQLite database.</li>
+      <li>You can delete your cloud-sync snapshots and manuscripts at any time by accessing your Google Drive and removing the Pellucid folder or revoking Pellucid's app permissions in your Google Account Security settings.</li>
+    </ul>
+
+    <h2>5. SECURITY</h2>
+    <p>We prioritize the security of your writing. Because Pellucid stores data locally and syncs directly to your own Google Drive, security depends on the integrity of your personal device and your Google Account security. We recommend protecting your device with a secure password or biometric lock and enabling multi-factor authentication (MFA) on your Google Account.</p>
+
+    <h2>6. CHANGES TO THIS POLICY</h2>
+    <p>We may update this Privacy Policy from time to time to reflect changes in compliance requirements or app capabilities. Any changes will be posted directly to this subpage.</p>
+
+    <h2>7. CONTACT</h2>
+    <p>For questions, support, or to view the source code of Pellucid, please visit our GitHub repository:</p>
+    <p><a href="https://github.com/parijjana/pellucid" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent);">github.com/parijjana/pellucid</a></p>
+
+    <a href="pellucid.html" class="btn-back">← BACK TO PELLUCID</a>
+  </div>
+</main>
+
+</body>
+</html>

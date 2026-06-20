@@ -19,8 +19,8 @@
       --text: #8aaed0;
       --text-dim: #3f5f85;
       --text-bright: #ddeeff;
-      --accent: #f1e05a;
-      --accent-dim: rgba(241, 224, 90, 0.10);
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'Fira Code', monospace;
       --font-body: 'Lora', serif;
@@ -205,114 +205,114 @@
 
 <main>
   <section class="about-section">
-    <div class="label">SECTION 03 — KNOWLEDGE SYSTEMS</div>
+    <div class="label">PROJECT CONTEXT</div>
     <h1>LORE</h1>
     
     <div class="tech-stack">
-      <span class="tag">NODE.JS</span>
-      <span class="tag">LANCEDB</span>
-      <span class="tag">TRANSFORMERS.JS</span>
-      <span class="tag">MCP</span>
+      <span class="tag">NODE.JS</span><span class="tag">LANCEDB</span><span class="tag">TRANSFORMERS.JS</span><span class="tag">MCP</span>
     </div>
 
-    <a href="https://github.com/parijjana/lore" class="btn-github">VIEW ON GITHUB →</a>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/parijjana/lore" class="btn-github">VIEW ON GITHUB →</a>
+      
+      
+    </div>
 
-    <p>Lore is a cross-project technical knowledge management system for AI agents. It uses semantic search powered by LanceDB and local CPU-based embeddings to archive and retrieve architectural lessons learned across different workspaces.</p>
+    <p>A cross-project technical knowledge management system for AI agents. It uses semantic search to archive and retrieve architectural lessons learned across different workspaces.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Designed to provide AI agents with a "global memory," Lore enables the sharing of insights between unrelated projects. It supports hierarchical knowledge tiers, from raw observations to synthesized best practices, with full provenance tracking and a recursive audit system.</p>
+    <p>Designed to provide AI agents with a "global memory," Lore enables the sharing of insights between unrelated projects with full provenance tracking.</p>
 
-    <h2>TECHNICAL ARCHITECTURE</h2>
+    <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
 <pre>
 AI Agent (Gemini/Claude)
   ↓ queries
 Lore MCP Server (Node.js)
   ↓ indexes/searches
-LanceDB (Vector Store) + JSONL (Backup)
+LanceDB (Vector Store)
 </pre>
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• <strong>Semantic Retrieval:</strong> Finds lessons by meaning and intent using local embeddings (all-MiniLM-L6-v2).<br>
-    • <strong>Automated Harvesting:</strong> Scans workspaces to extract lessons from markdown files and memory logs.<br>
-    • <strong>Proactive Wisdom:</strong> Agents check the archive automatically before proposing architectural solutions.</p>
+    <p>• Semantic Retrieval: Finds lessons by meaning and intent using local embeddings.<br>• Automated Harvesting: Scans workspaces to extract lessons from markdown files.<br>• Proactive Wisdom: Agents check the archive automatically before proposing solutions.<br><br># Feature Tracker</p>
   </section>
 
   <section class="timeline-section">
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-05-24</span>
         <div class="timeline-content">
-          <h3>Automated Knowledge Harvesting</h3>
-          <p>Implemented logic to scan workspaces and extract lessons from LESSONS_LEARNT.md and memory files.</p>
+          <h3>Automated Knowledge Harvesting: Logic to scan workspaces and extract lessons from LESSONS_LEARNT.md and memory files.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-22</span>
         <div class="timeline-content">
-          <h3>Semantic Search & Proactive Intelligence</h3>
-          <p>Established the semantic search engine, hierarchical knowledge tiers, and the Proactive Intelligence Protocol.</p>
+          <h3>Semantic Search: Local vector search powered by LanceDB and Transformers.js.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-22</span>
         <div class="timeline-content">
-          <h3>Provenance & Ancestry Tracking</h3>
-          <p>Implemented full tracking of knowledge origins and evolution through recursive audit systems.</p>
+          <h3>Proactive Intelligence Protocol: System-wide instructions for agents to search the archive before proposing solutions.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-22</span>
         <div class="timeline-content">
-          <h3>Knowledge Health Diagnostics</h3>
-          <p>Built-in tools for measuring the relevance and consistency of the archived technical lessons.</p>
+          <h3>Hierarchical Knowledge Tiers: Support for both "Raw" (atomic observations) and "Synthesized" (best practices) data.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-22</span>
         <div class="timeline-content">
-          <h3>Admin Isolation & Hybrid Storage</h3>
-          <p>Implemented secure administrative layers and dual-storage (LanceDB + JSONL) for resilience.</p>
+          <h3>Provenance & Ancestry Tracking: Recursive tracing of synthesized rules back to their original source lessons.</h3>
         </div>
       </div>
-
-      <!-- Roadmap -->
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Knowledge Health Diagnostics: Automated fragmentation monitoring with recommendations for synthesis.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Admin Isolation: Secure separation of destructive maintenance tools (Update/Delete) via Environment Variables.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-22</span>
+        <div class="timeline-content">
+          <h3>Hybrid Storage: Binary vector store for speed with human-readable JSONL backups for portability.</h3>
+        </div>
+      </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Visual Knowledge Graph</h3>
-          <p>UI interface to visualize semantic connections between archived technical lessons.</p>
+          <h3>Visual Knowledge Graph: UI/Web interface to visualize semantic connections between lessons.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Cloud Embedding Support</h3>
-          <p>Optional integration with cloud providers for higher-dimension embedding performance.</p>
+          <h3>Cloud Embedding Support: Optional integration with OpenAI/Vertex AI for faster/higher-dimension embeddings.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Advanced De-duplication</h3>
-          <p>Cross-archive entity resolution to ensure a single source of truth for all synthesized wisdom.</p>
+          <h3>Advanced De-duplication: Semantic-aware conflict resolution during bulk harvests.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Multi-User Permission Layers</h3>
-          <p>Support for shared organizational knowledge bases with granular access control for different agent roles.</p>
+          <h3>Multi-User Permission Layers: Granular access control beyond the simple Admin toggle.</h3>
         </div>
       </div>
     </div>

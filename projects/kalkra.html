@@ -20,7 +20,7 @@
       --text-dim: #3f5f85;
       --text-bright: #ddeeff;
       --accent: #e8a020;
-      --accent-dim: rgba(232,160,32,0.10);
+      --accent-dim: rgba(232, 160, 32, 0.1);
       --font-display: 'Bebas Neue', sans-serif;
       --font-mono: 'Fira Code', monospace;
       --font-body: 'Lora', serif;
@@ -205,22 +205,23 @@
 
 <main>
   <section class="about-section">
-    <div class="label">SECTION 01 — EDUCATION & TRAINING</div>
+    <div class="label">PROJECT CONTEXT</div>
     <h1>KALKRA</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span>
-      <span class="tag">DART</span>
-      <span class="tag">SECURE_STORAGE</span>
-      <span class="tag">AES-256</span>
+      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">SECURE_STORAGE</span><span class="tag">AES-256</span>
     </div>
 
-    <a href="https://github.com/parijjana/KALKRA" class="btn-github">VIEW ON GITHUB →</a>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <a href="https://github.com/parijjana/KALKRA" class="btn-github">VIEW ON GITHUB →</a>
+      
+      
+    </div>
 
-    <p>Kalkra is a high-performance mental math trainer built for speed, accuracy, and security. It features an adaptive math engine that calibrates in real-time to the user's performance, offering both solo training and competitive multiplayer matches.</p>
+    <p>A high-performance mental math trainer built for speed and accuracy. It features an adaptive math engine that calibrates in real-time to the user's performance.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Kalkra prioritizes integrity and security, utilizing hardware-backed keys and HMAC validation for all local save files. It's designed for serious practitioners of mental arithmetic who value detailed performance tracking and achievement systems.</p>
+    <p>Kalkra prioritizes integrity and security, utilizing hardware-backed keys and HMAC validation for all local save files to prevent tampering with training stats.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
@@ -234,85 +235,90 @@ Secure Persistence (AES-256 / HMAC)
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• <strong>Adaptive Engine:</strong> Real-time difficulty adjustment based on solving speed and accuracy.<br>
-    • <strong>Security Hardened:</strong> Anti-tamper save systems with hardware-backed encryption.<br>
-    • <strong>Multiplayer Suite:</strong> Support for hosting, joining, and spectating competitive matches.</p>
+    <p>• Adaptive Engine: Real-time difficulty adjustment based on solving speed.<br>• Security Hardened: Anti-tamper save systems with hardware-backed encryption.<br>• Multiplayer Suite: Support for hosting, joining, and spectating competitive matches.<br><br># Feature Tracker</p>
   </section>
 
   <section class="timeline-section">
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-05-20</span>
         <div class="timeline-content">
-          <h3>Security & Stats Hardening</h3>
-          <p>Implemented hardware-backed keys, AES encryption, and HMAC tampering detection. Migrated career data to secure vaults.</p>
+          <h3>Spectator Mode: Real-time observation of active matches.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-20</span>
         <div class="timeline-content">
-          <h3>Spectator Mode & Obfuscation</h3>
-          <p>Implemented real-time spectator view for competitive matches and automated code obfuscation for build integrity.</p>
+          <h3>Career & Stats Tracking: Persistent local storage for user performance, stats, and achievements.</h3>
         </div>
       </div>
-
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-20</span>
+        <div class="timeline-content">
+          <h3>Security Hardening: Implementation of hardware-backed keys, AES encryption, and HMAC tampering detection for save files.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-20</span>
+        <div class="timeline-content">
+          <h3>Automated Obfuscation: Production build pipeline with native bridge protection and R8 scrambling.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-19</span>
         <div class="timeline-content">
-          <h3>Dynamic Audio System</h3>
-          <p>Implemented interactive sound services for game events and real-time auditory feedback.</p>
+          <h3>Dynamic Audio System: Interactive sound services for game events and feedback.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-09</span>
         <div class="timeline-content">
-          <h3>Adaptive Mental Math Engine</h3>
-          <p>Core difficulty calibration logic that adjusts to user performance in real-time.</p>
+          <h3>Adaptive Mental Math Engine: Core game logic with real-time performance calibration.</h3>
         </div>
       </div>
-
       <div class="timeline-item">
         <span class="timeline-date">2026-05-09</span>
         <div class="timeline-content">
-          <h3>Solo Training & Multiplayer</h3>
-          <p>Initial implementation of individual training regimens and core multiplayer match pre-computation.</p>
+          <h3>Solo Training Mode: Personalized sessions with detailed results and session recaps.</h3>
         </div>
       </div>
-
-      <!-- Roadmap -->
+      <div class="timeline-item">
+        <span class="timeline-date">2026-05-09</span>
+        <div class="timeline-content">
+          <h3>Multiplayer Match System: Support for hosting, joining, and staging competitive matches.</h3>
+        </div>
+      </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Online Multiplayer</h3>
-          <p>Global matchmaking and remote competitive play beyond local network environments.</p>
+          <h3>Online Multiplayer: Global matchmaking and remote competitive play beyond local networks.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Branded Visual Identity</h3>
-          <p>Implementation of native splash screens and adaptive icon sets for production release.</p>
+          <h3>Branded Visual Identity: Native splash screens and adaptive icon sets for Android/iOS.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Play Store Optimization</h3>
-          <p>Finalizing metadata, store assets, and IARC compliance for official app store distribution.</p>
+          <h3>Play Store Optimization: Optimized Android App Bundle (AAB) generation and high-res store assets.</h3>
         </div>
       </div>
-
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Promotional Roadmap</h3>
-          <p>Marketing collateral and community engagement plan for the V1.0 launch.</p>
+          <h3>In-App Compliance: Integrated Privacy Policy, Terms of Service, and Data Safety disclosures.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Promotional Roadmap: Production of gameplay videos and curated screenshot sets for store listings.</h3>
         </div>
       </div>
     </div>

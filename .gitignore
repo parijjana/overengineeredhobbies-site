@@ -1,0 +1,11 @@
+# Private setup info
+PROJECT_LOCATIONS.md
+
+# Generated portfolio data
+assets/projects_data.json
+
+# Generated project pages
+projects/*.html
+
+# Environment variables
+.env
