@@ -11,6 +11,7 @@ TEMPLATE = """<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} — overengineeredhobbies.dev</title>
+  <link rel="icon" type="image/png" href="{favicon_url}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -315,6 +316,11 @@ def generate_pages():
         privacy_url = project.get("links", {}).get("privacy")
         privacy_html = f'<a href="{privacy_url}" class="btn-github">PRIVACY POLICY →</a>' if privacy_url else ""
 
+        # Favicon logic
+        favicon_url = project.get("links", {}).get("favicon")
+        if not favicon_url:
+            favicon_url = "../assets/favicon.png"
+
         # Timeline HTML
         timeline_items = []
         # Sort features: done (newest first) then todo
@@ -349,6 +355,7 @@ def generate_pages():
             github_url=github_url,
             playstore_html=playstore_html,
             privacy_html=privacy_html,
+            favicon_url=favicon_url,
             about_text=clean_text(project.get("about", "Project documentation in progress.")),
             philosophy_text=clean_text(project.get("philosophy", "")),
             architecture_text=project.get("architecture", "Architecture diagram pending."),

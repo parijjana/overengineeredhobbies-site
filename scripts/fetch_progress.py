@@ -39,11 +39,43 @@ def get_local_paths():
                     paths[os.path.basename(path).lower()] = path
     return paths
 
-def fetch_and_parse(repo, local_paths):
-    content = None
+import shutil
+
+def fetch_project_favicon(repo, local_path):
+    dest_path = f"assets/favicon_{repo.lower()}.png"
     
     # Try local first
+    if local_path:
+        for possible_name in ["favicon.png", "assets/favicon.png"]:
+            src_path = os.path.join(local_path, possible_name)
+            if os.path.exists(src_path):
+                print(f"  * Copying local favicon for {repo} from {src_path}")
+                try:
+                    shutil.copy2(src_path, dest_path)
+                    return f"../{dest_path}"
+                except Exception as e:
+                    print(f"  * Error copying local favicon: {e}")
+                    
+    # Try GitHub
+    for possible_url_path in ["favicon.png", "assets/favicon.png"]:
+        url = f"https://raw.githubusercontent.com/{USER}/{repo}/main/{possible_url_path}"
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=TIMEOUT) as response:
+                print(f"  * Downloading remote favicon for {repo} from {url}")
+                with open(dest_path, "wb") as f:
+                    f.write(response.read())
+                return f"../{dest_path}"
+        except Exception:
+            pass
+            
+    return None
+
+def fetch_and_parse(repo, local_paths):
+    content = None
     local_path = local_paths.get(repo.lower())
+    
+    # Try local first
     if local_path:
         tracker_path = os.path.join(local_path, "FEATURE_TRACKER.md")
         if os.path.exists(tracker_path):
@@ -127,6 +159,8 @@ def fetch_and_parse(repo, local_paths):
         implemented_count = len([f for f in features if f['status'] == 'done'])
         percentage = round((implemented_count / len(features) * 100), 1)
         
+        favicon_path = fetch_project_favicon(repo, local_path)
+        
         print(f"  + Success: {implemented_count}/{len(features)} features tracked.")
         return {
             "about": about_text,
@@ -136,7 +170,8 @@ def fetch_and_parse(repo, local_paths):
             "capabilities": capabilities_text,
             "links": {
                 "github": github_url,
-                "playstore": playstore_url
+                "playstore": playstore_url,
+                "favicon": favicon_path
             },
             "features": features,
             "percentage": percentage,
