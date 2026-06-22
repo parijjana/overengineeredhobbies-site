@@ -1,0 +1,68 @@
+{
+  "owner": {
+    "name": "Animesh Sarkar",
+    "github_username": "parijjana",
+    "linkedin_url": "https://www.linkedin.com/in/animesh-sarkar-77a126280/",
+    "email": "contact@example.com",
+    "cv_download_path": "assets/animesh_jun_2026.pdf"
+  },
+  "site": {
+    "title_suffix": "overengineeredhobbies.dev",
+    "logo_text": "oeh",
+    "logo_sub": ".dev",
+    "default_accent_color": "#e8a020",
+    "footer_note": "no frameworks were harmed in the making of this site"
+  },
+  "paths": {
+    "prod_website_directory": "D:/Programming/geminicli/website"
+  },
+  "projects": {
+    "project_order": [
+      "gastrotator_android",
+      "aulos",
+      "kalkra",
+      "pellucid",
+      "contexthistory",
+      "lore",
+      "thesign"
+    ],
+    "accent_colors": {
+      "aulos": "#e8a020",
+      "lore": "#e8a020",
+      "kalkra": "#e8a020",
+      "pellucid": "#e8a020",
+      "contexthistory": "#e8a020",
+      "gastrotator_android": "#e8a020",
+      "thesign": "#e8a020"
+    },
+    "app_metadata": {
+      "gastrotator_android": {
+        "title": "GASTROTATOR",
+        "badge": "ANDROID",
+        "version": "v1.0.0",
+        "platform": "FLUTTER",
+        "extra": "★ —",
+        "about": "AI-powered recipe manager. Turn cooking videos into organized recipes instantly with the power of AI. Built with Flutter and integrated with Gemini for video analysis.",
+        "tags": ["FOOD & DRINK", "AI", "FLUTTER"]
+      },
+      "pellucid": {
+        "title": "PELLUCID",
+        "badge": "WINDOWS",
+        "version": "v0.1.0",
+        "platform": "FLUTTER",
+        "extra": "DESKTOP",
+        "about": "The official desktop build of Pellucid. A minimalist writing environment for Windows featuring a translucent Ghost UI and versioned cloud sync via Google Drive.",
+        "tags": ["PRODUCTIVITY", "MINIMALIST", "DESKTOP"]
+      },
+      "contexthistory": {
+        "title": "CONTEXTHISTORY",
+        "badge": "AGENT SKILL",
+        "version": "v0.1.0",
+        "platform": "PYTHON",
+        "extra": "MCP",
+        "about": "An evolutionary memory system for AI agents. Provides infrastructure for tracking, storing, and evolving context over time. Features automated environment validation and sandbox repair.",
+        "tags": ["AI AGENTS", "SQLITE", "UTILITY"]
+      }
+    }
+  }
+}

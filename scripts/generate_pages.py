@@ -1,287 +1,7 @@
 import json
 import os
 import re
-
-INPUT_FILE = "assets/projects_data.json"
-OUTPUT_DIR = "projects"
-
-TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — overengineeredhobbies.dev</title>
-  <link rel="icon" type="image/png" href="{favicon_url}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <style>
-    :root {{
-      --bg: #08111f;
-      --surface: #0d1a2e;
-      --surface-raised: #112238;
-      --grid-major: rgba(78,140,220,0.10);
-      --grid-minor: rgba(78,140,220,0.05);
-      --border: rgba(78,140,220,0.20);
-      --border-bright: rgba(78,140,220,0.45);
-      --text: #8aaed0;
-      --text-dim: #3f5f85;
-      --text-bright: #ddeeff;
-      --accent: {accent_color};
-      --accent-dim: {accent_dim_color};
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-mono: 'Fira Code', monospace;
-      --font-body: 'Lora', serif;
-    }}
-
-    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-    
-    body {{
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      background-image:
-        linear-gradient(var(--grid-major) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
-        linear-gradient(var(--grid-minor) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
-      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
-      background-attachment: fixed;
-      min-height: 100vh;
-    }}
-
-    nav {{
-      height: 60px;
-      background: rgba(8,17,31,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
-    }}
-    .nav-logo {{
-      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
-    }}
-    .nav-logo span {{ color: var(--text-dim); }}
-
-    main {{
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      height: calc(100vh - 60px);
-      max-width: 1400px;
-      margin: 0 auto;
-      overflow: hidden;
-    }}
-
-    .about-section {{
-      padding: 4rem;
-      border-right: 1px solid var(--border);
-      background: rgba(13, 26, 46, 0.4);
-      overflow-y: auto;
-      height: 100%;
-      -ms-overflow-style: none;  /* IE/Edge */
-      scrollbar-width: none;  /* Firefox */
-    }}
-    .about-section::-webkit-scrollbar {{
-      display: none; /* Chrome/Safari/Opera */
-    }}
-
-    .timeline-section {{
-      padding: 4rem;
-      background: rgba(8, 17, 31, 0.6);
-      overflow-y: auto;
-      height: 100%;
-      -ms-overflow-style: none;  /* IE/Edge */
-      scrollbar-width: none;  /* Firefox */
-    }}
-    .timeline-section::-webkit-scrollbar {{
-      display: none; /* Chrome/Safari/Opera */
-    }}
-
-    .label {{
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }}
-    .label::before {{ content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }}
-
-    h1 {{
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6rem);
-      color: var(--text-bright);
-      line-height: 1;
-      margin-bottom: 2rem;
-    }}
-
-    h2 {{
-      font-family: var(--font-display);
-      font-size: 2rem;
-      color: var(--text-bright);
-      margin: 2.5rem 0 1rem;
-      letter-spacing: 0.05em;
-    }}
-
-    p {{ margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }}
-
-    .tech-stack {{
-      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
-    }}
-    .tag {{
-      font-family: var(--font-mono); font-size: 10px; padding: 4px 10px;
-      border: 1px solid var(--border); color: var(--tag-text); background: var(--tag);
-      letter-spacing: 0.05em;
-    }}
-
-    .btn-github {{
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--accent);
-      text-decoration: none;
-      padding: 10px 20px;
-      border: 1px solid var(--accent);
-      transition: all 0.2s;
-      margin-right: 10px;
-      margin-bottom: 2rem;
-    }}
-    .btn-github:hover {{
-      background: var(--accent-dim);
-      box-shadow: 0 0 15px var(--accent-dim);
-    }}
-
-    /* ── TIMELINE ────────────────────────────────────── */
-    .timeline {{
-      position: relative;
-      padding-left: 2rem;
-    }}
-    .timeline::before {{
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 1px;
-      background: var(--border);
-    }}
-
-    .timeline-item {{
-      position: relative;
-      margin-bottom: 2.5rem;
-    }}
-    .timeline-item::before {{
-      content: '';
-      position: absolute;
-      left: -2.35rem; top: 0.5rem;
-      width: 11px; height: 11px;
-      background: var(--bg);
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      z-index: 1;
-    }}
-    .timeline-item.planned::before {{
-      border-color: var(--text-dim);
-    }}
-    
-    .timeline-date {{
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--accent);
-      margin-bottom: 0.25rem;
-      display: block;
-    }}
-    .timeline-item.planned .timeline-date {{ color: var(--text-dim); }}
-
-    .timeline-content h3 {{
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--text-bright);
-      margin-bottom: 0.25rem;
-    }}
-    .timeline-content p {{
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--text-dim);
-      margin-bottom: 0;
-    }}
-
-    .architecture-box {{
-      background: var(--surface-raised);
-      border: 1px solid var(--border);
-      padding: 1.5rem;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text);
-      overflow-x: auto;
-      margin-top: 2rem;
-    }}
-
-    @media (max-width: 1000px) {{
-      main {{ grid-template-columns: 1fr; height: auto; overflow: visible; }}
-      .about-section {{ border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; overflow-y: visible; height: auto; }}
-      .timeline-section {{ padding: 2rem; overflow-y: visible; height: auto; }}
-    }}
-  </style>
-</head>
-<body>
-
-<nav>
-  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
-  <div style="display: flex; align-items: center; gap: 15px;">
-    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: {project_id}</div>
-    <img src="{favicon_url}" alt="Project Icon" style="height: 40px; width: 40px; border-radius: 8px; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-  </div>
-</nav>
-
-<main>
-  <section class="about-section">
-    <div class="label">PROJECT CONTEXT</div>
-    <h1>{title}</h1>
-    
-    <div class="tech-stack">
-      {stack_html}
-    </div>
-
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <a href="{github_url}" class="btn-github">VIEW ON GITHUB →</a>
-      {playstore_html}
-      {privacy_html}
-    </div>
-
-    <p>{about_text}</p>
-
-    <h2>CORE PHILOSOPHY</h2>
-    <p>{philosophy_text}</p>
-
-    <h2>SYSTEM ARCHITECTURE</h2>
-    <div class="architecture-box">
-<pre>
-{architecture_text}
-</pre>
-    </div>
-
-    <h2>KEY CAPABILITIES</h2>
-    <p>{capabilities_text}</p>
-  </section>
-
-  <section class="timeline-section">
-    <div class="label">PROJECT TIMELINE</div>
-    
-    <div class="timeline">
-      {timeline_html}
-    </div>
-  </section>
-</main>
-
-</body>
-</html>
-"""
-
-ACCENT_COLORS = {
-    "AULOS": "#e8a020",
-    "lore": "#e8a020",
-    "KALKRA": "#e8a020",
-    "pellucid": "#e8a020",
-    "contexthistory": "#e8a020",
-    "GASTROTATOR_ANDROID": "#e8a020",
-    "thesign": "#e8a020"
-}
+import db
 
 def hex_to_rgba(hex_color, alpha):
     hex_color = hex_color.lstrip('#')
@@ -291,65 +11,138 @@ def hex_to_rgba(hex_color, alpha):
 
 def clean_text(text):
     if not text: return ""
-    # Strip bold (**) and italic (*) or (_)
     text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)
     text = re.sub(r'\*(.*?)\*', r'\1', text)
     text = re.sub(r'__(.*?)__', r'\1', text)
     text = re.sub(r'_(.*?)_', r'\1', text)
-    
-    # Standardize bullet points
     text = text.replace("• ", "• ").replace("* ", "• ").replace("- ", "• ")
-    
-    # Handle explicit <br> if present
-    text = text.replace("<br>", "\n")
-    # Convert newlines to <br> for HTML rendering
-    text = text.replace("\n", "<br>")
+    text = text.replace("<br>", "\n").replace("\n", "<br>")
     return text
 
+def build_tags_html(tags_list):
+    if not tags_list:
+        return ""
+    return "".join([f'<span class="tag">{t.strip().upper()}</span>' for t in tags_list if t.strip()])
+
+def get_primary_language(stack_str):
+    if not stack_str:
+        return "DART"
+    tags = [s.strip().upper() for s in stack_str.split(",") if s.strip()]
+    if "PYTHON" in tags:
+        return "PYTHON"
+    for t in tags:
+        if "JS" in t or "JAVASCRIPT" in t or "NODE" in t or "TS" in t or "TYPESCRIPT" in t:
+            return "JAVASCRIPT"
+    return "DART"
+
+def render_template(template_str, tokens):
+    result = template_str
+    for key, val in tokens.items():
+        result = result.replace(f"{{{key}}}", str(val or ""))
+    return result
+
 def generate_pages():
-    if not os.path.exists(INPUT_FILE):
-        print(f"Error: {INPUT_FILE} not found. Run fetch_progress.py first.")
+    # Load configuration
+    config_path = "config.json"
+    if not os.path.exists(config_path):
+        print(f"Error: {config_path} not found.")
         return
 
-    with open(INPUT_FILE, "r") as f:
-        data = json.load(f)
+    with open(config_path, "r", encoding="utf-8") as f:
+        config = json.load(f)
 
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    # Load templates
+    templates_dir = "templates"
+    project_template_path = os.path.join(templates_dir, "base_project.html")
+    index_template_path = os.path.join(templates_dir, "base_index.html")
 
-    for repo, project in data.items():
-        title = repo.upper().replace("_ANDROID", "")
-        project_id = repo.upper()
+    if not os.path.exists(project_template_path) or not os.path.exists(index_template_path):
+        print("Error: HTML templates not found in templates/ directory.")
+        return
+
+    with open(project_template_path, "r", encoding="utf-8") as f:
+        project_template = f.read()
+
+    with open(index_template_path, "r", encoding="utf-8") as f:
+        index_template = f.read()
+
+    # Query projects from SQLite registry
+    projects = db.get_all_projects()
+    if not projects:
+        print("No projects registered in the database.")
+        return
+
+    # Sort projects based on project_order in config.json
+    project_order = config["projects"].get("project_order", [])
+    if project_order:
+        order_map = {name.lower(): idx for idx, name in enumerate(project_order)}
+        projects.sort(key=lambda p: order_map.get(p["repo_name"].lower(), 999))
+
+    # Resolve output directory dynamically based on config paths
+    prod_dir = config.get("paths", {}).get("prod_website_directory")
+    if prod_dir and os.path.exists(prod_dir):
+        projects_dir = os.path.join(prod_dir, "projects")
+        index_path = os.path.join(prod_dir, "index.html")
+    else:
+        projects_dir = "projects"
+        index_path = "index.html"
+
+    os.makedirs(projects_dir, exist_ok=True)
+
+    project_cards = []
+    app_cards = []
+
+    # Original delay sequences to preserve layout feel
+    project_delays = [0, 0.05, 0.1, 0.12, 0.18, 0.2, 0.22]
+    app_delays = [0, 0.07, 0.14]
+
+    for idx, proj in enumerate(projects):
+        project_key = proj["project_key"]
+        repo_name = proj["repo_name"]
+        name = proj["name"]
+        demo_path = proj.get("demo_path")
         
         # Color Logic
-        accent = ACCENT_COLORS.get(repo, "#e8a020")
+        accent = config["projects"]["accent_colors"].get(repo_name, config["site"]["default_accent_color"])
         accent_dim = hex_to_rgba(accent, 0.10)
 
-        # Stack HTML
-        stack_html = "".join([f'<span class="tag">{s}</span>' for s in project.get("stack", [])])
+        # Tags HTML
+        tags_raw = [s.strip() for s in proj["stack"].split(",") if s.strip()]
+        stack_html = build_tags_html(tags_raw)
+        primary_lang = get_primary_language(proj["stack"])
         
-        # External Links
-        github_url = project.get("links", {}).get("github", "#")
-        playstore_url = project.get("links", {}).get("playstore")
-        playstore_html = f'<a href="{playstore_url}" class="btn-github">VIEW ON PLAY STORE →</a>' if playstore_url else ""
-        privacy_url = project.get("links", {}).get("privacy")
-        privacy_html = f'<a href="{privacy_url}" class="btn-github">PRIVACY POLICY →</a>' if privacy_url else ""
+        # Favicon Url
+        favicon_url = "../assets/favicon.png"
+        for asset in proj.get("assets", []):
+            if asset["asset_type"] == "icon":
+                ext = os.path.splitext(asset["original_name"])[1] or ".png"
+                favicon_url = f"../assets/media/{asset['asset_key']}{ext}"
+                break
 
-        # Favicon logic
-        favicon_url = project.get("links", {}).get("favicon")
-        if not favicon_url:
-            favicon_url = "../assets/favicon.png"
+        # External Links
+        github_url = proj["github_url"] or f"https://github.com/{config['owner']['github_username']}/{repo_name}"
+        playstore_url = proj["playstore_url"]
+        playstore_html = f'<a href="{playstore_url}" class="btn-github">VIEW ON PLAY STORE →</a>' if playstore_url else ""
+        
+        # Web Demo Link
+        demo_html = f'<a href="../{demo_path}" class="btn-github" style="color:var(--accent); border-color:var(--accent);">TRY WEB DEMO →</a>' if demo_path else ""
+        
+        # Auto-detect local privacy policy file in projects/ directory
+        privacy_filename = f"{repo_name.lower()}_privacy.html"
+        privacy_filepath = os.path.join(projects_dir, privacy_filename)
+        privacy_url = privacy_filename if os.path.exists(privacy_filepath) else None
+        privacy_html = f'<a href="{privacy_url}" class="btn-github">PRIVACY POLICY →</a>' if privacy_url else ""
 
         # Timeline HTML
         timeline_items = []
-        # Sort features: done (newest first) then todo
-        done_features = sorted([f for f in project["features"] if f["status"] == "done"], 
-                                key=lambda x: x["date"] or "0000-00-00", reverse=True)
-        todo_features = [f for f in project["features"] if f["status"] == "todo"]
+        done_features = sorted([f for f in proj["features"] if f["status"] == "done"], 
+                                key=lambda x: x["completed_date"] or "0000-00-00", reverse=True)
+        todo_features = [f for f in proj["features"] if f["status"] == "todo"]
 
         for feat in done_features:
             timeline_items.append(f"""
       <div class="timeline-item">
-        <span class="timeline-date">{feat['date'] or 'COMPLETED'}</span>
+        <span class="timeline-date">{feat['completed_date'] or 'COMPLETED'}</span>
         <div class="timeline-content">
           <h3>{clean_text(feat['name'])}</h3>
         </div>
@@ -364,28 +157,148 @@ def generate_pages():
         </div>
       </div>""")
 
-        html_content = TEMPLATE.format(
-            title=title,
-            project_id=project_id,
-            accent_color=accent,
-            accent_dim_color=accent_dim,
-            stack_html=stack_html,
-            github_url=github_url,
-            playstore_html=playstore_html,
-            privacy_html=privacy_html,
-            favicon_url=favicon_url,
-            about_text=clean_text(project.get("about", "Project documentation in progress.")),
-            philosophy_text=clean_text(project.get("philosophy", "")),
-            architecture_text=project.get("architecture", "Architecture diagram pending."),
-            capabilities_text=clean_text(project.get("capabilities", "")),
-            timeline_html="".join(timeline_items)
-        )
+        # Compile project detail page HTML
+        project_tokens = {
+            "title": name,
+            "project_id": repo_name.upper().replace("_ANDROID", ""),
+            "accent_color": accent,
+            "accent_dim_color": accent_dim,
+            "stack_html": stack_html,
+            "github_url": github_url,
+            "playstore_html": playstore_html,
+            "demo_html": demo_html,
+            "privacy_html": privacy_html,
+            "favicon_url": favicon_url,
+            "about_text": clean_text(proj.get("about") or "Project documentation in progress."),
+            "philosophy_text": clean_text(proj.get("philosophy") or ""),
+            "architecture_text": proj.get("architecture") or "Architecture diagram pending.",
+            "capabilities_text": clean_text(proj.get("capabilities") or ""),
+            "timeline_html": "".join(timeline_items),
+            "site_title_suffix": config["site"]["title_suffix"],
+            "site_logo_text": config["site"]["logo_text"],
+            "site_logo_sub": config["site"]["logo_sub"]
+        }
 
-        output_path = os.path.join(OUTPUT_DIR, f"{repo.lower()}.html")
+        html_content = render_template(project_template, project_tokens)
+
+        # Output page to projects directory
+        output_path = os.path.join(projects_dir, f"{repo_name.lower()}.html")
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(html_content)
-        
         print(f"Generated {output_path}")
+
+        # ----------------- Build Card Lists for index.html -----------------
+        # Project Card delay style
+        p_delay = project_delays[idx] if idx < len(project_delays) else 0.25
+        p_delay_style = f' style="transition-delay:{p_delay}s"' if p_delay > 0 else ""
+
+        # Project Card Demo Action Link
+        demo_link_html = ""
+        if demo_path:
+            demo_link_html = f' · <a href="{demo_path}" class="card-link" style="color: var(--accent);">TRY DEMO →</a>'
+
+        proj_card = f"""
+    <div class="card reveal"{p_delay_style}>
+      <div class="card-header">
+        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
+          <span style="color:var(--text-dim)">{config['owner']['github_username']} /</span> {name.upper()}
+        </div>
+        <div class="card-badge">PUBLIC</div>
+      </div>
+      <div class="card-meta">
+        <span>★ 0</span>
+        <span>⑂ 0</span>
+        <span style="color:#7ec8e3">{primary_lang}</span>
+      </div>
+      <p>{proj.get('about') or ''}</p>
+      <div class="card-tags">
+        {stack_html}
+      </div>
+      <a href="projects/{repo_name.lower()}.html" class="card-link">VIEW PROJECT DETAILS →</a>{demo_link_html}
+    </div>"""
+        project_cards.append(proj_card)
+
+        # App Card HTML (check if registered as an app in config)
+        app_meta = config["projects"]["app_metadata"].get(repo_name.lower())
+        if app_meta:
+            app_idx = len(app_cards)
+            a_delay = app_delays[app_idx] if app_idx < len(app_delays) else 0.20
+            a_delay_style = f' style="transition-delay:{a_delay}s"' if a_delay > 0 else ""
+
+            # App metadata details from config
+            app_title = app_meta["title"]
+            app_badge = app_meta["badge"]
+            app_version = app_meta["version"]
+            app_platform = app_meta["platform"]
+            app_extra = app_meta.get("extra", "")
+            app_about = app_meta["about"]
+            app_tags_html = build_tags_html(app_meta["tags"])
+
+            extra_span = f"<span>{app_extra}</span>" if app_extra else ""
+            
+            # Setup specific links for the app cards
+            if repo_name.lower() == "pellucid":
+                demo_btn = f'<a href="{demo_path}" class="card-link" style="margin-top: 0; color: var(--accent);">TRY DEMO →</a>' if demo_path else ""
+                links_html = f"""
+      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
+        <a href="{github_url}/releases" class="card-link" style="margin-top: 0;">⊞ WINDOWS .exe</a>
+        {demo_btn}
+        <a href="projects/{repo_name.lower()}.html" class="card-link" style="margin-top: 0; color: var(--text-dim);">DETAILS →</a>
+      </div>"""
+            elif repo_name.lower() == "contexthistory":
+                demo_btn = f'<a href="{demo_path}" class="card-link" style="margin-top: 0; color: var(--accent);">TRY DEMO →</a>' if demo_path else ""
+                links_html = f"""
+      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
+        <a href="{github_url}" class="card-link" style="margin-top: 0;">📦 INSTALL</a>
+        {demo_btn}
+        <a href="projects/{repo_name.lower()}.html" class="card-link" style="margin-top: 0; color: var(--text-dim);">DETAILS →</a>
+      </div>"""
+            else:
+                demo_btn = f'<a href="{demo_path}" class="card-link" style="margin-top: 0; color: var(--accent);">TRY DEMO →</a>' if demo_path else ""
+                links_html = f"""
+      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
+        <a href="projects/{repo_name.lower()}.html" class="card-link" style="margin-top: 0;">VIEW DETAILS →</a>
+        {demo_btn}
+      </div>"""
+
+            app_card = f"""
+    <div class="card reveal"{a_delay_style}>
+      <div class="card-header">
+        <div class="card-title">{app_title}</div>
+        <div class="card-badge">{app_badge}</div>
+      </div>
+      <div class="card-meta">
+        <span>{app_version}</span>
+        <span>{app_platform}</span>
+        {extra_span}
+      </div>
+      <p>{app_about}</p>
+      <div class="card-tags">
+        {app_tags_html}
+      </div>
+      {links_html}
+    </div>"""
+            app_cards.append(app_card)
+
+    # Compile and output index.html using render_template
+    index_tokens = {
+        "owner_name": config["owner"]["name"],
+        "owner_github_username": config["owner"]["github_username"],
+        "owner_linkedin_url": config["owner"]["linkedin_url"],
+        "cv_path": config["owner"]["cv_download_path"],
+        "site_title_suffix": config["site"]["title_suffix"],
+        "site_logo_text": config["site"]["logo_text"],
+        "site_logo_sub": config["site"]["logo_sub"],
+        "site_footer_note": config["site"]["footer_note"],
+        "project_cards": "\n".join(project_cards),
+        "app_cards": "\n".join(app_cards)
+    }
+
+    compiled_index = render_template(index_template, index_tokens)
+
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(compiled_index)
+    print(f"Generated {index_path} successfully!")
 
 if __name__ == "__main__":
     generate_pages()
