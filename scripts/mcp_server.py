@@ -15,6 +15,49 @@ import generate_pages
 # Initialize FastMCP Server
 mcp = FastMCP("Portfolio", dependencies=["sqlite3"])
 
+DEMO_STANDARDS_MD = """# Web Demo Standards & Guidelines for Portfolio Projects
+
+To build a compatible and secure web demo version of any project in this workspace, follow these design standards and runtime guardrails:
+
+## 1. Feature Flagging
+- Create a compile-time configuration flag using environment defines:
+  `const bool isDemoBuild = bool.fromEnvironment('IS_DEMO');`
+- Restrict premium/native-only features when `isDemoBuild` is true.
+
+## 2. Web Compatibility (Guarding dart:io & Platform)
+- Do not import `dart:io` without guarding platform checks using `kIsWeb` from `package:flutter/foundation.dart`.
+- Guard all direct operating system checks:
+  `final bool isMac = !kIsWeb && Platform.isMacOS;`
+  `final bool isDesktop = !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux);`
+- Bypass native plugins (like `window_manager`) and databases (`sqflite` mobile paths) on Web.
+
+## 3. Database & Storage Fallbacks
+- SQLite: Use in-memory fallbacks or mock data structures when `kIsWeb` is true to avoid file read/write permission errors.
+- Filesystem: Inject `MemoryFileSystem` (from `package:file/memory.dart`) for reading/writing scratchpad files.
+
+## 4. Google Drive Cloud Sync Restrictions
+- Gray out/disable backup and sync features (e.g., set container opacity to 15-50% and disable interactivity).
+- Replace connection button actions to show a standard **"Download Native App"** material alert dialog explaining that synchronization is a native desktop capability.
+
+## 5. Deployment Workflow
+1. Write the code adjustments to implement the Web Demo.
+2. Call the MCP tool `build_and_deploy_demo(project_key)` to build the Flutter web bundle, copy files to the host directory, update the database registry, and rebuild the static website locally.
+"""
+
+@mcp.resource("guidance://web-demo-standards")
+def get_web_demo_standards() -> str:
+    """
+    Get the guidelines, design patterns, and constraints for building web-compatible demo versions of projects.
+    """
+    return DEMO_STANDARDS_MD
+
+@mcp.tool()
+def get_web_demo_guidance() -> str:
+    """
+    Exposes web demo compilation best practices, feature flagging, and standard restrictions as a tool fallback.
+    """
+    return DEMO_STANDARDS_MD
+
 @mcp.tool()
 def list_projects() -> str:
     """
