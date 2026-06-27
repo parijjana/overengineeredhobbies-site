@@ -133,6 +133,16 @@ def generate_pages():
         privacy_url = privacy_filename if os.path.exists(privacy_filepath) else None
         privacy_html = f'<a href="{privacy_url}" class="btn-github">PRIVACY POLICY →</a>' if privacy_url else ""
 
+        # Auto-detect blog post file in blog/posts/ directory
+        blog_filename = None
+        blog_dir = "blog/posts"
+        if os.path.exists(blog_dir):
+            for f in os.listdir(blog_dir):
+                if f.endswith(".html") and repo_name.lower() in f.lower():
+                    blog_filename = f"../blog/posts/{f}"
+                    break
+        blog_html = f'<a href="{blog_filename}" class="btn-github">READ DEV BLOG →</a>' if blog_filename else ""
+
         # Timeline HTML
         timeline_items = []
         done_features = sorted([f for f in proj["features"] if f["status"] == "done"], 
@@ -168,6 +178,7 @@ def generate_pages():
             "playstore_html": playstore_html,
             "demo_html": demo_html,
             "privacy_html": privacy_html,
+            "blog_html": blog_html,
             "favicon_url": favicon_url,
             "about_text": clean_text(proj.get("about") or "Project documentation in progress."),
             "philosophy_text": clean_text(proj.get("philosophy") or ""),
