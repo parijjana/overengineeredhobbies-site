@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Pellucid — overengineeredhobbies.dev</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 60px);
+    }
+
+    .blog-container {
+      background: rgba(13, 26, 46, 0.6);
+      border: 1px solid var(--border);
+      padding: 4rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      color: var(--text-bright);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+    .post-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+    }
+    .tag-container {
+      display: flex; gap: 0.5rem;
+    }
+    .tag {
+      font-family: var(--font-mono); font-size: 10px; padding: 2px 8px;
+      border: 1px solid var(--border); color: var(--text); background: var(--surface-raised);
+    }
+
+    .blog-content h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 3rem 0 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .blog-content p {
+      margin-bottom: 1.75rem;
+      line-height: 1.9;
+      color: var(--text);
+      font-size: 1.05rem;
+      text-indent: 1.5rem; /* Give indent style for creative prose */
+    }
+    
+    .blog-content p:first-of-type {
+      text-indent: 0; /* No indent on first paragraph */
+    }
+    
+    .blog-content ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+    .blog-content li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    .blog-content li::before {
+      content: '•';
+      color: var(--accent);
+      position: absolute;
+      left: -1.25rem;
+    }
+
+    .btn-back {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-top: 3rem;
+    }
+    .btn-back:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .blog-container { padding: 2rem; }
+      main { padding: 2rem 1rem; }
+      .blog-content p { text-indent: 0; } /* Remove indent on small screens */
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: BLOG_POST</div>
+</nav>
+
+<main>
+  <article class="blog-container">
+    <div class="label">FIELD NOTES & MUSINGS</div>
+    <h1>Introduction to Pellucid</h1>
+    <div class="meta-row">
+      <div class="post-date">LOG DATE: 2026-06-27</div>
+      <div class="tag-container">
+        <span class="tag">GENERAL</span>
+      </div>
+    </div>
+
+    <div class="blog-content">
+      <h2>There is a Why to Pellucid.</h2>
+<p>The question is simple, there is a protagonist in a book, for but the author currently writing the book, the protagonist is the book.</p>
+<p>The author spends all of their time researching, devising plot lines, finding holes in their own logic, definining rules of their imaginary worlds. And these are all in service of the manuscript.</p>
+<p>The manuscript is a living entity. There are endless changes that the author makes to the manuscript. They agonize over using the correct words in the correct places. They agonize over what is correct in the first place. They build resources in service of the act of writing. Plot lines must follow logically. Or should they? They take notes. Organize notes. Discard notes. Then take fresh notes on the same thing again. And again. And sometimes again all over. They spend hours over where in the manuscript a person should appear. Maybe they should be part of an event. May be aspects of the event are to be disclosed to the reader as they read thru the story. Authors write stories of fantastical places. Of fantastical events. And always of one or more individuals to whom all the events occur to. These are the protagonist of the story that travel thru the aforementioned fantastical places.</p>
+<p>A manuscript is like that protagonist. There are notes and notes and notes on people that are to be writen about. About places that these people might visit. Or they might not. These notes live along side the manuscript. The notes themselves proliferate. The manuscript remains one. The manuscript may or maynot touch upon the events described in the notes. But the manuscritpt is the only one that tells the complete story. In the process of writing, the protagonist is the manuscript. This is the story that the author choose to tell. This is the form that the thoughts in the authors mind coalesced into. This is why I feel that the act of writing should also treat the manuscript like the protagonist.</p>
+<h2>There is a How to Pellucid.</h2>
+<p>In Pellucid the manuscript is the protagonist. Everything else is there. But intentionally in the periphery. Faded away so that the spotlight remains on the manuscript. Look to the right and you will find the notes. Look to the left and you will find the table of contents. The notes are what let tht author know what they are writing about. The TOC is the skeleton of the story.  Near the bottom are helpful indicators. Maybe you want to write a certain number of words in a session. Maybe you want to spend a certain abount of time thinking about the story. Maybe you want to be reminded that you need to do something in the mundane world. That is why there are little, helpful, texts below the manuscript letting you know these details. And you can always decide if ou want to see these or not. There are other things that you may not want to have at your fingertips all the time, they are hidden away in the settings, not to bother you while you write, but there nevertheless when you need to call upon them. Should you choose to help put in headings and bullets to help navigate your next big story, you will find them tucked away in a toolbar that slides in on command. Hidden till you need them and here when you do.</p>
+<p>Taken away is one of your biggest worries: "Did I save my work?" The manuscript lives a life of its own. Give it a home in your computer and it keeps saving its progress all the time. Give it a few seconds and it ensures that your work remains saved. Give it a home in the cloud and it ensures that every time you write something the cloud is made aware of it no more than fifteen minutes later. No intrenet? No problem, everything gets saved in the cloud home when you navigate back to the digital civilization. Till then yor trusty device forges on.</p>
+<p>For fans of their own work, Pellucid works exactly the same on mobile devices. You are free to explore, just be mindful that immersiveness is not easy to come by. Especially so if you want to write on a screen thats the size of your hand. But Pellucid understands, epiphany may strike anywhere, any how and anywhen. And in those circumstances, the best device to work with is the device that you already have with you.</p>
+<h2>There is a Why Not to Pellucid.</h2>
+<p>Pellucid is intentional. I am not someone who claims to know everything. But I do know that having angry red squigly lines in your manuscript is not something that makes you calm. Having an AI that nags you to use shorter phrases doesn't make your prose beautiful. And I understand that people who want to tell a story do not want a language model to write the story on their behalf. These are things that Pellucid intentionally avoids doing. Your story. Your words. Your prose.  Whne I am done writing here, I will copy these words into a text editor to check all the places that I have written teh instead of the. And I will ignore all the suggestions to use simpler phrasing to make things more understandable. And I will dismiss the helpful assistant that want to rewrite my story for me. <strong><u></strong>These<strong></u></strong> are things that make sense only once the writing is done. Till then they are just voices crowding out the main character of the process of writing a story. Because in Pellucid the manuscript is the protagonist.</p>
+<h2>Is there a What After to Pellucid?</h2>
+<p>Yes. Probably. Maybe.  There are ideas that I have that will work around the process of writing. Spellcheck, for one, is something I agonized over before excluding from Pellucid. Bouncing ideas of a trusted friend is another.  Having a system to send out individual chapters to loyal fans easily was another. However, none of these ideas qualify for Pellucid as not one of them signifiy the clarity of thought that enables one to form concepts into words. Hence they did not contribute to Pellucid. Some day I might decide to include these and more into a section within the settings. Or maybe Pellucid will form part of a system where other cogs make other wheels move. Let me know if you find these ideas interesting. Or if you have some of your own. Maybe that will turn my probably into a yes.</p>
+<p>Till then, I hope that Pellucid helps give clarity to your thoughts so that you find pellucidity yourself.</p>
+    </div>
+
+    <a href="../../index.html#blog" class="btn-back">← BACK TO HOME</a>
+  </article>
+</main>
+
+</body>
+</html>
