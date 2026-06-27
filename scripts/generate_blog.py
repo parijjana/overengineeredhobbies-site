@@ -6,7 +6,7 @@ import json
 # ── CONFIGURATION ──────────────────────────────────────────────────────────
 SOURCE_DIR = "blog"
 OUTPUT_DIR = "blog/posts"
-INDEX_FILE = "index.html"
+INDEX_FILE = "templates/base_index.html"
 TEMPLATE_FILE = "templates/blog_post_template.html"
 
 # Ensure directories exist
