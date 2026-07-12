@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIVACY POLICY — KALKRA — overengineeredhobbies.dev</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 60px);
+    }
+
+    .policy-container {
+      background: rgba(13, 26, 46, 0.6);
+      border: 1px solid var(--border);
+      padding: 4rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .last-updated {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 3rem 0 1rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }
+
+    ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    li::before {
+      content: '•';
+      color: var(--accent);
+      position: absolute;
+      left: -1.25rem;
+      font-weight: bold;
+    }
+
+    .highlight-box {
+      background: var(--surface-raised);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-family: var(--font-body);
+    }
+    .highlight-box p {
+      margin-bottom: 0;
+    }
+
+    .btn-back {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-top: 2rem;
+    }
+    .btn-back:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .policy-container { padding: 2rem; }
+      main { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: KALKRA_PRIVACY</div>
+    <img src="../assets/favicon.png" alt="Kalkra Icon" style="height: 40px; width: 40px; border-radius: 8px; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+  </div>
+</nav>
+
+<main>
+  <div class="policy-container">
+    <div class="label">COMPLIANCE & TRANSPARENCY</div>
+    <h1>PRIVACY POLICY</h1>
+    <div class="last-updated">LAST UPDATED: JULY 12, 2026</div>
+
+    <div class="highlight-box">
+      <p><strong>YOUR DATA IS YOURS:</strong> Kalkra is a fully offline, single-player game. It makes no network connections, collects no data, and contains no accounts, advertisements, or tracking of any kind.</p>
+    </div>
+
+    <h2>1. DATA COLLECTION</h2>
+    <p>Kalkra does NOT collect, transmit, or sell any personal information. All game progress — including your "Callsign", statistics, achievements, and match history — is stored exclusively on your device and never leaves it.</p>
+
+    <h2>2. LOCAL DATA SECURITY</h2>
+    <p>To prevent unauthorized tampering, Kalkra encrypts your save data using your operating system's secure key storage (Android Keystore, iOS Keychain, macOS Keychain, or Windows credential storage). Your save data is protected by your device's own security and stays on your device.</p>
+
+    <h2>3. NETWORK ACCESS</h2>
+    <p>Kalkra requires no network access to play. The only network activity the app can initiate is opening a link in your web browser (for example, a credits or license link) when you explicitly tap it.</p>
+
+    <h2>4. MULTIPLAYER (COMING SOON)</h2>
+    <p>Kalkra is currently single-player only. If local multiplayer is introduced in a future update, this policy will be updated first to describe exactly what is shared with other players (such as your Callsign on your local network) before any such feature is enabled.</p>
+
+    <h2>5. ANALYTICS & TRACKING</h2>
+    <p>Kalkra contains no third-party trackers, advertisements, or analytics SDKs. We do not track your location, contacts, identity, or app usage. Fonts and all other assets are bundled with the app — nothing is fetched from external servers at runtime.</p>
+
+    <h2>6. CHILDREN'S PRIVACY</h2>
+    <p>Because Kalkra collects no data from anyone, it collects no data from children. There are no chat features, no user-generated content shared with others, and no external links a child can be directed to during gameplay.</p>
+
+    <h2>7. THIRD-PARTY SOFTWARE</h2>
+    <p>Kalkra is built with the Flutter SDK and open-source libraries. These run entirely on your device. Attributions and licenses are listed on the Credits screen in the app.</p>
+
+    <h2>8. CONTACT</h2>
+    <p>Questions about this policy: <a href="mailto:overengineeredhobbies@gmail.com" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent);">overengineeredhobbies@gmail.com</a></p>
+    <p>For more information, visit our GitHub repository: <a href="https://github.com/parijjana/Kalkra" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent);">github.com/parijjana/Kalkra</a></p>
+
+    <a href="kalkra.html" class="btn-back">← BACK TO KALKRA</a>
+  </div>
+</main>
+
+</body>
+</html>
