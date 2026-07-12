@@ -228,35 +228,38 @@
     <h1>KALKRA</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">SECURE_STORAGE</span><span class="tag">AES-256</span>
+      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">SECURE_STORAGE</span><span class="tag">AES-256</span><span class="tag">ISOLATES</span><span class="tag">BITMASK_DP</span>
     </div>
 
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
       <a href="https://github.com/parijjana/KALKRA" class="btn-github">VIEW ON GITHUB →</a>
-      
-      
-      
-      
+      <a href="kalkra_privacy.html" class="btn-github">PRIVACY POLICY →</a>
     </div>
 
-    <p>A high-performance mental math trainer built for speed and accuracy. It features an adaptive math engine that calibrates in real-time to the user's performance.</p>
+    <p>A high-performance mental math trainer with a custom-built solving engine. Players combine a pool of numbers using arithmetic operators to reach a target — but every puzzle is verified solvable before it appears. The engine runs two solvers: a recursive early-exit tree search for speed, and a bitmask DP exhaustive solver for modes that require knowing the complete reachable set.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Kalkra prioritizes integrity and security, utilizing hardware-backed keys and HMAC validation for all local save files to prevent tampering with training stats.</p>
+    <p>Every puzzle in Kalkra is mathematically guaranteed solvable before it reaches the player — the solver architecture exists to make that promise cheap to keep at runtime. The app is offline-first: zero network calls, no accounts, no telemetry by default. Career data and stats are protected by AES-256-CBC + HMAC-SHA256, with encryption keys stored in platform secure storage (iOS/macOS Keychain, Windows credential store), making saves hardware-backed and tamper-evident.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
 <pre>
-Game UI (Flutter)
-  ↓ providers
-Game Engine (Adaptive Calibration)
-  ↓ services
-Secure Persistence (AES-256 / HMAC)
+Number Pool (6 integers)
+  ↓ ExhaustiveSolver (bitmask DP, all 2^N subsets)
+Reachable Value Set
+  ↓ SolverEngine (recursive early-exit tree search)
+Verified Target(s)
+  ↓ MatchManager (pre-computed, isolate-offloaded)
+Game Round (numbers + target + wildcard modifier)
+  ↓ Submission Validator
+Score / Next Round
+  ↓ flutter_secure_storage (AES-256 + HMAC-SHA256)
+Career &amp; Stats (hardware-backed, tamper-evident)
 </pre>
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• Adaptive Engine: Real-time difficulty adjustment based on solving speed.<br>• Security Hardened: Anti-tamper save systems with hardware-backed encryption.<br>• Multiplayer Suite: Support for hosting, joining, and spectating competitive matches.<br><br># Feature Tracker</p>
+    <p>• Dual Solver Architecture: recursive early-exit search + bitmask DP exhaustive solver — every puzzle is verified solvable before it appears.<br>• Solvability-Guaranteed Modes: Triple Threat (3 of 9 solvable) and Double Danger (2 of 4 solvable) use the exhaustive solver to deliberately place unreachable decoys.<br>• Pre-computed Matches: all rounds generated and verified in background isolates before play starts — zero loading mid-match.<br>• Adaptive Difficulty: target range and lives scale dynamically; Progressive mode runs a fixed ladder of named round configs.<br>• Tamper-Evident Saves: AES-256-CBC + HMAC-SHA256 local storage, keys in platform secure storage (Keychain / Windows credential store).</p>
   </section>
 
   <section class="timeline-section">
@@ -307,39 +310,57 @@ Secure Persistence (AES-256 / HMAC)
         </div>
       </div>
       <div class="timeline-item">
-        <span class="timeline-date">2026-05-09</span>
+        <span class="timeline-date">2026-07-12</span>
         <div class="timeline-content">
-          <h3>Multiplayer Match System: Support for hosting, joining, and staging competitive matches.</h3>
+          <h3>Single-Player Store Release: Pivoted to single-player only for Mac App Store, iOS App Store, and Microsoft Store submission. Multiplayer preserved at git tag multiplayer-baseline.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-07-12</span>
+        <div class="timeline-content">
+          <h3>App Sandbox &amp; Store Compliance: macOS App Sandbox enabled, export-compliance declared, fonts bundled locally (7.6MB), telemetry gated behind compile flag.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-07-12</span>
+        <div class="timeline-content">
+          <h3>Wildcard Rename &amp; Privacy Policy: Renamed Jeopardy modifiers to Wildcard (trademark safety); privacy policy written, hosted, and wired into the app.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-07-12</span>
+        <div class="timeline-content">
+          <h3>Audio Pipeline Fix: Resolved BGM playlist stall caused by phantom good_endings.mid reference; hardened SoundService against async player errors.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Online Multiplayer: Global matchmaking and remote competitive play beyond local networks.</h3>
+          <h3>Mac App Store Submission: Final screenshots, metadata, and archive upload to App Store Connect.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Branded Visual Identity: Native splash screens and adaptive icon sets for Android/iOS.</h3>
+          <h3>iOS App Store Submission: IPA build, nutrition label (Data Not Collected), and age rating.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Play Store Optimization: Optimized Android App Bundle (AAB) generation and high-res store assets.</h3>
+          <h3>Microsoft Store / MSIX: MSIX packaging with Partner Center identity, WACK certification, and store listing.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>In-App Compliance: Integrated Privacy Policy, Terms of Service, and Data Safety disclosures.</h3>
+          <h3>Local Multiplayer (Coming Soon): Restore LAN match system from multiplayer-baseline with authenticated transport (AES-GCM) and join-handshake replay protection.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Promotional Roadmap: Production of gameplay videos and curated screenshot sets for store listings.</h3>
+          <h3>Online Multiplayer: Global matchmaking and remote competitive play.</h3>
         </div>
       </div>
     </div>
