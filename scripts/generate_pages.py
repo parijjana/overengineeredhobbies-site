@@ -149,6 +149,33 @@ def generate_pages():
                     break
         blog_html = f'<a href="{blog_filename}" class="btn-github">READ DEV BLOG →</a>' if blog_filename else ""
 
+        # Auto-detect hero screenshots in assets/screenshots/<repo>/
+        # Files prefixed "mobile-" render in a separate centered row.
+        screenshots_html = ""
+        shots_dir = os.path.join("assets", "screenshots", repo_name.lower())
+        if os.path.isdir(shots_dir):
+            shot_files = sorted(f for f in os.listdir(shots_dir) if f.lower().endswith((".png", ".jpg", ".jpeg", ".webp")))
+            desktop_shots = [f for f in shot_files if not f.startswith("mobile-")]
+            mobile_shots = [f for f in shot_files if f.startswith("mobile-")]
+            if desktop_shots or mobile_shots:
+                def shot_alt(fn):
+                    stem = os.path.splitext(fn)[0]
+                    if stem.startswith("mobile-"):
+                        stem = stem[len("mobile-"):]
+                    return f"{name} — {stem.replace('-', ' ')}"
+                def shot_img(fn):
+                    return f'<img src="../{shots_dir}/{fn}" alt="{shot_alt(fn)}" loading="lazy">'
+                cluster_parts = [
+                    '<div class="label" style="margin-top: 2.5rem;">INTERFACE</div>',
+                    '<div class="screenshot-cluster">',
+                ]
+                if desktop_shots:
+                    cluster_parts.append('<div class="shots-desktop">' + "".join(shot_img(f) for f in desktop_shots) + "</div>")
+                if mobile_shots:
+                    cluster_parts.append('<div class="shots-mobile">' + "".join(shot_img(f) for f in mobile_shots) + "</div>")
+                cluster_parts.append("</div>")
+                screenshots_html = "\n      ".join(cluster_parts)
+
         # Timeline HTML
         timeline_items = []
         done_features = sorted([f for f in proj["features"] if f["status"] == "done"], 
@@ -188,6 +215,7 @@ def generate_pages():
             "blog_html": blog_html,
             "favicon_url": favicon_url,
             "about_text": clean_text(proj.get("about") or "Project documentation in progress."),
+            "screenshots_html": screenshots_html,
             "philosophy_text": clean_text(proj.get("philosophy") or ""),
             "architecture_text": proj.get("architecture") or "Architecture diagram pending.",
             "capabilities_text": clean_text(proj.get("capabilities") or ""),

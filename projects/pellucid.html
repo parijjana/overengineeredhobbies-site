@@ -205,6 +205,63 @@
       margin-top: 2rem;
     }
 
+    /* ── SCREENSHOT CLUSTER ──────────────────────────── */
+    .screenshot-cluster { margin: 1rem 0 0.5rem; }
+    .screenshot-cluster .shots-desktop {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .screenshot-cluster .shots-mobile {
+      display: flex; gap: 10px; justify-content: center; margin-top: 10px;
+    }
+    .screenshot-cluster img {
+      display: block; width: 100%; height: auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: zoom-in;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .screenshot-cluster .shots-mobile img { width: auto; max-height: 240px; }
+    .screenshot-cluster img:hover {
+      border-color: var(--border-bright);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    /* ── LIGHTBOX ────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      display: none; align-items: center; justify-content: center;
+      padding: 4vh 4vw;
+      background: rgba(4, 9, 17, 0.92);
+      backdrop-filter: blur(6px);
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-overlay img {
+      max-width: 100%; max-height: 92vh; width: auto; height: auto;
+      border: 1px solid var(--border-bright);
+      box-shadow: 0 0 45px rgba(0, 0, 0, 0.6);
+    }
+    .lightbox-hint {
+      position: fixed; bottom: 18px; left: 0; right: 0;
+      text-align: center; font-family: var(--font-mono);
+      font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em;
+    }
+    .lightbox-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      z-index: 1001;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13, 26, 46, 0.7);
+      border: 1px solid var(--border-bright);
+      color: var(--text-bright);
+      font-family: var(--font-mono); font-size: 26px; line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .lightbox-nav:hover { background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
+    .lightbox-prev { left: 3vw; }
+    .lightbox-next { right: 3vw; }
+
     @media (max-width: 1000px) {
       main { grid-template-columns: 1fr; height: auto; overflow: visible; }
       .about-section { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; overflow-y: visible; height: auto; }
@@ -228,7 +285,7 @@
     <h1>PELLUCID</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">GOOGLE_DRIVE_API</span><span class="tag">SQLITE</span>
+      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">MACOS</span><span class="tag">MARKDOWN</span><span class="tag">LOCAL-FIRST</span><span class="tag">GOOGLE_DRIVE_API</span><span class="tag">SQLITE</span>
     </div>
 
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -239,31 +296,55 @@
       <a href="../blog/posts/introduction-to-pellucid.html" class="btn-github">READ DEV BLOG →</a>
     </div>
 
-    <p>A minimalist, distraction-free writing application designed for creative flow. Features a translucent "Ghost UI" and seamless versioned cloud sync via Google Drive.</p>
+    <p>A local-first Markdown writing app for longform fiction. Pellucid keeps the manuscript at the center, storing work in ordinary project folders you own — never locked inside the app — with optional Google Drive backup. The interface uses <strong>Whisper UI</strong>: controls stay quiet until they are hovered, focused, or summoned by keyboard shortcut, so the writing surface feels calm without giving up power tools. macOS is the primary platform and its build is essentially release-ready; Windows, Linux, Android, and iOS follow.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Pellucid eliminates UI clutter to focus entirely on words, while providing structured research management through a bidirectional connection graph.</p>
+    <p>Nothing should stand between the writer and the words, yet the tools should be a keystroke away when needed. Pellucid pairs a quiet, focused editor with structured research that lives beside the manuscript — categorized notes, bidirectional links, and an automated attribution workflow — while keeping every file in plain folders the writer controls.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
 <pre>
-Markdown Editor (Custom Controller)
-  ↓ auto-saves
-SQLite (Local) + Google Drive (Cloud)
-  ↓ synced
-Research Notes (Bidirectional Graph)
+Markdown Manuscript  (document.md)
+  ↓ autosave + rolling local snapshots (.history/)
+User-Owned Project Folder
+  ↓ optional backup
+Google Drive  (visible "Pellucid Vault")
+
+Research Notes  (categories · bidirectional links · attributions)
 </pre>
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• Ghost UI: Low-contrast, highly-transparent interface for deep focus.<br>• Versioned Sync: Automatic manuscript snapshots and cloud restoration points.<br>• Knowledge Integration: Side-by-side research notes with automated attribution.<br><br># Feature Tracker</p>
+    <p>• Whisper UI: controls stay quiet until hovered, focused, or summoned by shortcut.<br>• Local-first storage: manuscripts live as Markdown in folders you own, with rolling local snapshots independent of the cloud.<br>• Optional Google Drive backup through a visible "Pellucid Vault" folder.<br>• Research notes with categories, bidirectional links, source URLs, and an automated attribution chapter.<br>• Focus tools: typewriter scrolling, paragraph focus, fullscreen, writing sprints, pomodoro, timers, and alarms.<br>• Table of contents with per-section word counts, plus search-and-replace with in-editor highlighting.<br>• PDF and EPUB export, theme presets, and a custom theme designer.</p>
+
+    <h2>CODEX LINKING</h2>
+    <p>Research notes double as a codex. Whenever a note's title appears in your manuscript, Pellucid quietly turns it into a live link back to that note — no special syntax, no manual tagging. Write a character or a place into a note once, and every mention of it across your prose becomes something you can act on. Hover a name to peek at the note without losing your place, or Cmd+Opt-click (Alt-click on Windows and Linux) to jump straight to it in the research sidebar.</p>
+    <p>Best of all, it stays out of your way. It links the character named "Mark" without lighting up every "mark" in the prose, always prefers the fullest name when notes overlap ("Salt Coast" over "Salt"), and ignores stray one- or two-letter titles so the page never fills with clutter. The payoff is a story bible that keeps itself wired to the text — so you spend your time writing instead of hunting back through your own notes to remember who someone was.</p>
   </section>
 
   <section class="timeline-section">
+    <div class="label">INTERFACE</div>
+    <div class="screenshot-cluster" style="margin-bottom: 3rem;">
+      <div class="shots-desktop"><img src="../assets/screenshots/pellucid/editor.png" alt="PELLUCID — editor" loading="lazy"><img src="../assets/screenshots/pellucid/research-notes.png" alt="PELLUCID — research notes" loading="lazy"><img src="../assets/screenshots/pellucid/snapshots.png" alt="PELLUCID — snapshots" loading="lazy"><img src="../assets/screenshots/pellucid/table-of-contents.png" alt="PELLUCID — table of contents" loading="lazy"></div>
+      <div class="shots-mobile"><img src="../assets/screenshots/pellucid/mobile-editor.png" alt="PELLUCID — editor" loading="lazy"><img src="../assets/screenshots/pellucid/mobile-research-notes.png" alt="PELLUCID — research notes" loading="lazy"></div>
+    </div>
+
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
-      
+
+      <div class="timeline-item">
+        <span class="timeline-date">2026-07-27</span>
+        <div class="timeline-content">
+          <h3>macOS-First Release Track: Prioritized the essentially-ready macOS build as the first distribution target, ahead of Windows and mobile.</h3>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-date">2026-07-27</span>
+        <div class="timeline-content">
+          <h3>Store-Exact Screenshot Pipeline: In-app capture harness producing validated, store-ready screenshots for macOS, iOS, Windows, and Android.</h3>
+        </div>
+      </div>
       <div class="timeline-item">
         <span class="timeline-date">2026-05-27</span>
         <div class="timeline-content">
@@ -333,43 +414,31 @@ Research Notes (Bidirectional Graph)
       <div class="timeline-item">
         <span class="timeline-date">2026-05-21</span>
         <div class="timeline-content">
-          <h3>Minimalist Focus UI: High-transparency "Ghost UI" with a centered editor and minimal distractions.</h3>
+          <h3>Minimalist Focus UI: Whisper UI with a centered editor and controls that stay quiet until summoned.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">NEXT</span>
+        <div class="timeline-content">
+          <h3>Mac App Store Release: First distribution target — the macOS build is essentially submission-ready.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Google Cloud Production Access: Elevating the Drive API integration from testing to a production-grade verified application.</h3>
+          <h3>Google Drive Production Access: Publishing the OAuth consent screen from testing to production (non-sensitive scopes only — no verification video required).</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Microsoft Store Listing: Official distribution via the Windows Store for seamless installation and updates.</h3>
+          <h3>iOS App Store: Adapting the mobile build for App Store distribution after the macOS launch.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>MSIX Packaging & Signing: Generating and signing secure Windows app packages for store distribution.</h3>
-        </div>
-      </div>
-      <div class="timeline-item planned">
-        <span class="timeline-date">UPCOMING</span>
-        <div class="timeline-content">
-          <h3>IARC Certification: Completion of age rating questionnaire and store compliance reviews.</h3>
-        </div>
-      </div>
-      <div class="timeline-item planned">
-        <span class="timeline-date">UPCOMING</span>
-        <div class="timeline-content">
-          <h3>Visual Storefront Assets: Production of high-res screenshots and feature graphics for the Microsoft Store.</h3>
-        </div>
-      </div>
-      <div class="timeline-item planned">
-        <span class="timeline-date">UPCOMING</span>
-        <div class="timeline-content">
-          <h3>Project Categorization: Systematic tagging and filtering for genre-based project organization.</h3>
+          <h3>Microsoft Store & Google Play: Windows and Android store listings to follow the Apple platforms.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
@@ -381,6 +450,59 @@ Research Notes (Bidirectional Graph)
     </div>
   </section>
 </main>
+
+<div class="lightbox-overlay" id="lightbox" aria-hidden="true">
+  <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">&lsaquo;</button>
+  <img alt="Expanded screenshot" src="">
+  <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">&rsaquo;</button>
+  <div class="lightbox-hint">&larr; / &rarr; TO BROWSE &middot; CLICK OUTSIDE OR PRESS ESC TO CLOSE</div>
+</div>
+
+<script>
+  (function () {
+    const overlay = document.getElementById('lightbox');
+    if (!overlay) return;
+    const full = overlay.querySelector('img');
+    const thumbs = Array.prototype.slice.call(document.querySelectorAll('.screenshot-cluster img'));
+    if (thumbs.length === 0) return;
+    let index = -1;
+
+    function show(i) {
+      index = (i + thumbs.length) % thumbs.length; // wrap around
+      full.src = thumbs[index].src;
+      full.alt = thumbs[index].alt;
+    }
+    function open(i) {
+      show(i);
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function close() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      full.removeAttribute('src');
+      index = -1;
+    }
+
+    thumbs.forEach(function (thumb, i) {
+      thumb.addEventListener('click', function () { open(i); });
+    });
+    overlay.addEventListener('click', close);
+    full.addEventListener('click', function (e) { e.stopPropagation(); });
+    overlay.querySelector('.lightbox-prev').addEventListener('click', function (e) {
+      e.stopPropagation(); show(index - 1);
+    });
+    overlay.querySelector('.lightbox-next').addEventListener('click', function (e) {
+      e.stopPropagation(); show(index + 1);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'ArrowRight') show(index + 1);
+    });
+  })();
+</script>
 
 </body>
 </html>

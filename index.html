@@ -116,9 +116,67 @@
     /* ── HERO ────────────────────────────────────────── */
     #hero {
       min-height: 100vh; display: flex; align-items: center;
+      justify-content: space-between; gap: 4rem;
       padding-top: var(--nav-h); position: relative; overflow: hidden;
     }
-    .hero-content { position: relative; z-index: 1; }
+    .hero-content { position: relative; z-index: 1; flex: 0 1 520px; max-width: 520px; }
+    /* horizontal rail of per-project photo piles; scrolls when it overflows */
+    .hero-gallery {
+      position: relative; z-index: 1;
+      flex: 1 1 0; min-width: 0;
+      display: flex; gap: 1.75rem; align-items: flex-start;
+      overflow-x: auto;
+      padding: 2rem 1.75rem 2.25rem;
+      scrollbar-width: none;
+    }
+    .hero-gallery::-webkit-scrollbar { display: none; }
+    .hero-stack {
+      flex: 0 0 auto;
+      display: flex; flex-direction: column; gap: 1.25rem; align-items: stretch;
+      width: 165px;
+    }
+    .hero-stack-label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-stack-label::before { content: ''; display: block; width: 18px; height: 1px; background: var(--accent); }
+    .hero-stack-label a { color: var(--text-dim); text-decoration: none; margin-left: auto; letter-spacing: 0.05em; }
+    .hero-stack-label a:hover { color: var(--accent); }
+
+    /* a scattered stack of physical prints (landscape + portrait) */
+    .photo-pile { position: relative; width: 165px; height: 188px; cursor: zoom-in; }
+    .photo-pile img {
+      position: absolute; left: 50%; top: 50%; width: 150px; height: auto;
+      padding: 5px 5px 11px; background: #ece7dc; border-radius: 1px;
+      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.55);
+      transform-origin: center center;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .photo-pile img.print-portrait { width: 74px; }
+    .photo-pile img:nth-child(1) { transform: translate(-50%,-50%) rotate(-6deg) translate(-13px,-11px); z-index: 1; }
+    .photo-pile img:nth-child(2) { transform: translate(-50%,-50%) rotate(4deg)  translate(8px,-6px);    z-index: 2; }
+    .photo-pile img:nth-child(3) { transform: translate(-50%,-50%) rotate(-3deg) translate(-6px,8px);    z-index: 3; }
+    .photo-pile img:nth-child(4) { transform: translate(-50%,-50%) rotate(6deg)  translate(11px,13px);   z-index: 4; }
+    .photo-pile img:nth-child(5) { transform: translate(-50%,-50%) rotate(-9deg) translate(-42px,6px);   z-index: 5; }
+    .photo-pile img:nth-child(6) { transform: translate(-50%,-50%) rotate(9deg)  translate(42px,3px);    z-index: 6; }
+    .photo-pile:hover img { box-shadow: 0 11px 24px rgba(0, 0, 0, 0.6); }
+    .photo-pile:hover img:nth-child(1) { transform: translate(-50%,-50%) rotate(-8deg)  translate(-24px,-16px); }
+    .photo-pile:hover img:nth-child(2) { transform: translate(-50%,-50%) rotate(6deg)   translate(16px,-11px);  }
+    .photo-pile:hover img:nth-child(3) { transform: translate(-50%,-50%) rotate(-4deg)  translate(-13px,13px);  }
+    .photo-pile:hover img:nth-child(4) { transform: translate(-50%,-50%) rotate(8deg)   translate(19px,19px);   }
+    .photo-pile:hover img:nth-child(5) { transform: translate(-50%,-50%) rotate(-12deg) translate(-62px,8px);   }
+    .photo-pile:hover img:nth-child(6) { transform: translate(-50%,-50%) rotate(12deg)  translate(62px,5px);    }
+    /* desktop-primary piles: keep the phone prints behind the desktop shots, peeking at the sides */
+    .photo-pile.pile-desktop-primary img.print-portrait { z-index: 0; }
+    .photo-pile.pile-desktop-primary img:nth-child(5) { transform: translate(-50%,-50%) rotate(-11deg) translate(-56px,16px); }
+    .photo-pile.pile-desktop-primary img:nth-child(6) { transform: translate(-50%,-50%) rotate(11deg)  translate(56px,13px);  }
+
+    @media (max-width: 1024px) {
+      #hero { flex-direction: column; align-items: flex-start; justify-content: center; }
+      .hero-content { flex: none; }
+      .hero-gallery { width: 100%; flex: none; margin-top: 1rem; padding-left: 0.5rem; }
+    }
     .hero-eyebrow {
       font-family: var(--font-mono); font-size: 12px; color: var(--accent);
       letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem;
@@ -127,7 +185,7 @@
     .hero-eyebrow::before { content: '▸'; }
     .hero-name {
       font-family: var(--font-display);
-      font-size: clamp(4.5rem, 13vw, 10rem);
+      font-size: clamp(3.5rem, 10vw, 8rem);
       line-height: 0.88; color: var(--text-bright); letter-spacing: 0.02em;
       margin-bottom: 1.5rem;
     }
@@ -377,6 +435,65 @@
       nav { padding: 0 1rem; }
       .ann { display: none; }
     }
+
+    /* ── SCREENSHOT CLUSTER ──────────────────────────── */
+    .screenshot-cluster .shots-desktop {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    }
+    .screenshot-cluster .shots-mobile {
+      display: flex; gap: 12px; justify-content: center; margin-top: 12px; flex-wrap: wrap;
+    }
+    .screenshot-cluster img {
+      display: block; width: 100%; height: auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: zoom-in;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .screenshot-cluster .shots-mobile img { width: auto; max-height: 300px; }
+    .screenshot-cluster img:hover {
+      border-color: var(--border-bright);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+    @media (max-width: 600px) {
+      .screenshot-cluster .shots-desktop { grid-template-columns: 1fr; }
+    }
+
+    /* ── LIGHTBOX ────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      display: none; align-items: center; justify-content: center;
+      padding: 4vh 4vw;
+      background: rgba(4, 9, 17, 0.92);
+      backdrop-filter: blur(6px);
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-overlay img {
+      max-width: 100%; max-height: 92vh; width: auto; height: auto;
+      border: 1px solid var(--border-bright);
+      box-shadow: 0 0 45px rgba(0, 0, 0, 0.6);
+    }
+    .lightbox-hint {
+      position: fixed; bottom: 18px; left: 0; right: 0;
+      text-align: center; font-family: var(--font-mono);
+      font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em;
+    }
+    .lightbox-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      z-index: 2001;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13, 26, 46, 0.7);
+      border: 1px solid var(--border-bright);
+      color: var(--text-bright);
+      font-family: var(--font-mono); font-size: 26px; line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .lightbox-nav:hover { background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
+    .lightbox-prev { left: 3vw; }
+    .lightbox-next { right: 3vw; }
   </style>
 </head>
 <body>
@@ -416,6 +533,31 @@
     <div class="hero-cta">
       <a href="#apps" class="btn btn-primary">EXPLORE APPS ↓</a>
       <a href="#about" class="btn btn-outline">READ THE DOCS</a>
+    </div>
+  </div>
+
+  <div class="hero-gallery">
+    <div class="hero-stack">
+      <div class="hero-stack-label">PELLUCID <a href="projects/pellucid.html">DETAILS →</a></div>
+      <div class="photo-pile pile-desktop-primary">
+        <img src="assets/screenshots/pellucid/editor.png" alt="Pellucid — editor" loading="lazy">
+        <img src="assets/screenshots/pellucid/research-notes.png" alt="Pellucid — research notes" loading="lazy">
+        <img src="assets/screenshots/pellucid/snapshots.png" alt="Pellucid — snapshots" loading="lazy">
+        <img src="assets/screenshots/pellucid/table-of-contents.png" alt="Pellucid — table of contents" loading="lazy">
+        <img class="print-portrait" src="assets/screenshots/pellucid/mobile-editor.png" alt="Pellucid — editor (mobile)" loading="lazy">
+        <img class="print-portrait" src="assets/screenshots/pellucid/mobile-research-notes.png" alt="Pellucid — research notes (mobile)" loading="lazy">
+      </div>
+    </div>
+    <div class="hero-stack">
+      <div class="hero-stack-label">KALKRA <a href="projects/kalkra.html">DETAILS →</a></div>
+      <div class="photo-pile">
+        <img src="assets/screenshots/kalkra/dashboard.png" alt="Kalkra — dashboard" loading="lazy">
+        <img src="assets/screenshots/kalkra/mode-select.png" alt="Kalkra — mode select" loading="lazy">
+        <img src="assets/screenshots/kalkra/game.png" alt="Kalkra — gameplay" loading="lazy">
+        <img src="assets/screenshots/kalkra/stats.png" alt="Kalkra — stats" loading="lazy">
+        <img class="print-portrait" src="assets/screenshots/kalkra/mobile-dashboard.png" alt="Kalkra — dashboard (mobile)" loading="lazy">
+        <img class="print-portrait" src="assets/screenshots/kalkra/mobile-stats.png" alt="Kalkra — stats (mobile)" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
@@ -544,9 +686,9 @@
         <span>⑂ 0</span>
         <span style="color:#7ec8e3">DART</span>
       </div>
-      <p>A minimalist, distraction-free writing application designed for creative flow. Features a translucent "Ghost UI" and seamless versioned cloud sync via Google Drive.</p>
+      <p>A local-first Markdown writing app for longform fiction, built around the quiet Whisper UI with optional Google Drive backup. macOS is the primary platform and is essentially release-ready; other platforms follow.</p>
       <div class="card-tags">
-        <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">GOOGLE_DRIVE_API</span><span class="tag">SQLITE</span>
+        <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">MACOS</span><span class="tag">MARKDOWN</span><span class="tag">GOOGLE_DRIVE_API</span>
       </div>
       <a href="projects/pellucid.html" class="card-link">VIEW PROJECT DETAILS →</a> · <a href="demos/pellucid/index.html" class="card-link" style="color: var(--accent);">TRY DEMO →</a>
     </div>
@@ -645,20 +787,20 @@
     <div class="card reveal" style="transition-delay:0.07s">
       <div class="card-header">
         <div class="card-title">PELLUCID</div>
-        <div class="card-badge">WINDOWS</div>
+        <div class="card-badge">MACOS</div>
       </div>
       <div class="card-meta">
         <span>v0.1.0</span>
         <span>FLUTTER</span>
         <span>DESKTOP</span>
       </div>
-      <p>The official desktop build of Pellucid. A minimalist writing environment for Windows featuring a translucent Ghost UI and versioned cloud sync via Google Drive.</p>
+      <p>A local-first, minimalist writing app for longform fiction, built around the quiet Whisper UI with optional Google Drive backup. macOS is the primary platform and is essentially release-ready; Windows, Linux, and mobile follow.</p>
       <div class="card-tags">
-        <span class="tag">PRODUCTIVITY</span><span class="tag">MINIMALIST</span><span class="tag">DESKTOP</span>
+        <span class="tag">PRODUCTIVITY</span><span class="tag">MINIMALIST</span><span class="tag">MACOS</span>
       </div>
-      
+
       <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
-        <a href="https://github.com/parijjana/pellucid/releases" class="card-link" style="margin-top: 0;">⊞ WINDOWS .exe</a>
+        <a href="https://github.com/parijjana/pellucid/releases" class="card-link" style="margin-top: 0;">⬇ RELEASES</a>
         <a href="demos/pellucid/index.html" class="card-link" style="margin-top: 0; color: var(--accent);">TRY DEMO →</a>
         <a href="projects/pellucid.html" class="card-link" style="margin-top: 0; color: var(--text-dim);">DETAILS →</a>
       </div>
@@ -801,6 +943,61 @@
     }
   }
   loadProjectProgress();
+</script>
+
+<div class="lightbox-overlay" id="lightbox" aria-hidden="true">
+  <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">&lsaquo;</button>
+  <img alt="Expanded screenshot" src="">
+  <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">&rsaquo;</button>
+  <div class="lightbox-hint">&larr; / &rarr; TO BROWSE &middot; CLICK OUTSIDE OR PRESS ESC TO CLOSE</div>
+</div>
+
+<script>
+  (function () {
+    const overlay = document.getElementById('lightbox');
+    if (!overlay) return;
+    const full = overlay.querySelector('img');
+    let group = [];   // images of the currently-open project's pile
+    let index = -1;
+
+    function show(i) {
+      if (group.length === 0) return;
+      index = (i + group.length) % group.length; // wrap within this project
+      full.src = group[index].src;
+      full.alt = group[index].alt;
+    }
+    function openFrom(img) {
+      const pile = img.closest('.photo-pile');
+      group = pile ? Array.prototype.slice.call(pile.querySelectorAll('img')) : [img];
+      show(Math.max(0, group.indexOf(img)));
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function close() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      full.removeAttribute('src');
+      group = []; index = -1;
+    }
+
+    document.querySelectorAll('.photo-pile img').forEach(function (img) {
+      img.addEventListener('click', function (e) { e.stopPropagation(); openFrom(img); });
+    });
+    overlay.addEventListener('click', close);
+    full.addEventListener('click', function (e) { e.stopPropagation(); });
+    overlay.querySelector('.lightbox-prev').addEventListener('click', function (e) {
+      e.stopPropagation(); show(index - 1);
+    });
+    overlay.querySelector('.lightbox-next').addEventListener('click', function (e) {
+      e.stopPropagation(); show(index + 1);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'ArrowRight') show(index + 1);
+    });
+  })();
 </script>
 
 </body>
