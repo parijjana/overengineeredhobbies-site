@@ -133,6 +133,12 @@ def generate_pages():
         privacy_url = privacy_filename if os.path.exists(privacy_filepath) else None
         privacy_html = f'<a href="{privacy_url}" class="btn-github">PRIVACY POLICY →</a>' if privacy_url else ""
 
+        # Auto-detect local terms of service file in projects/ directory
+        terms_filename = f"{repo_name.lower()}_terms.html"
+        terms_filepath = os.path.join(projects_dir, terms_filename)
+        terms_url = terms_filename if os.path.exists(terms_filepath) else None
+        terms_html = f'<a href="{terms_url}" class="btn-github">TERMS OF SERVICE →</a>' if terms_url else ""
+
         # Auto-detect local support page file in projects/ directory
         support_filename = f"{repo_name.lower()}_support.html"
         support_filepath = os.path.join(projects_dir, support_filename)
@@ -211,6 +217,7 @@ def generate_pages():
             "playstore_html": playstore_html,
             "demo_html": demo_html,
             "privacy_html": privacy_html,
+            "terms_html": terms_html,
             "support_html": support_html,
             "blog_html": blog_html,
             "favicon_url": favicon_url,

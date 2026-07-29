@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TERMS OF SERVICE — PELLUCID — overengineeredhobbies.dev</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.10);
+      --grid-minor: rgba(78,140,220,0.05);
+      --border: rgba(78,140,220,0.20);
+      --border-bright: rgba(78,140,220,0.45);
+      --text: #8aaed0;
+      --text-dim: #3f5f85;
+      --text-bright: #ddeeff;
+      --accent: #e8a020;
+      --accent-dim: rgba(232, 160, 32, 0.1);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Lora', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    nav {
+      height: 60px;
+      background: rgba(8,17,31,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none;
+    }
+    .nav-logo span { color: var(--text-dim); }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 60px);
+    }
+
+    .policy-container {
+      background: rgba(13, 26, 46, 0.6);
+      border: 1px solid var(--border);
+      padding: 4rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .label {
+      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+      letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .last-updated {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-bright);
+      margin: 3rem 0 1rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    p { margin-bottom: 1.5rem; line-height: 1.8; color: var(--text); }
+
+    ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      list-style-type: none;
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    li::before {
+      content: '•';
+      color: var(--accent);
+      position: absolute;
+      left: -1.25rem;
+      font-weight: bold;
+    }
+
+    .highlight-box {
+      background: var(--surface-raised);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-family: var(--font-body);
+    }
+    .highlight-box p {
+      margin-bottom: 0;
+    }
+
+    .btn-back {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid var(--accent);
+      transition: all 0.2s;
+      margin-top: 2rem;
+    }
+    .btn-back:hover {
+      background: var(--accent-dim);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    @media (max-width: 768px) {
+      .policy-container { padding: 2rem; }
+      main { padding: 2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">oeh<span>.dev</span></a>
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">PROJECT_ID: PELLUCID_TERMS</div>
+    <img src="../assets/favicon_pellucid.png" alt="Pellucid Icon" style="height: 40px; width: 40px; border-radius: 8px; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+  </div>
+</nav>
+
+<main>
+  <div class="policy-container">
+    <div class="label">LEGAL AGREEMENT</div>
+    <h1>TERMS OF SERVICE</h1>
+    <div class="last-updated">LAST UPDATED: JULY 29, 2026</div>
+
+    <p>These Terms of Service ("Terms") govern your use of <strong>Pellucid</strong> (the "Application" or "App"), a local-first Markdown writing application for long-form fiction and other writing. By downloading, installing, or using Pellucid, you agree to these Terms. If you do not agree, do not use the App.</p>
+
+    <div class="highlight-box">
+      <p><strong>Core Principle:</strong> Pellucid works fully offline, requires no account, and stores your manuscripts locally on your device. These Terms apply to your use of the App and, where relevant, to the optional Google Drive backup feature.</p>
+    </div>
+
+    <h2>1. ACCEPTANCE</h2>
+    <p>By downloading, installing, or using Pellucid, you agree to these Terms of Service. If you do not agree, do not use the App.</p>
+
+    <h2>2. LICENSE TO USE</h2>
+    <p>Pellucid is provided for your personal, non-commercial use as a local-first writing application. You are granted a personal, non-exclusive, non-transferable, revocable license to install and use the App on devices you own or control, in accordance with these Terms and the terms of the app store or platform you obtained it from.</p>
+    <p>The App's source code is made available at <a href="https://github.com/parijjana/pellucid" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent);">github.com/parijjana/pellucid</a> under its published license; your use of the source code is governed by that license. These Terms govern your use of the distributed application.</p>
+
+    <h2>3. ACCEPTABLE USE</h2>
+    <p>You agree not to: (a) reverse engineer, decompile, or tamper with the App except where such restriction is prohibited by law or expressly permitted by the source license; (b) use the App for any unlawful purpose; or (c) redistribute the compiled App as your own.</p>
+
+    <h2>4. INTELLECTUAL PROPERTY</h2>
+    <p>The Pellucid name, logo, and original assets are the property of Overengineered Hobbies, except for third-party assets and libraries used under their respective licenses.</p>
+
+    <h2>5. YOUR CONTENT</h2>
+    <p>You retain full ownership of the manuscripts, research notes, and other content you create in Pellucid. We claim no ownership over your writing. Your content is stored locally on your device in plain Markdown, and — if you choose to enable the optional Google Drive backup feature — a copy may also be stored in a "Pellucid Vault" folder within your own Google Drive account. We do not have access to, and do not store, your content on any servers we operate.</p>
+
+    <h2>6. NO WARRANTY</h2>
+    <p>The App is provided "AS IS" and "AS AVAILABLE," without warranties of any kind, express or implied, including but not limited to merchantability, fitness for a particular purpose, and non-infringement. You use the App at your own risk.</p>
+
+    <h2>7. LIMITATION OF LIABILITY</h2>
+    <p>To the maximum extent permitted by law, Overengineered Hobbies shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of data (including local manuscripts, notes, and drafts), arising from or related to your use of the App.</p>
+
+    <h2>8. LOCAL DATA AND OPTIONAL GOOGLE DRIVE BACKUP</h2>
+    <p>The App stores your manuscripts and notes locally on your device by default and does not transmit them anywhere. You are responsible for your device and its backups; see the Privacy Policy for details. Loss of local data (e.g. from uninstalling the App or resetting your device) is not recoverable by us.</p>
+    <p>If you choose to enable the optional Google Drive backup feature, the App will use Google's Drive API with per-file access to read and write files within a dedicated "Pellucid Vault" folder in your own Google Drive account. When you use this feature, your interaction with Google Drive is also governed by Google's own Terms of Service, and your backed-up content resides in your Google account, not on any server operated by us.</p>
+
+    <h2>9. THIRD-PARTY SOFTWARE</h2>
+    <p>The App is built with the Flutter SDK and open-source libraries that run locally on your device. Those components are governed by their own licenses. Where the optional Google Drive backup feature is used, the Google Drive API and related Google services are governed by Google's own terms.</p>
+
+    <h2>10. CHANGES TO THESE TERMS</h2>
+    <p>We may update these Terms from time to time. Material changes will be reflected by updating the "Last Updated" date. Continued use of the App after changes constitutes acceptance.</p>
+
+    <h2>11. GOVERNING LAW</h2>
+    <p>These Terms are governed by applicable law, without regard to conflict-of-laws principles.</p>
+
+    <h2>12. CONTACT</h2>
+    <p>Questions about these Terms: <a href="mailto:overengineeredhobbies@gmail.com" style="color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent);">overengineeredhobbies@gmail.com</a></p>
+
+    <a href="pellucid.html" class="btn-back">← BACK TO PELLUCID</a>
+  </div>
+</main>
+
+</body>
+</html>
