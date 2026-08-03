@@ -39,3 +39,6 @@ projects/gastrotator_android.html
 # local wrangler dev cache
 .wrangler/
 
+
+# Repo documentation, not site content
+PROTECTED_URLS.md
