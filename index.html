@@ -1,1004 +1,1510 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="paper">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>overengineeredhobbies.dev</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <meta name="description" content="Apps, tools, and experiments from someone who can't leave well enough alone.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #08111f;
-      --surface: #0d1a2e;
-      --surface-raised: #112238;
-      --grid-major: rgba(78,140,220,0.10);
-      --grid-minor: rgba(78,140,220,0.05);
-      --border: rgba(78,140,220,0.20);
-      --border-bright: rgba(78,140,220,0.45);
-      --text: #8aaed0;
-      --text-dim: #3f5f85;
-      --text-bright: #ddeeff;
-      --accent: #e8a020;
-      --accent-dim: rgba(232,160,32,0.10);
-      --accent-glow: rgba(232,160,32,0.22);
-      --tag: rgba(78,140,220,0.13);
-      --tag-text: #5ba0e8;
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-mono: 'Fira Code', monospace;
-      --font-body: 'Lora', serif;
-      --nav-h: 60px;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animesh Sarkar — AI-first Product Owner | overengineeredhobbies.dev</title>
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="stylesheet" href="/assets/theme.css">
+<meta name="description" content="I own products end to end — deciding what is worth building, how it is architected, and what it takes to survive store review — directing LLMs through the implementation. Four products shipped or shipping.">
+<meta property="og:title" content="Animesh Sarkar — AI-first Product Owner">
+<meta property="og:description" content="Overengineered hobbies. Shipped. Finished is the hard part.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://overengineeredhobbies.dev/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEMES — every colour is a variable, so a theme is ~15 lines
+   ============================================================ */
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.7;
-      background-image:
-        linear-gradient(var(--grid-major) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
-        linear-gradient(var(--grid-minor) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
-      background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
-      background-attachment: fixed;
-    }
+body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  transition: background-color .25s, color .25s;
+}
 
-    /* ── NAV ─────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      background: rgba(8,17,31,0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; z-index: 100;
-    }
-    .nav-logo {
-      font-family: var(--font-mono); font-size: 13px; font-weight: 500;
-      color: var(--accent); text-decoration: none; letter-spacing: 0.02em;
-    }
-    .nav-logo span { color: var(--text-dim); }
-    .nav-links { display: flex; list-style: none; }
-    .nav-links a {
-      font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-      text-decoration: none; padding: 0 1rem; height: var(--nav-h);
-      display: inline-flex; align-items: center;
-      border-left: 1px solid var(--border);
-      transition: color 0.2s, background 0.2s; letter-spacing: 0.05em;
-    }
-    .nav-links a:last-child { border-right: 1px solid var(--border); }
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--accent); background: var(--accent-dim);
-    }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px;
-    }
-    .hamburger span {
-      display: block; width: 22px; height: 1px; background: var(--text);
-      transition: all 0.2s;
-    }
+a { color: var(--accent); text-decoration: none; }
+img { max-width: 100%; display: block; }
 
-    /* ── SHARED SECTION CHROME ───────────────────────── */
-    section {
-      min-height: 100vh;
-      padding: calc(var(--nav-h) + 4rem) 2rem 4rem;
-      max-width: 1100px; margin: 0 auto; position: relative;
-    }
-    .section-label {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 0.5rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }
-    .section-label::before {
-      content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      color: var(--text-bright); letter-spacing: 0.02em; line-height: 1;
-      margin-bottom: 3rem;
-    }
-    .rev-stamp {
-      font-family: var(--font-mono); font-size: 9px; color: var(--text-dim);
-      border: 1px solid var(--border); padding: 2px 6px; letter-spacing: 0.1em;
-      display: inline-block; margin-left: 0.5rem; vertical-align: middle;
-    }
+/* ============================================================
+   SHELL — content column + persistent right rail
+   ============================================================ */
+.shell {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) var(--rail-w);
+  gap: var(--gutter);
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  align-items: start;
+}
+.main { padding: 56px 0 120px; min-width: 0; }
 
-    /* ── HERO ────────────────────────────────────────── */
-    #hero {
-      min-height: 100vh; display: flex; align-items: center;
-      justify-content: space-between; gap: 4rem;
-      padding-top: var(--nav-h); position: relative; overflow: hidden;
-    }
-    .hero-content { position: relative; z-index: 1; flex: 0 1 520px; max-width: 520px; }
-    /* horizontal rail of per-project photo piles; scrolls when it overflows */
-    .hero-gallery {
-      position: relative; z-index: 1;
-      flex: 1 1 0; min-width: 0;
-      display: flex; gap: 1.75rem; align-items: flex-start;
-      overflow-x: auto;
-      padding: 2rem 1.75rem 2.25rem;
-      scrollbar-width: none;
-    }
-    .hero-gallery::-webkit-scrollbar { display: none; }
-    .hero-stack {
-      flex: 0 0 auto;
-      display: flex; flex-direction: column; gap: 1.25rem; align-items: stretch;
-      width: 165px;
-    }
-    .hero-stack-label {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      letter-spacing: 0.15em; text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .hero-stack-label::before { content: ''; display: block; width: 18px; height: 1px; background: var(--accent); }
-    .hero-stack-label a { color: var(--text-dim); text-decoration: none; margin-left: auto; letter-spacing: 0.05em; }
-    .hero-stack-label a:hover { color: var(--accent); }
+/* ---------- RIGHT RAIL / TITLE BLOCK ---------- */
+.rail {
+  position: sticky; top: 0;
+  height: 100vh;
+  display: flex; flex-direction: column;
+  padding: 56px 0 32px;
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+  overflow-y: auto;
+}
+.rail::-webkit-scrollbar { width: 4px; }
+.rail::-webkit-scrollbar-thumb { background: var(--border); }
 
-    /* a scattered stack of physical prints (landscape + portrait) */
-    .photo-pile { position: relative; width: 165px; height: 188px; cursor: zoom-in; }
-    .photo-pile img {
-      position: absolute; left: 50%; top: 50%; width: 150px; height: auto;
-      padding: 5px 5px 11px; background: #ece7dc; border-radius: 1px;
-      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.55);
-      transform-origin: center center;
-      transition: transform 0.28s ease, box-shadow 0.28s ease;
-    }
-    .photo-pile img.print-portrait { width: 74px; }
-    .photo-pile img:nth-child(1) { transform: translate(-50%,-50%) rotate(-6deg) translate(-13px,-11px); z-index: 1; }
-    .photo-pile img:nth-child(2) { transform: translate(-50%,-50%) rotate(4deg)  translate(8px,-6px);    z-index: 2; }
-    .photo-pile img:nth-child(3) { transform: translate(-50%,-50%) rotate(-3deg) translate(-6px,8px);    z-index: 3; }
-    .photo-pile img:nth-child(4) { transform: translate(-50%,-50%) rotate(6deg)  translate(11px,13px);   z-index: 4; }
-    .photo-pile img:nth-child(5) { transform: translate(-50%,-50%) rotate(-9deg) translate(-42px,6px);   z-index: 5; }
-    .photo-pile img:nth-child(6) { transform: translate(-50%,-50%) rotate(9deg)  translate(42px,3px);    z-index: 6; }
-    .photo-pile:hover img { box-shadow: 0 11px 24px rgba(0, 0, 0, 0.6); }
-    .photo-pile:hover img:nth-child(1) { transform: translate(-50%,-50%) rotate(-8deg)  translate(-24px,-16px); }
-    .photo-pile:hover img:nth-child(2) { transform: translate(-50%,-50%) rotate(6deg)   translate(16px,-11px);  }
-    .photo-pile:hover img:nth-child(3) { transform: translate(-50%,-50%) rotate(-4deg)  translate(-13px,13px);  }
-    .photo-pile:hover img:nth-child(4) { transform: translate(-50%,-50%) rotate(8deg)   translate(19px,19px);   }
-    .photo-pile:hover img:nth-child(5) { transform: translate(-50%,-50%) rotate(-12deg) translate(-62px,8px);   }
-    .photo-pile:hover img:nth-child(6) { transform: translate(-50%,-50%) rotate(12deg)  translate(62px,5px);    }
-    /* desktop-primary piles: keep the phone prints behind the desktop shots, peeking at the sides */
-    .photo-pile.pile-desktop-primary img.print-portrait { z-index: 0; }
-    .photo-pile.pile-desktop-primary img:nth-child(5) { transform: translate(-50%,-50%) rotate(-11deg) translate(-56px,16px); }
-    .photo-pile.pile-desktop-primary img:nth-child(6) { transform: translate(-50%,-50%) rotate(11deg)  translate(56px,13px);  }
+.stamp {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em;
+  color: var(--text-dim); text-transform: uppercase;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 22px;
+}
+.rail-name {
+  font-family: var(--font-display); font-size: 40px; line-height: .95;
+  color: var(--text-bright); letter-spacing: .01em;
+}
+.rail-name span { color: var(--accent); display: block; }
+.rail-role {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--accent); margin-top: 10px;
+}
+.rail-claim {
+  font-size: 14px; margin: 14px 0 26px; color: var(--text);
+  border-left: 2px solid var(--accent); padding-left: 12px;
+}
 
-    @media (max-width: 1024px) {
-      #hero { flex-direction: column; align-items: flex-start; justify-content: center; }
-      .hero-content { flex: none; }
-      .hero-gallery { width: 100%; flex: none; margin-top: 1rem; padding-left: 0.5rem; }
-    }
-    .hero-eyebrow {
-      font-family: var(--font-mono); font-size: 12px; color: var(--accent);
-      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .hero-eyebrow::before { content: '▸'; }
-    .hero-name {
-      font-family: var(--font-display);
-      font-size: clamp(3.5rem, 10vw, 8rem);
-      line-height: 0.88; color: var(--text-bright); letter-spacing: 0.02em;
-      margin-bottom: 1.5rem;
-    }
-    .hero-name .accent { color: var(--accent); display: block; }
-    .hero-tagline {
-      font-family: var(--font-mono); font-size: 13px; color: var(--text-dim);
-      margin-bottom: 3rem; max-width: 440px; line-height: 1.8;
-    }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* responsibilities — deliberately NOT chips, so it doesn't read as a skills list */
+.owns { list-style: none; }
+.owns li {
+  font-family: var(--font-mono); font-size: 11.5px; line-height: 1.45;
+  color: var(--text); padding: 4px 0 4px 15px; position: relative;
+}
+.owns li::before {
+  content: '▸'; position: absolute; left: 0; top: 4px; color: var(--accent);
+}
+/* secondary block — tech is supporting evidence, not the headline */
+.rail-block .rail-list li { opacity: .82; }
+.rail-block { margin-bottom: 24px; }
+.rail-label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em;
+  color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.rail-label::after { content:''; flex:1; height:1px; background: var(--border); }
+.rail-block p, .rail-block li { font-family: var(--font-mono); font-size: 12px; color: var(--text); }
+.rail-list { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.rail-list li {
+  background: var(--tag); color: var(--tag-text);
+  padding: 3px 8px; font-size: 10.5px; letter-spacing: .06em;
+}
+.rail-links { display: flex; flex-direction: column; gap: 6px; }
+.rail-links a { font-family: var(--font-mono); font-size: 12px; }
+.rail-links a::before { content: '→ '; color: var(--text-dim); }
 
-    /* blueprint corner annotations */
-    .annotations {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none; overflow: hidden;
-    }
-    .ann {
-      position: absolute; font-family: var(--font-mono); font-size: 10px;
-      color: var(--text-dim); opacity: 0.45; line-height: 1.6;
-    }
-    .ann.tl { top: 18%; left: 5%; }
-    .ann.tr { top: 14%; right: 5%; text-align: right; }
-    .ann.bl { bottom: 18%; left: 5%; }
-    .ann.br { bottom: 14%; right: 5%; text-align: right; }
+.btn-cv {
+  display: block; text-align: center; margin-top: auto;
+  background: var(--accent); color: var(--on-accent);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em;
+  padding: 11px; font-weight: 500;
+}
 
-    /* ── BUTTONS ─────────────────────────────────────── */
-    .btn {
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
-      padding: 0.65rem 1.5rem; text-decoration: none; cursor: pointer;
-      border: none; background: none; display: inline-flex; align-items: center;
-      gap: 0.5rem; transition: all 0.2s;
-    }
-    .btn-primary { background: var(--accent); color: #08111f; font-weight: 600; }
-    .btn-primary:hover { background: #f5b840; }
-    .btn-outline { border: 1px solid var(--border-bright); color: var(--text); }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-    /* ── CARDS ───────────────────────────────────────── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 1.5rem; position: relative;
-      transition: border-color 0.2s;
-    }
-    .card::before, .card::after {
-      content: ''; position: absolute; width: 8px; height: 8px;
-      border-color: var(--accent); border-style: solid; opacity: 0;
-      transition: opacity 0.2s;
-    }
-    .card::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
-    .card::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-    .card:hover { border-color: var(--border-bright); }
-    .card:hover::before, .card:hover::after { opacity: 1; }
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { padding: 24px 0 64px; border-bottom: 1px solid var(--border); }
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(46px, 6.5vw, 88px);
+  line-height: .92; color: var(--text-bright); letter-spacing: .005em;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-lede {
+  font-family: var(--font-mono); font-size: clamp(15px, 1.7vw, 19px);
+  color: var(--text-bright); letter-spacing: .01em;
+  margin-top: 20px; padding-left: 14px;
+  border-left: 2px solid var(--accent);
+}
+.hero-sub { font-size: 16.5px; margin-top: 20px; color: var(--text); }
+.hero-sub strong { color: var(--text-bright); font-weight: 600; }
+.hero-facts {
+  display: flex; flex-wrap: wrap; gap: 28px; margin-top: 34px;
+  font-family: var(--font-mono); font-size: 12px;
+}
+.hero-facts div { border-left: 2px solid var(--accent); padding-left: 11px; }
+.hero-facts b { display: block; color: var(--text-bright); font-size: 21px; font-weight: 500; }
+.hero-facts span { color: var(--text-dim); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; }
 
-    .card-header {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; margin-bottom: 0.75rem; gap: 1rem;
-    }
-    .card-title {
-      font-family: var(--font-display); font-size: 1.2rem;
-      color: var(--text-bright); letter-spacing: 0.05em;
-    }
+/* ============================================================
+   TABS
+   ============================================================ */
+.tabs {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; gap: 10px;
+  margin-top: 56px; padding: 16px 0 16px;
+  background: transparent;              /* grid shows straight through */
+  border-bottom: 1px solid var(--border-bright);
+}
+.tab {
+  cursor: pointer;
+  background: transparent;              /* no fill — the grid reads through */
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);           /* keeps label legible over scrolled content */
+  border: 1px solid var(--border-bright);
+  padding: 13px 26px;
+  font-family: var(--font-mono); font-size: 14px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--text); transition: .15s;
+  display: flex; align-items: baseline; gap: 10px;
+  position: relative;
+}
+.tab:hover { border-color: var(--accent); color: var(--text-bright); }
+.tab[aria-selected="true"] {
+  background: var(--accent-dim);        /* translucent wash, not a solid block */
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);   /* doubled border = weight without fill */
+  font-weight: 500;
+}
+/* pointer nub under the active tab */
+.tab[aria-selected="true"]::after {
+  content: ''; position: absolute; left: 50%; bottom: -7px;
+  width: 10px; height: 10px; background: var(--accent);
+  transform: translateX(-50%) rotate(45deg);
+}
+.tab-idx { font-size: 10.5px; opacity: .7; }
+.tab-panel[hidden] { display: none; }
 
-    /* ── PROGRESS BAR ────────────────────────────────── */
-    .progress-container {
-      margin-bottom: 1.25rem;
-    }
-    .progress-label {
-      font-family: var(--font-mono); font-size: 10px;
-      color: var(--text-dim); display: flex; justify-content: space-between;
-      margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .progress-bar {
-      height: 4px; background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border); overflow: hidden; position: relative;
-    }
-    .progress-fill {
-      height: 100%; background: var(--accent); width: 0%;
-      transition: width 1s ease-out;
-    }
+/* sub-block heading inside a panel */
+.subblock { padding-top: 54px; scroll-margin-top: 90px; }
+.subblock-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+  color: var(--text-dim); text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+}
+.subblock-label::after { content:''; flex:1; height:1px; background: var(--border); }
 
-    .card-badge {
-      font-family: var(--font-mono); font-size: 10px; padding: 2px 8px;
-      background: rgba(255,255,255,0.05); color: var(--text-dim);
-      letter-spacing: 0.08em; white-space: nowrap; flex-shrink: 0;
-      border: 1px solid var(--border);
-    }
-    .card-meta {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      margin-bottom: 0.75rem; display: flex; gap: 1rem; flex-wrap: wrap;
-    }
-    .card p {
-      font-size: 14px; color: var(--text); margin-bottom: 1.25rem; line-height: 1.65;
-    }
-    .card-tags {
-      display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem;
-    }
-    .tag {
-      font-family: var(--font-mono); font-size: 10px; padding: 2px 8px;
-      border: 1px solid var(--border); color: var(--text-dim); letter-spacing: 0.05em;
-    }
-    .card-link {
-      font-family: var(--font-mono); font-size: 12px; color: var(--accent);
-      text-decoration: none; display: inline-flex; align-items: center;
-      gap: 0.4rem; letter-spacing: 0.05em; transition: gap 0.2s;
-    }
-    .card-link:hover { gap: 0.7rem; }
-    .card-placeholder {
-      border-style: dashed; display: flex; align-items: center;
-      justify-content: center; min-height: 200px; text-align: center;
-    }
-    .card-placeholder-inner { pointer-events: none; }
-    .card-placeholder .ph-label {
-      font-family: var(--font-mono); font-size: 11px;
-      color: var(--text-dim); margin-bottom: 0.5rem;
-    }
-    .card-placeholder .ph-title {
-      font-family: var(--font-display); font-size: 1.1rem; color: var(--text-dim);
-    }
+/* teaser strip linking to the method tab */
+.tab-teaser {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  margin-top: 60px; padding: 20px 24px;
+  border: 1px solid var(--border-bright); background: var(--surface);
+  cursor: pointer; width: 100%; text-align: left; font-family: inherit;
+  transition: .15s;
+}
+.tab-teaser:hover { border-color: var(--accent); background: var(--surface-raised); }
+.tab-teaser-txt { flex: 1; min-width: 260px; }
+.tab-teaser-txt b {
+  display: block; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .18em; color: var(--accent); text-transform: uppercase;
+  margin-bottom: 5px; font-weight: 500;
+}
+.tab-teaser-txt span { font-size: 15.5px; color: var(--text-bright); }
+.tab-teaser-go {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em;
+  color: var(--accent); white-space: nowrap;
+}
 
-    /* ── ABOUT ───────────────────────────────────────── */
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 320px; gap: 4rem; align-items: start;
-    }
-    .about-bio p { margin-bottom: 1.25rem; line-height: 1.8; }
-    .about-bio p:first-child { font-size: 1.05rem; color: var(--text-bright); }
-    .about-cta { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+/* third tab exists only on narrow screens */
+.tab-person { display: none; }
 
-    .sidebar {
-      background: var(--surface); border: 1px solid var(--border); padding: 1.5rem;
-    }
-    .sidebar-block { margin-bottom: 1.5rem; }
-    .sidebar-block:last-child { margin-bottom: 0; }
-    .sidebar-heading {
-      font-family: var(--font-mono); font-size: 10px; color: var(--accent);
-      letter-spacing: 0.15em; text-transform: uppercase;
-      border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; margin-bottom: 0.5rem;
-    }
-    .sidebar-row {
-      font-family: var(--font-mono); font-size: 12px; color: var(--text);
-      padding: 0.22rem 0; display: flex; align-items: center; gap: 0.5rem;
-    }
-    .sidebar-row::before { content: '·'; color: var(--accent); }
-    .status-dot {
-      display: inline-block; width: 6px; height: 6px;
-      border-radius: 50%; background: #4ec97b; margin-right: 4px;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+/* compact identity strip — narrow screens only, keeps name + CV always visible */
+.ident {
+  display: none;
+  align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 14px 0; margin-top: 8px;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.ident-name {
+  font-family: var(--font-display); font-size: 26px; line-height: 1;
+  color: var(--text-bright); letter-spacing: .02em; margin-right: auto;
+}
+.ident-name span { color: var(--accent); }
+.ident .btn-cv { margin-top: 0; padding: 9px 16px; }
 
-    /* ── DOWNLOADS ───────────────────────────────────── */
-    .dl-card {
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      display: grid; grid-template-columns: 1fr auto;
-      gap: 2rem; align-items: center; margin-bottom: 1.5rem;
-    }
-    .dl-title {
-      font-family: var(--font-display); font-size: 1.6rem;
-      color: var(--text-bright); letter-spacing: 0.02em; margin-bottom: 0.25rem;
-    }
-    .dl-desc { font-size: 14px; color: var(--text); }
-    .dl-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .btn-dl {
-      font-family: var(--font-mono); font-size: 11px; padding: 0.5rem 0.9rem;
-      border: 1px solid var(--border); color: var(--text-dim); text-decoration: none;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      transition: all 0.2s; letter-spacing: 0.05em; white-space: nowrap;
-    }
-    .btn-dl:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-    .dl-note {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      margin-top: 0.5rem;
-    }
-    .dl-note a { color: var(--accent); text-decoration: none; }
+@media (max-width: 1100px) {
+  .tab-person { display: flex; }
+  .ident { display: flex; }
+  /* the rail is relocated into the person panel by JS at this width */
+  .rail { border-bottom: 0; padding-top: 8px; }
+  .rail .stamp { display: none; }
+}
 
-    /* ── BLOG ────────────────────────────────────────── */
-    .blog-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.5rem;
-    }
-    .blog-card {
-      background: var(--surface); border: 1px solid var(--border); padding: 1.5rem;
-    }
-    .blog-date {
-      font-family: var(--font-mono); font-size: 10px;
-      color: var(--text-dim); letter-spacing: 0.12em; margin-bottom: 0.5rem;
-    }
-    .blog-title {
-      font-family: var(--font-body); font-size: 1.05rem; font-weight: 600;
-      color: var(--text-bright); margin-bottom: 0.5rem; line-height: 1.4;
-    }
-    .blog-excerpt {
-      font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 1rem;
-    }
+@media (max-width: 640px) {
+  .tabs { gap: 6px; }
+  .tab { padding: 11px 14px; font-size: 11px; letter-spacing: .06em; }
+  .tab-idx { display: none; }
+}
 
-    /* ── FOOTER ──────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem; max-width: 1100px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: flex-end;
-      gap: 1rem; flex-wrap: wrap;
-    }
-    .footer-brand {
-      font-family: var(--font-mono); font-size: 13px; color: var(--accent);
-    }
-    .footer-brand small {
-      display: block; font-size: 10px; color: var(--text-dim);
-      margin-top: 0.25rem; letter-spacing: 0.08em;
-    }
-    .footer-meta {
-      font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-      text-align: right; line-height: 1.8;
-    }
-    .footer-meta a { color: var(--accent); text-decoration: none; }
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section { padding-top: 72px; }
+.section-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+  color: var(--text-dim); text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+}
+.section-label::after { content:''; flex:1; height:1px; background: var(--border); }
+.rev { color: var(--accent); }
+.section-title {
+  font-family: var(--font-display); font-size: 40px; color: var(--text-bright);
+  letter-spacing: .02em; margin-bottom: 8px;
+}
+.section-note { font-size: 14.5px; color: var(--text-dim); margin-bottom: 34px; }
 
-    /* ── SCROLL REVEAL ───────────────────────────────── */
-    .reveal {
-      opacity: 0; transform: translateY(18px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+/* ============================================================
+   BUILD — the self-contained project block
+   ============================================================ */
+.build {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  margin-bottom: 30px;
+  position: relative;
+}
+.build:hover { border-color: var(--border-bright); }
+.build::before {
+  content: ''; position: absolute; top: -1px; left: -1px;
+  width: 9px; height: 9px;
+  border-top: 2px solid var(--accent); border-left: 2px solid var(--accent);
+}
 
-    /* ── RESPONSIVE ──────────────────────────────────── */
-    @media (max-width: 820px) {
-      .nav-links { display: none; }
-      .nav-links.open {
-        display: flex; flex-direction: column;
-        position: absolute; top: var(--nav-h); left: 0; right: 0;
-        background: rgba(8,17,31,0.97); border-bottom: 1px solid var(--border);
-      }
-      .nav-links.open a {
-        border-left: none; border-top: 1px solid var(--border); border-right: none;
-        padding: 1rem 2rem;
-      }
-      .hamburger { display: flex; }
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .dl-card { grid-template-columns: 1fr; }
-      footer { flex-direction: column; align-items: flex-start; }
-      .footer-meta { text-align: left; }
-      section { padding: calc(var(--nav-h) + 2rem) 1rem 2.5rem; }
-      nav { padding: 0 1rem; }
-      .ann { display: none; }
-    }
+.build-head {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 16px 22px; border-bottom: 1px solid var(--border);
+  background: var(--surface-raised);
+}
+.build-idx {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .16em;
+  color: var(--text-dim);
+}
+.build-name {
+  font-family: var(--font-display); font-size: 31px; letter-spacing: .03em;
+  color: var(--text-bright); line-height: 1; margin-right: auto;
+}
+.status {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em;
+  padding: 4px 9px; border: 1px solid currentColor; text-transform: uppercase;
+}
+.status.review { color: var(--warn); }
+.status.dev    { color: var(--text-dim); }
+.status.live   { color: var(--ok); }
+.build-plat {
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim);
+  letter-spacing: .08em;
+}
 
-    /* ── SCREENSHOT CLUSTER ──────────────────────────── */
-    .screenshot-cluster .shots-desktop {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-    }
-    .screenshot-cluster .shots-mobile {
-      display: flex; gap: 12px; justify-content: center; margin-top: 12px; flex-wrap: wrap;
-    }
-    .screenshot-cluster img {
-      display: block; width: 100%; height: auto;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      cursor: zoom-in;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .screenshot-cluster .shots-mobile img { width: auto; max-height: 300px; }
-    .screenshot-cluster img:hover {
-      border-color: var(--border-bright);
-      box-shadow: 0 0 15px var(--accent-dim);
-    }
-    @media (max-width: 600px) {
-      .screenshot-cluster .shots-desktop { grid-template-columns: 1fr; }
-    }
+.build-claim {
+  padding: 20px 22px 0; font-size: 16.5px; color: var(--text-bright);
+}
 
-    /* ── LIGHTBOX ────────────────────────────────────── */
-    .lightbox-overlay {
-      position: fixed; inset: 0; z-index: 2000;
-      display: none; align-items: center; justify-content: center;
-      padding: 4vh 4vw;
-      background: rgba(4, 9, 17, 0.92);
-      backdrop-filter: blur(6px);
-      cursor: zoom-out;
-    }
-    .lightbox-overlay.open { display: flex; }
-    .lightbox-overlay img {
-      max-width: 100%; max-height: 92vh; width: auto; height: auto;
-      border: 1px solid var(--border-bright);
-      box-shadow: 0 0 45px rgba(0, 0, 0, 0.6);
-    }
-    .lightbox-hint {
-      position: fixed; bottom: 18px; left: 0; right: 0;
-      text-align: center; font-family: var(--font-mono);
-      font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em;
-    }
-    .lightbox-nav {
-      position: fixed; top: 50%; transform: translateY(-50%);
-      z-index: 2001;
-      width: 48px; height: 48px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(13, 26, 46, 0.7);
-      border: 1px solid var(--border-bright);
-      color: var(--text-bright);
-      font-family: var(--font-mono); font-size: 26px; line-height: 1;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s;
-    }
-    .lightbox-nav:hover { background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
-    .lightbox-prev { left: 3vw; }
-    .lightbox-next { right: 3vw; }
-  </style>
+.build-body {
+  display: grid; grid-template-columns: minmax(300px, 1.05fr) .95fr; gap: 30px;
+  padding: 20px 22px 4px;
+}
+/* ---------- photo pile: scattered prints, fans out on hover ---------- */
+.pile {
+  position: relative; width: 100%; aspect-ratio: 1 / 0.86; cursor: zoom-in;
+  background: var(--pile-bed);
+  border: 1px solid var(--pile-edge);
+}
+/* corner tick, matching the build blocks */
+.pile::after {
+  content: ''; position: absolute; left: -1px; bottom: -1px;
+  width: 9px; height: 9px;
+  border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent);
+  z-index: 9;
+}
+.pile img {
+  position: absolute; left: 50%; top: 50%; width: 62%; height: auto;
+  padding: 5px 5px 12px; background: var(--print); border-radius: 1px;
+  box-shadow: 0 7px 18px var(--print-shadow);
+  transform-origin: center center;
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+.pile img.portrait { width: 30%; }
+.pile img:nth-child(1) { transform: translate(-50%,-50%) rotate(-6deg) translate(-13px,-11px); z-index: 1; }
+.pile img:nth-child(2) { transform: translate(-50%,-50%) rotate(4deg)  translate(8px,-6px);    z-index: 2; }
+.pile img:nth-child(3) { transform: translate(-50%,-50%) rotate(-3deg) translate(-6px,8px);    z-index: 3; }
+.pile img:nth-child(4) { transform: translate(-50%,-50%) rotate(6deg)  translate(11px,13px);   z-index: 4; }
+.pile img.portrait:nth-child(5) { transform: translate(-50%,-50%) rotate(-9deg) translate(-78px,10px); z-index: 0; }
+.pile img.portrait:nth-child(6) { transform: translate(-50%,-50%) rotate(9deg)  translate(78px,6px);   z-index: 0; }
+.pile:hover img { box-shadow: 0 12px 26px var(--print-shadow); }
+.pile:hover img:nth-child(1) { transform: translate(-50%,-50%) rotate(-11deg) translate(-72px,-44px); }
+.pile:hover img:nth-child(2) { transform: translate(-50%,-50%) rotate(8deg)   translate(58px,-34px);  }
+.pile:hover img:nth-child(3) { transform: translate(-50%,-50%) rotate(-5deg)  translate(-52px,44px);  }
+.pile:hover img:nth-child(4) { transform: translate(-50%,-50%) rotate(11deg)  translate(66px,50px);   }
+.pile:hover img.portrait:nth-child(5) { transform: translate(-50%,-50%) rotate(-15deg) translate(-142px,18px); }
+.pile:hover img.portrait:nth-child(6) { transform: translate(-50%,-50%) rotate(15deg)  translate(142px,14px);  }
+.pile-cap {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);
+  letter-spacing: .1em; text-align: center; margin-top: 6px;
+}
+
+/* lightbox */
+.lb {
+  position: fixed; inset: 0; z-index: 200; display: none;
+  align-items: center; justify-content: center; padding: 40px;
+  background: rgba(0,0,0,.86); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.lb.on { display: flex; }
+.lb img { max-width: 92vw; max-height: 84vh; box-shadow: 0 20px 60px rgba(0,0,0,.7); }
+.lb-close, .lb-nav {
+  position: absolute; background: none; border: 1px solid var(--border-bright);
+  color: var(--text-bright); font-family: var(--font-mono); cursor: pointer;
+  padding: 8px 14px; font-size: 13px;
+}
+.lb-close { top: 24px; right: 24px; }
+.lb-nav.prev { left: 24px; top: 50%; }
+.lb-nav.next { right: 24px; top: 50%; }
+.lb-count {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: .12em;
+}
+
+.build-shot {
+  border: 1px solid var(--border); background: var(--bg); overflow: hidden;
+}
+/* pile column sits above the prose so fanned prints spill OVER the text */
+.build-body > .build-shot { position: relative; z-index: 5; overflow: visible; }
+.build-body > .pas { position: relative; z-index: 1; }
+.pile { z-index: 5; }
+.pile:hover { z-index: 30; }
+.build-shot img { width: 100%; }
+.shot-placeholder {
+  aspect-ratio: 16 / 10; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 9px, var(--grid-major) 9px 10px);
+  border-bottom: 1px solid var(--border);
+}
+.shot-placeholder span {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+  color: var(--text-dim);
+}
+.shot-placeholder small { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); opacity: .7; }
+.build-shot figcaption {
+  font-family: var(--font-mono); font-size: 10px; color: var(--text-dim);
+  padding: 6px 9px; border-top: 1px solid var(--border); letter-spacing: .08em;
+}
+.pas dt {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 4px;
+}
+.pas dd { font-size: 14.5px; margin-bottom: 16px; }
+.pas dd strong { color: var(--text-bright); font-weight: 600; }
+.pas dd:last-child { margin-bottom: 0; }
+
+.build-legal {
+  flex: 1 1 100%; display: flex; gap: 14px; flex-wrap: wrap;
+  margin-top: 12px; padding-top: 11px; border-top: 1px dashed var(--border);
+}
+.build-legal a, .build-legal span {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em;
+  color: var(--text-dim); text-transform: uppercase;
+}
+.build-legal a:hover { color: var(--accent); }
+.build-legal .lg-label { color: var(--text-dim); opacity: .7; }
+.build-foot {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 16px 22px; margin-top: 16px; border-top: 1px solid var(--border);
+}
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-right: auto; }
+.tags span {
+  background: var(--tag); color: var(--tag-text);
+  font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; letter-spacing: .07em;
+}
+.build-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.lnk {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em;
+  border: 1px solid var(--border-bright); padding: 6px 12px; color: var(--text);
+}
+.lnk:hover { border-color: var(--accent); color: var(--accent); }
+.lnk.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+
+/* placeholder build */
+.build.tbd { border-style: dashed; background: transparent; }
+.build.tbd .build-head { background: transparent; }
+.build.tbd .build-name { color: var(--text-dim); }
+.build-tbd-body { padding: 22px; font-size: 14.5px; color: var(--text-dim); }
+
+
+/* ---------- swim-lane diagram ---------- */
+.swim-wrap { overflow-x: auto; margin: 0 0 40px; padding-bottom: 4px; }
+.swim { width: 100%; min-width: 660px; height: auto; display: block; }
+.swim .lane-bg { fill: var(--surface); }
+.swim .lane-tool { fill: none; }
+.swim .lane-head {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; font-weight: 500;
+}
+.swim .lane-t-me { fill: var(--accent); }
+.swim .lane-t-llm { fill: var(--llm); }
+.swim .lane-t-tool { fill: var(--tool); }
+.swim .row-rule { stroke: var(--border); stroke-width: 1; }
+.swim .flow {
+  fill: none; stroke: var(--accent); stroke-width: 2.5;
+  stroke-linecap: round; opacity: .5; stroke-dasharray: 1 7;
+}
+.swim .node-me { fill: var(--accent); }
+.swim .node-llm { fill: var(--llm); }
+.swim .chip-tool { fill: var(--tool); }
+.swim .chip-pend { fill: none; stroke: var(--tool); stroke-width: 1.5; }
+.swim .st-num {
+  font-family: var(--font-mono); font-size: 12px; fill: var(--accent); letter-spacing: .08em;
+}
+.swim .st-title { font-family: var(--font-body); font-size: 13px; fill: var(--text-bright); }
+.swim .tool-lbl { font-family: var(--font-mono); font-size: 10.5px; fill: var(--tool); letter-spacing: .05em; }
+.swim .tool-pend { opacity: .75; }
+.swim .tool-none {
+  font-family: var(--font-mono); font-size: 10px; fill: var(--text-dim);
+  letter-spacing: .05em; font-style: italic;
+}
+.swim .phase-brk { fill: none; stroke: var(--border-bright); stroke-width: 1; }
+.swim .phase-lbl {
+  font-family: var(--font-mono); font-size: 9.5px; fill: var(--text-dim); letter-spacing: .18em;
+}
+.swim .legend { font-family: var(--font-mono); font-size: 10px; fill: var(--text-dim); letter-spacing: .06em; }
+.swim .legend-note { opacity: .8; }
+
+/* ============================================================
+   METHOD — the AI-directed product pipeline
+   ============================================================ */
+.phase { margin-bottom: 30px; }
+.phase-head {
+  display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px;
+}
+.phase-tag {
+  font-family: var(--font-display); font-size: 25px; letter-spacing: .05em;
+  color: var(--text-bright); line-height: 1;
+}
+.phase-range {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em;
+  color: var(--accent);
+}
+.phase-note {
+  font-size: 13.5px; color: var(--text-dim); margin-bottom: 16px;
+}
+
+.stage {
+  position: relative;
+  display: grid; grid-template-columns: 52px minmax(0,1fr);
+  gap: 18px; padding: 16px 0 16px 0;
+  border-top: 1px solid var(--border);
+}
+.stage:last-child { border-bottom: 1px solid var(--border); }
+/* the spine */
+.stage::before {
+  content: ''; position: absolute; left: 21px; top: 0; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.stage:first-of-type::before { top: 26px; }
+.stage:last-of-type::before  { bottom: 26px; }
+
+.stage-num {
+  position: relative; z-index: 1;
+  width: 42px; height: 42px; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border-bright); background: var(--bg);
+  font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+}
+.stage-body h4 {
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: .1em;
+  color: var(--text-bright); text-transform: uppercase; font-weight: 500;
+  margin-bottom: 5px;
+}
+.stage-body p { font-size: 14.5px; }
+
+.stage-tool {
+  margin-top: 10px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  border-top: 1px dashed var(--border); padding-top: 9px;
+}
+.stage-tool b {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .16em;
+  color: var(--text-dim); text-transform: uppercase; font-weight: 500;
+}
+.stage-tool .tool {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+  color: var(--accent); border: 1px solid var(--accent);
+  background: var(--accent-dim); padding: 2px 9px;
+}
+.stage-tool .tool.pending { color: var(--text-dim); border-color: var(--border-bright); background: none; }
+.stage-tool .tool.none { color: var(--text-dim); border: 0; background: none; padding-left: 0; font-style: italic; }
+.stage-tool .tool-note { font-size: 13px; color: var(--text-dim); flex: 1; min-width: 240px; }
+.pending-note { color: var(--accent); font-weight: 500; letter-spacing: .04em; }
+.tool-items { flex: 1 1 100%; display: flex; flex-direction: column; gap: 9px; }
+.tool-item { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.tool-item .tool-note { flex: 1; min-width: 240px; }
+.tool .span-note {
+  font-size: 9px; letter-spacing: .14em; opacity: .75; margin-left: 7px;
+}
+
+.spans {
+  border: 1px solid var(--border-bright); background: var(--surface);
+  padding: 20px 22px; margin-top: 34px;
+}
+.spans h4 {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 6px;
+}
+.spans > p { font-size: 14px; color: var(--text-dim); margin-bottom: 16px; }
+.span-row { display: grid; grid-template-columns: 190px minmax(0,1fr); gap: 16px; padding: 11px 0; border-top: 1px solid var(--border); }
+.span-row .n { font-family: var(--font-mono); font-size: 12px; color: var(--text-bright); letter-spacing: .06em; }
+.span-row .n em { display: block; font-style: normal; font-size: 9px; letter-spacing: .14em; color: var(--text-dim); text-transform: uppercase; margin-top: 3px; }
+.span-row p { font-size: 14px; }
+.span-row p strong { color: var(--text-bright); }
+@media (max-width: 640px) { .span-row { grid-template-columns: 1fr; gap: 4px; } }
+
+.stage-eg {
+  margin-top: 9px; padding: 8px 12px;
+  background: var(--surface); border-left: 2px solid var(--accent);
+  font-size: 13.5px; color: var(--text);
+}
+.eg-list { list-style: none; margin-top: 7px; }
+.eg-list li { padding: 4px 0 4px 14px; position: relative; }
+.eg-list li::before {
+  content: '\2022'; position: absolute; left: 0; color: var(--accent);
+}
+.eg-list b {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em;
+  color: var(--text-bright); text-transform: none; display: inline;
+  margin: 0; letter-spacing: .05em;
+}
+.stage-eg > b:first-child {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .16em;
+  color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 2px;
+  font-weight: 500;
+}
+.stage-eg b { color: var(--text-bright); font-weight: 600; }
+
+.ai-role {
+  display: inline-block; margin-left: 8px;
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .12em;
+  padding: 2px 7px; border: 1px solid var(--border-bright); color: var(--text-dim);
+  text-transform: uppercase; vertical-align: 2px;
+}
+.ai-role.lead { color: var(--accent); border-color: var(--accent); }
+
+.principles {
+  border: 1px solid var(--accent); background: var(--accent-dim);
+  margin-bottom: 34px;
+}
+.principle {
+  display: grid; grid-template-columns: 62px minmax(0,1fr);
+  gap: 4px 16px; padding: 16px 20px;
+}
+.principle + .principle { border-top: 1px solid var(--accent); }
+.principle .pn {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .16em;
+  color: var(--accent); text-transform: uppercase; padding-top: 4px;
+}
+.principle p { font-size: 15px; color: var(--text-bright); }
+.principle p em {
+  display: block; font-style: normal; margin-top: 6px;
+  font-size: 13.5px; color: var(--text);
+}
+@media (max-width: 640px) {
+  .principle { grid-template-columns: 1fr; gap: 6px; }
+}
+
+@media (max-width: 640px) {
+  .stage { grid-template-columns: 34px minmax(0,1fr); gap: 12px; }
+  .stage::before { left: 16px; }
+  .stage-num { width: 32px; height: 32px; font-size: 11px; }
+}
+
+/* ============================================================
+   SUPPORTING WORK — compact index table
+   ============================================================ */
+.index-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); }
+.index-table th {
+  text-align: left; font-size: 10px; letter-spacing: .16em; color: var(--text-dim);
+  text-transform: uppercase; font-weight: 400; padding: 0 14px 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+.index-table td {
+  padding: 13px 14px 13px 0; border-bottom: 1px solid var(--border);
+  font-size: 12.5px; vertical-align: top;
+}
+.index-table tr:hover td { background: var(--surface); }
+.ix-lead td { background: var(--surface); border-bottom-color: var(--border-bright); }
+.ix-name em {
+  display: inline-block; font-style: normal; margin-left: 8px;
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); border: 1px solid var(--accent); padding: 2px 6px;
+}
+.ix-name { color: var(--text-bright); letter-spacing: .06em; white-space: nowrap; }
+.ix-desc { font-family: var(--font-body); font-size: 14px; }
+.ix-desc code { font-family: var(--font-mono); font-size: 12px; color: var(--tag-text); }
+.ix-stack { color: var(--text-dim); font-size: 10.5px; letter-spacing: .06em; white-space: nowrap; }
+.ix-link { white-space: nowrap; }
+.ix-stages { color: var(--accent); font-size: 11px; letter-spacing: .1em; white-space: nowrap; }
+.ix-muted { color: var(--text-dim); font-size: 11px; letter-spacing: .06em; }
+.components { padding-top: 54px; }
+
+/* ============================================================
+   RESPONSIVE — rail unpins and leads the page
+   ============================================================ */
+@media (max-width: 1100px) {
+  .shell { grid-template-columns: 1fr; gap: 0; padding: 0 24px; }
+  .rail {
+    position: static; height: auto; order: -1;
+    border-left: 0; border-bottom: 1px solid var(--border);
+    padding: 32px 0 26px;
+  }
+  .btn-cv { margin-top: 22px; }
+  .main { padding-top: 34px; }
+  .build-body { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .build-head { padding: 14px 16px; }
+  .build-claim, .build-body, .build-foot { padding-left: 16px; padding-right: 16px; }
+  .index-table thead { display: none; }
+  .index-table td { display: block; padding: 4px 0; border: 0; }
+  .index-table tr { display: block; padding: 14px 0; border-bottom: 1px solid var(--border); }
+}
+</style>
 </head>
 <body>
 
-<!-- ── NAV ──────────────────────────────────────────── -->
-<nav>
-  <a href="#hero" class="nav-logo">oeh<span>.dev</span></a>
-  <div class="hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </div>
-  <ul class="nav-links" id="nav-links">
-    <a href="#about">~/about</a>
-    <a href="#projects">~/projects</a>
-    <a href="#apps">~/apps</a>
-    <a href="#blog">~/blog</a>
-  </ul>
-</nav>
+<!-- global display control — site chrome, not part of the person -->
+<div class="theme-dock" role="group" aria-label="Colour scheme">
+  <span class="dock-label">Display</span>
+  <button class="theme-btn" data-set="blueprint" aria-pressed="false"  title="Blueprint" aria-label="Blueprint theme">Blueprint</button>
+  <button class="theme-btn" data-set="paper"     aria-pressed="true" title="Drafting paper" aria-label="Paper theme">Paper</button>
+  <button class="theme-btn" data-set="terminal"  aria-pressed="false" title="Terminal" aria-label="Terminal theme">Terminal</button>
+</div>
 
-<!-- ── HERO ─────────────────────────────────────────── -->
-<section id="hero">
-  <div class="annotations" aria-hidden="true">
-    <div class="ann tl">TOLERANCE: ±∞<br>MATERIAL: CAFFEINE<br>FINISH: SHIPPED</div>
-    <div class="ann tr">DRAWN BY: Animesh Sarkar<br>DATE: 2026 — ONGOING<br>SCALE: 1:TOO LARGE</div>
-    <div class="ann bl">REV A — INITIAL RELEASE<br>CHANGES: EVERYTHING<br>DO NOT FREEZE</div>
-    <div class="ann br">12.97°N  77.59°E<br>BUILD: FLUTTER + PYTHON<br>STATUS: COMPILING…</div>
+<div class="shell">
+
+  <!-- ==================== MAIN COLUMN ==================== -->
+  <main class="main">
+
+    <section class="hero">
+      <h1>Overengineered hobbies.<br><em>Shipped.</em></h1>
+      <p class="hero-lede">Finished is the hard part.</p>
+      <p class="hero-sub">
+        <strong>Every product on this page — including this website — I built end to
+        end by directing LLMs.</strong> I decide what's worth building at all, what
+        earns a place in v1 and what defers, and what it runs on; the models write the
+        first cut, then we prune and polish until v1 is genuinely finished — and I
+        take it through store review and everything after. One person, full product
+        lifecycle. The judgment is the job.
+      </p>
+      <div class="hero-facts">
+        <div><b>8</b><span>Products owned end to end</span></div>
+        <div><b>1</b><span>Live on Google Play</span></div>
+        <div><b>2</b><span>In store review</span></div>
+      </div>
+    </section>
+
+    <!-- compact identity strip — narrow screens only -->
+    <div class="ident">
+      <div class="ident-name">ANIMESH <span>SARKAR</span></div>
+      <a class="btn-cv" href="/assets/animesh_jun_2026.pdf">DOWNLOAD CV →</a>
+    </div>
+
+    <!-- ==================== TAB BAR ==================== -->
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="tab-work" aria-controls="panel-work"
+              aria-selected="true" data-tab="work">
+        <span class="tab-idx">01</span> The Work
+      </button>
+      <button class="tab" role="tab" id="tab-method" aria-controls="panel-method"
+              aria-selected="false" data-tab="method">
+        <span class="tab-idx">02</span> The Method
+      </button>
+      <button class="tab tab-person" role="tab" id="tab-person" aria-controls="panel-person"
+              aria-selected="false" data-tab="person">
+        <span class="tab-idx">03</span> The Person
+      </button>
+    </div>
+
+    <!-- ==================== PANEL: THE PERSON (narrow screens) ==================== -->
+    <!-- the .rail element is MOVED in here by JS below 1100px, so there is no
+         duplicate markup and nothing can drift out of sync -->
+    <div class="tab-panel" id="panel-person" role="tabpanel" aria-labelledby="tab-person" hidden></div>
+
+    <!-- ==================== PANEL: THE WORK ==================== -->
+    <div class="tab-panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work">
+
+    <section class="subblock" id="builds">
+      <p class="subblock-label">01 — The work <span class="rev">REV B</span></p>
+      <h2 class="section-title">SHIPPED &amp; SHIPPING</h2>
+      <p class="section-note">
+        Production applications taken all the way through packaging, signing and
+        store submission.
+      </p>
+
+      <!-- ---------- BUILD 01 ---------- -->
+      <article class="build">
+        <header class="build-head">
+          <span class="build-idx">BUILD 01</span>
+          <h3 class="build-name">PELLUCID</h3>
+          <span class="build-plat">macOS · Windows · iOS</span>
+          <span class="status review">In review</span>
+        </header>
+        <p class="build-claim">
+          A distraction-free writing environment whose interface fades out of the
+          writer's way — and syncs their manuscript without ever holding it hostage.
+        </p>
+        <div class="build-body">
+          <figure class="build-shot" style="border:0;background:none">
+            <div class="pile">
+            <img src="/assets/screenshots/pellucid/thumb/editor.jpg" data-full="/assets/screenshots/pellucid/full/editor.jpg" alt="Pellucid — editor" loading="lazy">
+            <img src="/assets/screenshots/pellucid/thumb/research-notes.jpg" data-full="/assets/screenshots/pellucid/full/research-notes.jpg" alt="Pellucid — research notes" loading="lazy">
+            <img src="/assets/screenshots/pellucid/thumb/snapshots.jpg" data-full="/assets/screenshots/pellucid/full/snapshots.jpg" alt="Pellucid — snapshots" loading="lazy">
+            <img src="/assets/screenshots/pellucid/thumb/table-of-contents.jpg" data-full="/assets/screenshots/pellucid/full/table-of-contents.jpg" alt="Pellucid — table of contents" loading="lazy">
+            <img class="portrait" src="/assets/screenshots/pellucid/thumb/mobile-editor.jpg" data-full="/assets/screenshots/pellucid/full/mobile-editor.jpg" alt="Pellucid — editor (mobile)" loading="lazy">
+            <img class="portrait" src="/assets/screenshots/pellucid/thumb/mobile-research-notes.jpg" data-full="/assets/screenshots/pellucid/full/mobile-research-notes.jpg" alt="Pellucid — research notes (mobile)" loading="lazy">
+            </div>
+            <figcaption class="pile-cap" style="border:0">6 SHOTS — CLICK TO ENLARGE</figcaption>
+          </figure>
+          <dl class="pas">
+            <dt>Problem</dt>
+            <dd>Writing apps interrupt flow with chrome, and cloud sync usually means
+                surrendering your files to a proprietary store.</dd>
+            <dt>Approach</dt>
+            <dd>A translucent “Whisper UI” that recedes while typing, over plain Markdown
+                on disk. Versioned Google&nbsp;Drive sync using only the
+                <code>drive.file</code> scope — the app can touch nothing it didn't create.</dd>
+            <dt>Outcome</dt>
+            <dd>Submitted to the Mac App Store; iOS and iPad builds green with
+                keyboard-first interaction and OAuth via ASWebAuthenticationSession.</dd>
+          </dl>
+        </div>
+        <footer class="build-foot">
+          <div class="tags"><span>FLUTTER</span><span>SQLITE</span><span>OAUTH 2.0</span><span>DESKTOP</span></div>
+          <div class="build-links">
+            <a class="lnk primary" href="/demos/pellucid/">Live demo</a>
+            <a class="lnk" href="https://github.com/parijjana/pellucid">Source</a>
+            <a class="lnk" href="/projects/pellucid.html">Project page</a>
+          </div>
+          <div class="build-legal"><span class="lg-label">Legal &amp; support</span><a href="/projects/pellucid_privacy.html">Privacy</a><a href="/projects/pellucid_support.html">Support</a><a href="/projects/pellucid_terms.html">Terms</a></div>
+        </footer>
+      </article>
+
+      <!-- ---------- BUILD 02 ---------- -->
+      <article class="build">
+        <header class="build-head">
+          <span class="build-idx">BUILD 02</span>
+          <h3 class="build-name">KALKRA</h3>
+          <span class="build-plat">macOS · iOS · Windows</span>
+          <span class="status review">In review</span>
+        </header>
+        <p class="build-claim">
+          A mental-arithmetic trainer that reads how fast you actually solve, and
+          re-tunes its difficulty in real time.
+        </p>
+        <div class="build-body">
+          <figure class="build-shot" style="border:0;background:none">
+            <div class="pile">
+            <img src="/assets/screenshots/kalkra/thumb/game.jpg" data-full="/assets/screenshots/kalkra/full/game.jpg" alt="Kalkra — gameplay" loading="lazy">
+            <img src="/assets/screenshots/kalkra/thumb/dashboard.jpg" data-full="/assets/screenshots/kalkra/full/dashboard.jpg" alt="Kalkra — dashboard" loading="lazy">
+            <img src="/assets/screenshots/kalkra/thumb/mode-select.jpg" data-full="/assets/screenshots/kalkra/full/mode-select.jpg" alt="Kalkra — mode select" loading="lazy">
+            <img src="/assets/screenshots/kalkra/thumb/stats.jpg" data-full="/assets/screenshots/kalkra/full/stats.jpg" alt="Kalkra — stats" loading="lazy">
+            <img class="portrait" src="/assets/screenshots/kalkra/thumb/mobile-dashboard.jpg" data-full="/assets/screenshots/kalkra/full/mobile-dashboard.jpg" alt="Kalkra — dashboard (mobile)" loading="lazy">
+            <img class="portrait" src="/assets/screenshots/kalkra/thumb/mobile-stats.jpg" data-full="/assets/screenshots/kalkra/full/mobile-stats.jpg" alt="Kalkra — stats (mobile)" loading="lazy">
+            </div>
+            <figcaption class="pile-cap" style="border:0">6 SHOTS — CLICK TO ENLARGE</figcaption>
+          </figure>
+          <dl class="pas">
+            <dt>Problem</dt>
+            <dd>Fixed-difficulty drill apps are either boring or discouraging, because
+                they never learn the player's actual ceiling.</dd>
+            <dt>Approach</dt>
+            <dd>A calibration engine that measures solve latency per operation type and
+                adjusts live. Fully offline and single-player — no accounts, no network,
+                no telemetry in store builds.</dd>
+            <dt>Outcome</dt>
+            <dd>Submitted to both the Mac and iOS App Stores, with a truthful
+                “Data Not Collected” privacy declaration on every storefront.</dd>
+          </dl>
+        </div>
+        <footer class="build-foot">
+          <div class="tags"><span>FLUTTER</span><span>GAME ENGINE</span><span>OFFLINE-FIRST</span></div>
+          <div class="build-links">
+            <a class="lnk primary" href="/demos/kalkra/">Live demo</a>
+            <a class="lnk" href="https://github.com/parijjana/Kalkra">Source</a>
+            <a class="lnk" href="/projects/kalkra.html">Project page</a>
+          </div>
+          <div class="build-legal"><span class="lg-label">Legal &amp; support</span><a href="/projects/kalkra_privacy.html">Privacy</a><a href="/projects/kalkra_support.html">Support</a></div>
+        </footer>
+      </article>
+
+      <!-- ---------- BUILD 03 ---------- -->
+      <article class="build">
+        <header class="build-head">
+          <span class="build-idx">BUILD 03</span>
+          <h3 class="build-name">GASTROTATOR</h3>
+          <span class="build-plat">Android</span>
+          <span class="status live">Live on Google Play</span>
+        </header>
+        <p class="build-claim">
+          Turns a twelve-minute cooking video into a structured, editable recipe with
+          nutritional estimates — the most technically involved thing here, and the
+          one you can install right now.
+        </p>
+        <div class="build-body">
+          <figure class="build-shot" style="border:0;background:none">
+            <div class="pile">
+            <img src="/assets/screenshots/gastrotator/thumb/recipe-detail.jpg" data-full="/assets/screenshots/gastrotator/full/recipe-detail.jpg" alt="Gastrotator — recipe detail" loading="lazy">
+            <img src="/assets/screenshots/gastrotator/thumb/home.jpg" data-full="/assets/screenshots/gastrotator/full/home.jpg" alt="Gastrotator — library" loading="lazy">
+            <img src="/assets/screenshots/gastrotator/thumb/settings.jpg" data-full="/assets/screenshots/gastrotator/full/settings.jpg" alt="Gastrotator — settings" loading="lazy">
+            <img class="portrait" src="/assets/screenshots/gastrotator/thumb/mobile-recipe.jpg" data-full="/assets/screenshots/gastrotator/full/mobile-recipe.jpg" alt="Gastrotator — recipe (phone)" loading="lazy">
+            <img class="portrait" src="/assets/screenshots/gastrotator/thumb/mobile-home.jpg" data-full="/assets/screenshots/gastrotator/full/mobile-home.jpg" alt="Gastrotator — library (phone)" loading="lazy">
+            </div>
+            <figcaption class="pile-cap" style="border:0">5 SHOTS — CLICK TO ENLARGE</figcaption>
+          </figure>
+          <dl class="pas">
+            <dt>Problem</dt>
+            <dd>The recipe in a cooking video is buried in twelve minutes of talking,
+                in no fixed order, with quantities stated casually or not at all.
+                Transcribing one by hand costs more than cooking from it.</dd>
+            <dt>Approach</dt>
+            <dd>A pipeline: pull the transcript, have Gemini extract ingredients,
+                quantities and ordered steps, normalise units to SI, then estimate
+                calories and weights. The hard part isn't the model call — it's
+                forcing non-deterministic output into a schema stable enough to
+                store, edit and trust.</dd>
+            <dt>Outcome</dt>
+            <dd>Shipped and live on Google Play. Less visually polished than the other
+                two; considerably more complex underneath.</dd>
+          </dl>
+        </div>
+        <footer class="build-foot">
+          <div class="tags"><span>FLUTTER</span><span>GEMINI</span><span>SQLITE</span><span>AI PIPELINE</span></div>
+          <div class="build-links">
+            <a class="lnk primary" href="https://play.google.com/store/apps/details?id=com.gastrotator.app">Google Play →</a>
+            <a class="lnk" href="https://github.com/parijjana/gastrotator_android">Source</a>
+            <a class="lnk" href="/projects/gastrotator.html">Project page</a>
+          </div>
+          <div class="build-legal"><span class="lg-label">Legal &amp; support</span><a href="https://parijjana.github.io/gastrotator_android/privacy_policy.html">Privacy</a></div>
+        </footer>
+      </article>
+
+      <!-- ---------- BUILD 04 — the research platform ---------- -->
+      <article class="build">
+        <header class="build-head">
+          <span class="build-idx">BUILD 04</span>
+          <h3 class="build-name">AULOS</h3>
+          <span class="build-plat">Windows · macOS</span>
+          <span class="status dev">Research — not for stores</span>
+        </header>
+        <p class="build-claim">
+          The bedrock. At ~44,000 lines it is very nearly as much code as all three
+          shipped apps combined — and the reason they were quick to build.
+        </p>
+        <div class="build-body">
+          <figure class="build-shot shot-missing">
+            <div class="shot-placeholder">
+              <span>SCREENSHOTS COMING SOON</span>
+              <small>desktop captures in progress</small>
+            </div>
+            <figcaption>LIBRARY — UNIFIED MEDIA VIEW</figcaption>
+          </figure>
+          <dl class="pas">
+            <dt>Problem</dt>
+            <dd>Music, podcasts and audiobooks each want different controls, different
+                resume behaviour and a different sense of progress — yet players
+                usually force one model onto all three. Separately: I needed somewhere
+                to work out architecture properly, without a release date attached.</dd>
+            <dt>Approach</dt>
+            <dd>A pure-Dart domain layer with the data layer behind it, and
+                strategy-pattern playback so the UI reconfigures itself per media type
+                rather than branching everywhere. Native thread-safety guarding for
+                Windows, and async disposal protection throughout.</dd>
+            <dt>Outcome</dt>
+            <dd>Deliberately never submitted anywhere. The layering, playback
+                abstraction and resilience patterns proven here are reused across the
+                store apps — <strong>they ship fast because this one didn't have
+                to</strong>.</dd>
+          </dl>
+        </div>
+        <footer class="build-foot">
+          <div class="tags"><span>FLUTTER</span><span>DRIFT</span><span>WINRT</span><span>DOMAIN LAYER</span></div>
+          <div class="build-links">
+            <a class="lnk" href="https://github.com/parijjana/Aulos">Source</a>
+            <a class="lnk" href="/projects/aulos.html">Project page</a>
+          </div>
+        </footer>
+      </article>
+
+      <!-- ---------- BUILD 05 — this site ---------- -->
+      <article class="build">
+        <header class="build-head">
+          <span class="build-idx">BUILD 05</span>
+          <h3 class="build-name">OVERENGINEEREDHOBBIES.DEV</h3>
+          <span class="build-plat">Web</span>
+          <span class="status live">Live — you're in it</span>
+        </header>
+        <p class="build-claim">
+          This page. A portfolio that is itself a build — generated from a database,
+          no frameworks, deployed to the edge.
+        </p>
+        <div class="build-body">
+          <figure class="build-shot" style="border:0;background:none">
+            <div class="pile">
+              <img src="/assets/screenshots/site/thumb/work-paper.jpg" data-full="/assets/screenshots/site/full/work-paper.jpg" alt="The Work, drafting-paper theme" loading="lazy">
+              <img src="/assets/screenshots/site/thumb/method-blueprint.jpg" data-full="/assets/screenshots/site/full/method-blueprint.jpg" alt="The Method, blueprint theme" loading="lazy">
+              <img src="/assets/screenshots/site/thumb/work-terminal.jpg" data-full="/assets/screenshots/site/full/work-terminal.jpg" alt="The Work, terminal theme" loading="lazy">
+              <img src="/assets/screenshots/site/thumb/method-paper.jpg" data-full="/assets/screenshots/site/full/method-paper.jpg" alt="The Method, drafting-paper theme" loading="lazy">
+            </div>
+            <figcaption class="pile-cap" style="border:0">THIS PAGE, THREE THEMES — CLICK TO ENLARGE</figcaption>
+          </figure>
+          <dl class="pas">
+            <dt>Problem</dt>
+            <dd>A portfolio that lists projects flatly says nothing about judgment —
+                and hand-maintained project pages rot the moment the work moves on.</dd>
+            <dt>Approach</dt>
+            <dd>Project data lives in SQLite; Python templates generate the static
+                pages. No framework, no build chain, no client-side rendering.
+                Theming is CSS custom properties, so a new palette is fifteen lines.</dd>
+            <dt>Outcome</dt>
+            <dd>Live on Cloudflare. The smallest build here by far — included because
+                the structure of this page is itself the argument.</dd>
+          </dl>
+        </div>
+        <footer class="build-foot">
+          <div class="tags"><span>PYTHON</span><span>SQLITE</span><span>CLOUDFLARE</span><span>NO FRAMEWORKS</span></div>
+          <div class="build-links">
+            <a class="lnk" href="https://github.com/parijjana/overengineeredhobbies-site">Source</a>
+          </div>
+        </footer>
+      </article>
+    </section>
+
+
+    
+
+      <!-- teaser: keeps the method visible to people who never click a tab -->
+      <button class="tab-teaser" data-goto="method">
+        <div class="tab-teaser-txt">
+          <b>The Method</b>
+          <span>Four of the seven stages happen before a line of code exists.</span>
+        </div>
+        <span class="tab-teaser-go">Read the method →</span>
+      </button>
+
+    </div><!-- /panel-work -->
+
+    <!-- ==================== PANEL: METHOD ==================== -->
+    <div class="tab-panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method" hidden>
+    <section class="subblock" id="method" style="padding-top:54px">
+      <p class="subblock-label">02 — Method <span class="rev">REV B</span></p>
+      <h2 class="section-title">HOW A PRODUCT GETS BUILT</h2>
+      <p class="section-note">
+        The same seven stages every time, across three products. AI does most of the
+        typing; the decisions are mine.
+      </p>
+
+      <div class="principles">
+        <div class="principle">
+          <span class="pn">Principle<br>01</span>
+          <p>Software is measured by <strong>how well it performs, not how beautifully
+             it was written</strong>.
+             <em>Process is earned, not default. Components everything else depends on
+             carry five-stage quality gates and self-updating indexes; the ones that
+             quietly do their job carry almost nothing — until they have to. Rigour
+             applied before a thing has justified its existence is just cost.</em></p>
+        </div>
+        <div class="principle">
+          <span class="pn">Principle<br>02</span>
+          <p>Why we are building it — and what it has to do — is settled
+             <strong>before a single line of code is written</strong>.
+             <em>Four of the seven stages happen before implementation begins. The two
+             where AI writes the most are the two that need the tightest direction,
+             which is why judgment concentrates exactly where no tool can help.</em></p>
+        </div>
+      </div>
+
+
+      <!-- ---------- PHASE 1 ---------- -->
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-tag">DECIDE</span>
+          <span class="phase-range">STAGES 01–04 · NO CODE YET</span>
+        </div>
+        <p class="phase-note">Where a product is won or lost. Everything after this is execution.</p>
+
+        <div class="stage">
+          <div class="stage-num">01</div>
+          <div class="stage-body">
+            <h4>Is it worth building at all<span class="ai-role">AI: none</span></h4>
+            <p>The kill decision. Most ideas do not survive it, and the ones that
+               don't survive save the most time.</p>
+            <div class="stage-eg"><b>In practice</b>
+              Gastrotator v2 is designed but unbuilt. The features that would justify
+              it depend on on-device intelligence, and that has not reached the market
+              penetration to make building it worthwhile yet. Not cancelled — waiting
+              on a condition outside my control.</div>
+          
+            <div class="stage-tool"><b>Tooling</b><span class="tool none">No tooling — this stage is thinking</span><span class="tool-note">LLMs used as a very fast, very wide search engine. Nothing to automate: the output is a yes or a no.</span></div>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="stage-num">02</div>
+          <div class="stage-body">
+            <h4>What the product actually is<span class="ai-role">AI: sounding board</span></h4>
+            <p>Deciding the shape — and cutting whole feature areas when they stop
+               serving the product.</p>
+            <div class="stage-eg"><b>In practice</b>
+              Pellucid began as two apps in one, with GitHub in between as a black box:
+              an author and an editor working on the same project, the editor raising
+              feedback the author would pick up. The editor view was cut: I
+              have no real insight into what an editor needs, and guessing would have
+              produced a worse tool than none at all. GitHub became Google Drive,
+              because durability mattered less than the destination being somewhere the
+              intended user already understands.</div>
+          
+            <div class="stage-tool"><b>Tooling</b><span class="tool pending">Skill for architecture and feature discovery<span class="span-note">STAGES 02–03</span></span><span class="tool-note">One pass that defines what the product is, what it must run on, and what there is to prioritise — so stages 02 and 03 share a single source of understanding. Undergoing polishing and pruning before it gets its public repo.</span></div>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="stage-num">03</div>
+          <div class="stage-body">
+            <h4>What it runs on<span class="ai-role">AI: research</span></h4>
+            <p>Architecture follows the product, never the reverse. The stack is chosen
+               to satisfy what stage 02 defined — reach, compliance limits, and what the
+               intended users already understand — not the other way round.</p>
+            <div class="stage-eg"><b>In practice</b>
+              Every app is Flutter, because every app is meant to be multiplatform —
+              and the playable demos on this site are those same builds compiled for
+              web, so showing them cost no rewrite. This site is not Flutter: a static
+              page gains nothing from it. The tooling splits the same way, by purpose
+              rather than preference — Python where it parses code and drives files,
+              JavaScript where the ecosystem is the better fit. And some tooling is not
+              a program at all: where the job is to direct an agent rather than run a
+              process, it ships as a Skill instead.</div>
+          
+            <div class="stage-tool"><b>Tooling</b><span class="tool pending">Skill for architecture and feature discovery<span class="span-note">STAGES 02–03</span></span><span class="tool-note">The same discovery pass surfaces the platform and compliance constraints the stack has to satisfy. Judgment still makes the call; prior lessons come from the memory layer below.</span></div>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="stage-num">04</div>
+          <div class="stage-body">
+            <h4>What earns v1, what gets deferred<span class="ai-role">AI: sounding board</span></h4>
+            <p>A release train rather than a wish list: each version gets a coherent
+               story, and everything else waits its turn.</p>
+            <div class="stage-eg"><b>In practice</b>
+              <ul class="eg-list">
+                <li><b>Kalkra:</b> multiplayer was built, then cut from v1. It stays out
+                    until there is evidence anyone wants it.</li>
+                <li><b>Gastrotator:</b> bring-your-own Gemini key was a late addition to
+                    v1, added precisely so the hobby project could be shared with other
+                    people. It is not a service I want to be paid for, and carrying
+                    inference costs for everyone would have made it one.</li>
+                <li><b>Pellucid:</b> desktop first, iPad second, two-way sync in 1.2,
+                    iCloud in 1.3. Deferred deliberately, not forgotten.</li>
+                <li><b>Aulos:</b> the inverse. It never reaches v1 on purpose. Staying a
+                    living codebase is the point, because that is what the framework has to
+                    be proven against.</li>
+              </ul></div>
+          
+            <div class="stage-tool"><b>Tooling</b><span class="tool">Concinnity</span><span class="tool-note">Ideas captured into lanes, then ranked head-to-head on an Elo model. Every comparison is stored with rationale and before/after ratings and published as an immutable ranking run, so a scope decision can be replayed months later instead of re-argued. <strong class="pending-note">Pending:</strong> the discovery pass from stages 02–03 should record its output straight into Concinnity — that hand-off is not built yet.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- PHASE 2 ---------- -->
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-tag">BUILD</span>
+          <span class="phase-range">STAGES 05–06 · AI DOES THE TYPING</span>
+        </div>
+        <p class="phase-note">Speed first, then judgment. The two stages are deliberately opposite in temperament.</p>
+
+        <div class="stage">
+          <div class="stage-num">05</div>
+          <div class="stage-body">
+            <h4>Let AI run<span class="ai-role lead">AI: lead</span></h4>
+            <p>Everything above exists to make this stage possible. Stages 01 to 04 do
+               not produce a document; they produce an executable brief — a sequenced
+               plan, scoped so agents can be handed disjoint pieces, every feature
+               carrying both its objective and the reason it exists, against an
+               architecture already decided. Given that, the agent can genuinely be let
+               loose.</p>
+            <div class="stage-eg"><b>In practice</b>
+              For anything headed to a storefront, the stage starts <b>before</b> the
+              code: the gates go up first — static analysis, a size ratchet, structural
+              rules, hermetic tests, coverage — so test-driven development is enforced
+              deterministically from the first token, rather than depending on an agent
+              choosing to be disciplined. Small experiments skip this entirely; process
+              is earned, not default.
+              <br><br>
+              Work then fans out rather than queues: a lead model decomposing the brief and
+              dispatching each piece to the cheapest model that can carry it, or a
+              provider's swarm mode where one exists. File-level fences keep parallel
+              agents off each other's work.
+              <br><br>
+              This is the only stage I am genuinely hands-off for — my involvement is
+              granting permissions. What comes back is not snippets or a scaffold but
+              <b>one working codebase</b>. With the gates in place it cannot arrive any
+              other way — running is not a hope, it is the precondition of getting
+              through. Which makes it complete enough to argue with. That is precisely what stage 06 needs. You cannot
+              give specific, directed feedback on something you have only imagined.
+              <br><br>
+              This is the stage where the model earns its keep.</div>
+          
+            <div class="stage-tool"><b>Tooling</b>
+              <div class="tool-items">
+                <div class="tool-item"><span class="tool">Karst</span><span class="tool-note">Agents get a knowledge graph instead of grep: tree-sitter parsing into SQLite, hybrid semantic and lexical search, kept current by a pre-commit hook that re-indexes changed files.</span></div>
+                <div class="tool-item"><span class="tool">Lore</span><span class="tool-note">Hands the agent lessons already paid for elsewhere, so a mistake made once in one project is not made again in another.</span></div>
+                <div class="tool-item"><span class="tool">ContextHistory</span><span class="tool-note">Supplies the accumulated project context, so a fresh agent session begins with the history rather than re-deriving it from the code.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage">
+          <div class="stage-num">06</div>
+          <div class="stage-body">
+            <h4>Prune and polish, together<span class="ai-role lead">AI: pair</span></h4>
+            <p>The longest stage, and the one that cannot be delegated. The gates
+               guarantee the code runs; nothing guarantees it is worth using. This is
+               where the product acquires the quality that justified building it — the
+               part no brief can specify, no test can assert, and an agent has no way to
+               know is missing, because everything it was asked for is present and
+               working.</p>
+            <div class="stage-eg"><b>In practice</b>
+              Pellucid looked like Notepad until this stage. Every widget was in place
+              and everything worked — a text box with a crowd of controls around it.
+              But the entire premise of the app was to get out of the writer's way, and
+              none of that existed yet. The Whisper UI — chrome that recedes as you type
+              and returns when you reach for it — was built here, in the pass after the
+              code already ran.
+              <br><br>
+              <b>Stage 05 produced a text editor. Stage 06 produced Pellucid.</b>
+              <br><br>
+              The same pass cuts what the first cut over-built. Agents are generous with
+              abstraction and features; most of what gets removed here was never asked
+              for. And it is where defects surface that no gate catches — the ones
+              visible only in how the thing behaves, not in whether it passes.
+              <br><br>
+              This page is in that pass now. Stage 05 produced a structure that worked;
+              everything since has been deciding what stays, what gets added, what is
+              cut, and how it should look — sections collapsed into tabs, single
+              screenshots replaced by piles you can fan out, examples swapped for better
+              ones, whole paragraphs deleted for saying too little. <b>You are reading
+              the output of the stage you are reading about.</b></div>
+          
+            <div class="stage-tool"><b>Tooling</b>
+              <div class="tool-items">
+                <div class="tool-item"><span class="tool">Karst</span><span class="tool-note">The same graph makes pruning safe — dependents and dependencies resolve in milliseconds, and a background scanner flags dangerous patterns as they land.</span></div>
+                <div class="tool-item"><span class="tool">Lore</span><span class="tool-note">The direction reverses: what this pass teaches gets written back, so the next project inherits the finding instead of paying for it again.</span></div>
+                <div class="tool-item"><span class="tool">ContextHistory</span><span class="tool-note">Records what changed and why, so the reasoning behind a decision outlives the session it was made in.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------- PHASE 3 ---------- -->
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-tag">SHIP</span>
+          <span class="phase-range">STAGE 07 · AND EVERYTHING AFTER</span>
+        </div>
+        <p class="phase-note">The stage most side projects never reach, and the one that decides whether any of it counted.</p>
+
+        <div class="stage">
+          <div class="stage-num">07</div>
+          <div class="stage-body">
+            <h4>Submission, review, and beyond<span class="ai-role">AI: assistant</span></h4>
+            <p>A storefront wants far more than a binary. Screenshots at exact
+               per-device sizes for every form factor, an icon set, a name, subtitle,
+               description, keywords and release notes each under a different character
+               limit; privacy, support and marketing URLs; a data-collection declaration
+               answered item by item; an age-rating questionnaire; export-compliance
+               answers — on top of signing, entitlements and sandboxing being exactly
+               right. Miss any one of them and nothing ships.</p>
+            <div class="stage-eg"><b>In practice</b>
+              Almost none of it is invented at submission time. The reasoning from
+              stages 01 and 02 becomes the description and the release notes. The scope
+              decisions from 03 and 04 are what make the privacy declaration truthful
+              rather than hopeful — Kalkra can answer <b>“Data Not Collected”</b> because
+              multiplayer and telemetry were cut, not because the form was filled in
+              optimistically. The tooling then checks that everything the target store
+              requires is present, and in the shape that store wants, before anything is
+              uploaded.
+              <br><br>
+              Then the review itself, which is a negotiation as much as a checklist. An
+              automated scan once flagged an entitlement as unused. It wasn't — I
+              answered with evidence rather than rebuilding, which kept the release date
+              instead of restarting the clock.</div>
+          
+            <div class="stage-tool"><b>Tooling</b><span class="tool">store-launch-kit</span><span class="tool-note">The checklist made executable — a deterministic answer to whether every asset a given storefront demands actually exists, at the right dimensions and within the right limits. Built because assembling one submission by hand cost weeks.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spans">
+        <h4>Orchestration</h4>
+        <p>The one layer that belongs to no single stage, because it runs the rest.</p>
+        <div class="span-row">
+          <div class="n">MCEPTION</div>
+          <p>The service manager the rest plug into. Discovers servers from a directory contract, validates their manifests, probes health and starts/stops them — across three lifecycle shapes (command-per-client, daemon, external) over stdio or streamable HTTP, behind a single meta MCP endpoint with a manager API and a local dashboard. It also serves authoring guidelines to agents writing new servers, so the next one is consistent by construction. The hard rule: every child server stays independently usable, never rewritten behind a proxy.</p>
+        </div>
+      </div>
+
+      <div class="components">
+        <p class="subblock-label">02.1 — Components <span class="rev">REV B</span></p>
+        <h2 class="section-title">WHERE THE PARTS LIVE</h2>
+        <p class="section-note">
+          What each one does is described at the stage it serves, above. This is just
+          where to find it.
+        </p>
+        <table class="index-table">
+          <thead>
+            <tr><th>Component</th><th>Stages</th><th>Built with</th><th></th></tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="ix-name">Discovery Skill</td>
+            <td class="ix-stages">02–03</td>
+            <td class="ix-stack">Skill</td>
+            <td class="ix-link"><span class="ix-muted">Not released — in polishing</span></td>
+          </tr>
+          <tr>
+            <td class="ix-name">Concinnity</td>
+            <td class="ix-stages">04</td>
+            <td class="ix-stack">Python</td>
+            <td class="ix-link"><a href="https://github.com/parijjana/Concinnity">repo →</a></td>
+          </tr>
+          <tr>
+            <td class="ix-name">Karst</td>
+            <td class="ix-stages">05–06</td>
+            <td class="ix-stack">Python</td>
+            <td class="ix-link"><a href="https://github.com/parijjana/Karst">repo →</a></td>
+          </tr>
+          <tr>
+            <td class="ix-name">Lore</td>
+            <td class="ix-stages">05–06</td>
+            <td class="ix-stack">Node</td>
+            <td class="ix-link"><a href="https://github.com/parijjana/lore">repo →</a></td>
+          </tr>
+          <tr>
+            <td class="ix-name">ContextHistory</td>
+            <td class="ix-stages">05–06</td>
+            <td class="ix-stack">Python</td>
+            <td class="ix-link"><a href="https://github.com/parijjana/contexthistory">repo →</a></td>
+          </tr>
+          <tr>
+            <td class="ix-name">store-launch-kit</td>
+            <td class="ix-stages">07</td>
+            <td class="ix-stack">Skill</td>
+            <td class="ix-link"><span class="ix-muted">Private</span></td>
+          </tr>
+          <tr>
+            <td class="ix-name">MCePtion</td>
+            <td class="ix-stages">all</td>
+            <td class="ix-stack">Python</td>
+            <td class="ix-link"><a href="https://github.com/parijjana/MCePtion">repo →</a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    </div><!-- /panel-method -->
+
+  </main>
+
+  <div class="lb" id="lb" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="Close">ESC ✕</button>
+    <button class="lb-nav prev" id="lbPrev" aria-label="Previous">←</button>
+    <img id="lbImg" alt="">
+    <button class="lb-nav next" id="lbNext" aria-label="Next">→</button>
+    <span class="lb-count" id="lbCount"></span>
   </div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">overengineeredhobbies.dev — personal portfolio</p>
-    <h1 class="hero-name">
-      OVER<br>ENGINEERED<br><span class="accent">HOBBIES</span>
-    </h1>
-    <p class="hero-tagline">
-      // building things that didn't need to be this good<br><br>
-      Apps, tools, and experiments from someone<br>
-      who genuinely cannot leave well enough alone.
+
+  <!-- ==================== RIGHT RAIL / TITLE BLOCK ==================== -->
+  <aside class="rail">
+    <div class="stamp"><span>OEH.DEV</span><span>REV B · 2026</span></div>
+
+    <div class="rail-name">ANIMESH<span>SARKAR</span></div>
+    <p class="rail-role">AI-first Product Owner</p>
+    <p class="rail-claim">
+      I decide what's worth building, set the architecture that makes it possible,
+      and stay accountable for it through store review.
     </p>
-    <div class="hero-cta">
-      <a href="#apps" class="btn btn-primary">EXPLORE APPS ↓</a>
-      <a href="#about" class="btn btn-outline">READ THE DOCS</a>
-    </div>
-  </div>
 
-  <div class="hero-gallery">
-    <div class="hero-stack">
-      <div class="hero-stack-label">PELLUCID <a href="projects/pellucid.html">DETAILS →</a></div>
-      <div class="photo-pile pile-desktop-primary">
-        <img src="assets/screenshots/pellucid/editor.png" alt="Pellucid — editor" loading="lazy">
-        <img src="assets/screenshots/pellucid/research-notes.png" alt="Pellucid — research notes" loading="lazy">
-        <img src="assets/screenshots/pellucid/snapshots.png" alt="Pellucid — snapshots" loading="lazy">
-        <img src="assets/screenshots/pellucid/table-of-contents.png" alt="Pellucid — table of contents" loading="lazy">
-        <img class="print-portrait" src="assets/screenshots/pellucid/mobile-editor.png" alt="Pellucid — editor (mobile)" loading="lazy">
-        <img class="print-portrait" src="assets/screenshots/pellucid/mobile-research-notes.png" alt="Pellucid — research notes (mobile)" loading="lazy">
-      </div>
-    </div>
-    <div class="hero-stack">
-      <div class="hero-stack-label">KALKRA <a href="projects/kalkra.html">DETAILS →</a></div>
-      <div class="photo-pile">
-        <img src="assets/screenshots/kalkra/dashboard.png" alt="Kalkra — dashboard" loading="lazy">
-        <img src="assets/screenshots/kalkra/mode-select.png" alt="Kalkra — mode select" loading="lazy">
-        <img src="assets/screenshots/kalkra/game.png" alt="Kalkra — gameplay" loading="lazy">
-        <img src="assets/screenshots/kalkra/stats.png" alt="Kalkra — stats" loading="lazy">
-        <img class="print-portrait" src="assets/screenshots/kalkra/mobile-dashboard.png" alt="Kalkra — dashboard (mobile)" loading="lazy">
-        <img class="print-portrait" src="assets/screenshots/kalkra/mobile-stats.png" alt="Kalkra — stats (mobile)" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ABOUT ─────────────────────────────────────────── -->
-<section id="about">
-  <p class="section-label">SECTION 01 — OPERATOR PROFILE <span class="rev-stamp">REV A</span></p>
-  <h2 class="section-title">ABOUT</h2>
-  <div class="about-grid">
-    <div class="about-bio reveal">
-      <p>Hi — I'm <strong style="color:var(--text-bright)">Animesh Sarkar</strong>, someone who builds things for the joy of building them. If a weekend project can be done simply, I'll probably find a more interesting way to do it.</p>
-      <p>I work primarily in <strong style="color:var(--text-bright)">Flutter</strong> — because one codebase for Android, desktop, and web is exactly the kind of overengineering I respect — and <strong style="color:var(--text-bright)">Python</strong> when I'm orchestrating agents or automating something that didn't strictly need automating.</p>
-      <p>With a background in development and a current focus on <strong style="color:var(--text-bright)">Product Ownership</strong>, I treat AI agents like Gemini and Claude as the ultimate force multipliers for my workflow. By orchestrating these models to handle complex logic and rapid prototyping, I’m able to maintain a pace of <strong style="color:var(--text-bright)">architectural overengineering</strong> that wouldn't be possible otherwise. This collaborative approach allows me to bridge the gap from abstract concept to production-grade implementation with insane velocity.</p>
-      <p>This site is the portfolio that lives on my CV. You'll find Android apps, open-source projects, desktop builds, and occasional field notes from the trenches of hobby software development.</p>
-      <div class="about-cta">
-        <a href="assets/animesh_jun_2026.pdf" download class="btn btn-outline">DOWNLOAD CV →</a>
-        <a href="https://github.com/parijjana" class="btn btn-outline">GITHUB →</a>
-        <a href="https://www.linkedin.com/in/animesh-sarkar-77a126280/" class="btn btn-outline">LINKEDIN →</a>
-      </div>
-    </div>
-    <div class="sidebar reveal" style="transition-delay:0.1s">
-      <div class="sidebar-block">
-        <div class="sidebar-heading">STACK</div>
-        <div class="sidebar-row">Flutter / Dart</div>
-        <div class="sidebar-row">Python</div>
-        <div class="sidebar-row">Firebase / Supabase</div>
-        <div class="sidebar-row">Cloudflare Pages</div>
-        <div class="sidebar-row">FastAPI / Railway</div>
-      </div>
-      <div class="sidebar-block">
-        <div class="sidebar-heading">PLATFORMS</div>
-        <div class="sidebar-row">Android (Play Store)</div>
-        <div class="sidebar-row">Windows / macOS / Linux</div>
-        <div class="sidebar-row">Web (Flutter)</div>
-      </div>
-      <div class="sidebar-block">
-        <div class="sidebar-heading">INTERESTS</div>
-        <div class="sidebar-row">AI agents &amp; tooling</div>
-        <div class="sidebar-row">Developer tools</div>
-        <div class="sidebar-row">Hobby automation</div>
-        <div class="sidebar-row">Overengineering things</div>
-      </div>
-      <div class="sidebar-block">
-        <div class="sidebar-heading">STATUS</div>
-        <div class="sidebar-row">
-          <span class="status-dot"></span>
-          <span style="color:#4ec97b">Open to opportunities</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── GITHUB PROJECTS ────────────────────────────────── -->
-<section id="projects">
-  <p class="section-label">SECTION 02 — OPEN SOURCE <span class="rev-stamp">REV A</span></p>
-  <h2 class="section-title">PROJECTS</h2>
-  <div class="card-grid">
-    
-    <div class="card reveal">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> GASTROTATOR_ANDROID
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">DART</span>
-      </div>
-      <p>AI-powered recipe manager for the kinetic kitchen. Turn cooking videos into organized recipes instantly with structured nutritional data and cooking steps.</p>
-      <div class="card-tags">
-        <span class="tag">FLUTTER</span><span class="tag">GEMINI_AI</span><span class="tag">SQLITE</span><span class="tag">ANDROID</span>
-      </div>
-      <a href="projects/gastrotator_android.html" class="card-link">VIEW PROJECT DETAILS →</a>
+    <div class="rail-block">
+      <div class="rail-label">Owns</div>
+      <ul class="owns">
+        <li>Product direction &amp; kill decisions</li>
+        <li>Scope — what earns v1, what defers</li>
+        <li>Architecture &amp; stack selection</li>
+        <li>Release engineering &amp; store review</li>
+      </ul>
     </div>
 
-    <div class="card reveal" style="transition-delay:0.05s">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> AULOS
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">DART</span>
-      </div>
-      <p>A high-performance, offline-first local audio player designed for focus and architectural elegance. It serves as a unified hub for Music, Podcasts, Audiobooks, and Radio.</p>
-      <div class="card-tags">
-        <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">JUST_AUDIO</span><span class="tag">DRIFT</span>
-      </div>
-      <a href="projects/aulos.html" class="card-link">VIEW PROJECT DETAILS →</a>
+    <div class="rail-block">
+      <div class="rail-label">Current focus</div>
+      <p>Pellucid&nbsp;1.0 · Mac&nbsp;App&nbsp;Store review<br>Kalkra · Mac + iOS review</p>
     </div>
 
-    <div class="card reveal" style="transition-delay:0.1s">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> KALKRA
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">DART</span>
-      </div>
-      <p>A high-performance mental math trainer built for speed and accuracy. It features an adaptive math engine that calibrates in real-time to the user's performance.</p>
-      <div class="card-tags">
-        <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">SECURE_STORAGE</span><span class="tag">AES-256</span>
-      </div>
-      <a href="projects/kalkra.html" class="card-link">VIEW PROJECT DETAILS →</a> · <a href="demos/kalkra/index.html" class="card-link" style="color: var(--accent);">TRY DEMO →</a>
+    <div class="rail-block">
+      <div class="rail-label">Hands-on with</div>
+      <ul class="rail-list">
+        <li>FLUTTER</li><li>DART</li><li>PYTHON</li><li>NODE</li>
+        <li>SQLITE</li><li>OAUTH</li><li>CLOUDFLARE</li>
+      </ul>
     </div>
 
-    <div class="card reveal" style="transition-delay:0.12s">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> PELLUCID
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">DART</span>
-      </div>
-      <p>A local-first Markdown writing app for longform fiction, built around the quiet Whisper UI with optional Google Drive backup. macOS is the primary platform and is essentially release-ready; other platforms follow.</p>
-      <div class="card-tags">
-        <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">MACOS</span><span class="tag">MARKDOWN</span><span class="tag">GOOGLE_DRIVE_API</span>
-      </div>
-      <a href="projects/pellucid.html" class="card-link">VIEW PROJECT DETAILS →</a> · <a href="demos/pellucid/index.html" class="card-link" style="color: var(--accent);">TRY DEMO →</a>
-    </div>
-
-    <div class="card reveal" style="transition-delay:0.18s">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> CONTEXTHISTORY
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">PYTHON</span>
-      </div>
-      <p>Evolutionary memory infrastructure for AI agents. It tracks and evolves project context over time, allowing agents to "remember" architectural decisions across multiple sessions.</p>
-      <div class="card-tags">
-        <span class="tag">PYTHON</span><span class="tag">MCP</span><span class="tag">SQLITE</span><span class="tag">UV</span>
-      </div>
-      <a href="projects/contexthistory.html" class="card-link">VIEW PROJECT DETAILS →</a>
-    </div>
-
-    <div class="card reveal" style="transition-delay:0.2s">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> LORE
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">JAVASCRIPT</span>
-      </div>
-      <p>A cross-project technical knowledge management system for AI agents. It uses semantic search to archive and retrieve architectural lessons learned across different workspaces.</p>
-      <div class="card-tags">
-        <span class="tag">NODE.JS</span><span class="tag">LANCEDB</span><span class="tag">TRANSFORMERS.JS</span><span class="tag">MCP</span>
-      </div>
-      <a href="projects/lore.html" class="card-link">VIEW PROJECT DETAILS →</a>
-    </div>
-
-    <div class="card reveal" style="transition-delay:0.22s">
-      <div class="card-header">
-        <div class="card-title" style="font-family:var(--font-mono);font-size:0.95rem;font-weight:400">
-          <span style="color:var(--text-dim)">parijjana /</span> THESIGN
-        </div>
-        <div class="card-badge">PUBLIC</div>
-      </div>
-      <div class="card-meta">
-        <span>★ 0</span>
-        <span>⑂ 0</span>
-        <span style="color:#7ec8e3">DART</span>
-      </div>
-      <p>A minimalist 2D puzzle-platformer rendered in the style of public-safety signage. Features symbolic gameplay where mechanics are taught without written language.</p>
-      <div class="card-tags">
-        <span class="tag">FLUTTER</span><span class="tag">FLAME</span><span class="tag">FORGE2D</span><span class="tag">WEB</span>
-      </div>
-      <a href="projects/thesign.html" class="card-link">VIEW PROJECT DETAILS →</a>
-    </div>
-  
-
-  </div>
-  <div style="margin-top:1.5rem">
-    <a href="https://github.com/parijjana" class="btn btn-outline">ALL REPOSITORIES →</a>
-  </div>
-</section>
-
-<!-- ── APPS & DOWNLOADS ─────────────────────────────── -->
-<section id="apps">
-  <p class="section-label">SECTION 03 — APPLICATIONS & BUILDS <span class="rev-stamp">REV A</span></p>
-  <h2 class="section-title">APPS & DOWNLOADS</h2>
-  <div class="card-grid">
-    
-    <div class="card reveal">
-      <div class="card-header">
-        <div class="card-title">GASTROTATOR</div>
-        <div class="card-badge">ANDROID</div>
-      </div>
-      <div class="card-meta">
-        <span>v1.0.0</span>
-        <span>FLUTTER</span>
-        <span>★ —</span>
-      </div>
-      <p>AI-powered recipe manager. Turn cooking videos into organized recipes instantly with the power of AI. Built with Flutter and integrated with Gemini for video analysis.</p>
-      <div class="card-tags">
-        <span class="tag">FOOD & DRINK</span><span class="tag">AI</span><span class="tag">FLUTTER</span>
-      </div>
-      
-      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
-        <a href="projects/gastrotator_android.html" class="card-link" style="margin-top: 0;">VIEW DETAILS →</a>
-        
+    <div class="rail-block">
+      <div class="rail-label">Elsewhere</div>
+      <div class="rail-links">
+        <a href="https://github.com/parijjana">GitHub / parijjana</a>
+        <a href="https://www.linkedin.com/in/animesh-sarkar-77a126280/">LinkedIn</a>
+        <a href="/blog/posts/introduction-to-pellucid.html">Field notes</a>
       </div>
     </div>
 
-    <div class="card reveal" style="transition-delay:0.07s">
-      <div class="card-header">
-        <div class="card-title">PELLUCID</div>
-        <div class="card-badge">MACOS</div>
-      </div>
-      <div class="card-meta">
-        <span>v0.1.0</span>
-        <span>FLUTTER</span>
-        <span>DESKTOP</span>
-      </div>
-      <p>A local-first, minimalist writing app for longform fiction, built around the quiet Whisper UI with optional Google Drive backup. macOS is the primary platform and is essentially release-ready; Windows, Linux, and mobile follow.</p>
-      <div class="card-tags">
-        <span class="tag">PRODUCTIVITY</span><span class="tag">MINIMALIST</span><span class="tag">MACOS</span>
-      </div>
+    <a class="btn-cv" href="/assets/animesh_jun_2026.pdf">DOWNLOAD CV →</a>
+  </aside>
 
-      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
-        <a href="https://github.com/parijjana/pellucid/releases" class="card-link" style="margin-top: 0;">⬇ RELEASES</a>
-        <a href="demos/pellucid/index.html" class="card-link" style="margin-top: 0; color: var(--accent);">TRY DEMO →</a>
-        <a href="projects/pellucid.html" class="card-link" style="margin-top: 0; color: var(--text-dim);">DETAILS →</a>
-      </div>
-    </div>
-
-    <div class="card reveal" style="transition-delay:0.14s">
-      <div class="card-header">
-        <div class="card-title">CONTEXTHISTORY</div>
-        <div class="card-badge">AGENT SKILL</div>
-      </div>
-      <div class="card-meta">
-        <span>v0.1.0</span>
-        <span>PYTHON</span>
-        <span>MCP</span>
-      </div>
-      <p>An evolutionary memory system for AI agents. Provides infrastructure for tracking, storing, and evolving context over time. Features automated environment validation and sandbox repair.</p>
-      <div class="card-tags">
-        <span class="tag">AI AGENTS</span><span class="tag">SQLITE</span><span class="tag">UTILITY</span>
-      </div>
-      
-      <div style="display: flex; gap: 8px; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
-        <a href="https://github.com/parijjana/contexthistory" class="card-link" style="margin-top: 0;">📦 INSTALL</a>
-        
-        <a href="projects/contexthistory.html" class="card-link" style="margin-top: 0; color: var(--text-dim);">DETAILS →</a>
-      </div>
-    </div>
-  
-
-  </div>
-  <div class="dl-note" style="margin-top: 2.5rem; border-top: 1px dashed var(--border); padding-top: 1.5rem; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">
-    // All releases also available on <a href="https://github.com/parijjana" style="color: var(--accent); text-decoration: none;">GitHub Releases</a>.
-    Hosted on Cloudflare R2 for fast global downloads.
-  </div>
-</section>
-
-<!-- ── BLOG ───────────────────────────────────────────── -->
-<section id="blog">
-  <p class="section-label">SECTION 04 — FIELD NOTES &amp; MUSINGS <span class="rev-stamp">REV A</span></p>
-  <h2 class="section-title">BLOG</h2>
-  <div class="blog-grid">
-
-    <div class="blog-card reveal" style="transition-delay:0.00s">
-      <div class="blog-date">LOG DATE: 2026-06-27</div>
-      <div class="blog-title">Introduction to Pellucid</div>
-      <p class="blog-excerpt">There is a Why to Pellcid.</p>
-      <div class="card-tags" style="margin-bottom:0.75rem">
-        <span class="tag">GENERAL</span>
-      </div>
-      <a href="blog/posts/introduction-to-pellucid.html" class="card-link">READ FULL REPORT →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ─────────────────────────────────────────── -->
-<footer>
-  <div class="footer-brand">
-    overengineeredhobbies.dev
-    <small>// no frameworks were harmed in the making of this site</small>
-  </div>
-  <div class="footer-meta">
-    Built with vanilla HTML, CSS &amp; JS · <a href="https://github.com/parijjana/overengineeredhobbies-site">View Source</a><br>
-    Deployed on <a href="https://pages.cloudflare.com">Cloudflare Pages</a><br>
-    <span style="color:var(--text-dim)">© 2026 Animesh Sarkar</span>
-  </div>
-</footer>
-
-<script>
-  // ── Hamburger menu
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('nav-links');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a =>
-    a.addEventListener('click', () => navLinks.classList.remove('open'))
-  );
-
-  // ── Active nav highlight on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const links    = document.querySelectorAll('.nav-links a');
-  const navObs   = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  sections.forEach(s => navObs.observe(s));
-
-  // ── Scroll reveal
-  const revObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
-
-  // ── Project Progress Loading
-  async function loadProjectProgress() {
-    try {
-      const response = await fetch('assets/progress.json');
-      if (!response.ok) return;
-      const data = await response.json();
-
-      document.querySelectorAll('.card').forEach(card => {
-        const link = card.querySelector('.card-link');
-        if (!link) return;
-
-        // Extract repo name from GitHub URL
-        const href = link.getAttribute('href');
-        const match = href.match(/github\.com\/parijjana\/([^\/\s?#]+)/i);
-        if (!match) return;
-
-        const repoName = match[1];
-        const progress = data[repoName];
-
-        if (progress && progress.status === 'success') {
-          const container = document.createElement('div');
-          container.className = 'progress-container';
-          container.innerHTML = `
-            <div class="progress-label">
-              <span>Roadmap Completion</span>
-              <span>${progress.implemented} / ${progress.total} Features</span>
-            </div>
-            <div class="progress-bar">
-              <div class="progress-fill" style="width: ${progress.percentage}%"></div>
-            </div>
-          `;
-
-          // Insert before the description paragraph
-          const p = card.querySelector('p');
-          if (p) card.insertBefore(container, p);
-        }
-      });
-    } catch (e) {
-      console.warn('Failed to load project progress:', e);
-    }
-  }
-  loadProjectProgress();
-</script>
-
-<div class="lightbox-overlay" id="lightbox" aria-hidden="true">
-  <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">&lsaquo;</button>
-  <img alt="Expanded screenshot" src="">
-  <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">&rsaquo;</button>
-  <div class="lightbox-hint">&larr; / &rarr; TO BROWSE &middot; CLICK OUTSIDE OR PRESS ESC TO CLOSE</div>
 </div>
 
 <script>
-  (function () {
-    const overlay = document.getElementById('lightbox');
-    if (!overlay) return;
-    const full = overlay.querySelector('img');
-    let group = [];   // images of the currently-open project's pile
-    let index = -1;
+(function () {
+  var KEY = 'oeh-theme';
+  var root = document.documentElement;
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.theme-btn'));
 
-    function show(i) {
-      if (group.length === 0) return;
-      index = (i + group.length) % group.length; // wrap within this project
-      full.src = group[index].src;
-      full.alt = group[index].alt;
-    }
-    function openFrom(img) {
-      const pile = img.closest('.photo-pile');
-      group = pile ? Array.prototype.slice.call(pile.querySelectorAll('img')) : [img];
-      show(Math.max(0, group.indexOf(img)));
-      overlay.classList.add('open');
-      overlay.setAttribute('aria-hidden', 'false');
-    }
-    function close() {
-      overlay.classList.remove('open');
-      overlay.setAttribute('aria-hidden', 'true');
-      full.removeAttribute('src');
-      group = []; index = -1;
-    }
+  function apply(name) {
+    root.setAttribute('data-theme', name);
+    btns.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.set === name));
+    });
+    try { localStorage.setItem(KEY, name); } catch (e) {}
+  }
 
-    document.querySelectorAll('.photo-pile img').forEach(function (img) {
-      img.addEventListener('click', function (e) { e.stopPropagation(); openFrom(img); });
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (!saved) {
+    saved = 'paper';
+  }
+  apply(saved);
+
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { apply(b.dataset.set); });
+  });
+})();
+
+/* ---------------- tabs ---------------- */
+(function () {
+  var tabs   = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panels = { work:   document.getElementById('panel-work'),
+                 method: document.getElementById('panel-method'),
+                 person: document.getElementById('panel-person') };
+
+  /* ---- relocate the rail into / out of the person panel ---- */
+  var rail     = document.querySelector('.rail');
+  var railHome = rail.parentNode;          // the .shell grid
+  var narrow   = window.matchMedia('(max-width: 1100px)');
+
+  function place() {
+    if (narrow.matches) {
+      if (rail.parentNode !== panels.person) panels.person.appendChild(rail);
+    } else {
+      if (rail.parentNode !== railHome) railHome.appendChild(rail);
+      // 'person' doesn't exist at this width — don't strand the user on it
+      if (document.getElementById('tab-person').getAttribute('aria-selected') === 'true') {
+        show('work', true);
+      }
+    }
+  }
+
+  function show(name, push) {
+    if (!panels[name] || (name === 'person' && !narrow.matches)) name = 'work';
+    tabs.forEach(function (t) {
+      t.setAttribute('aria-selected', String(t.dataset.tab === name));
     });
-    overlay.addEventListener('click', close);
-    full.addEventListener('click', function (e) { e.stopPropagation(); });
-    overlay.querySelector('.lightbox-prev').addEventListener('click', function (e) {
-      e.stopPropagation(); show(index - 1);
+    Object.keys(panels).forEach(function (k) {
+      panels[k].hidden = (k !== name);
     });
-    overlay.querySelector('.lightbox-next').addEventListener('click', function (e) {
-      e.stopPropagation(); show(index + 1);
+    if (push) history.replaceState(null, '', '#' + name);
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(t.dataset.tab, true); });
+    // left/right arrow keys move between tabs
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var next = tabs[(i + d + tabs.length) % tabs.length];
+      next.focus(); show(next.dataset.tab, true);
     });
-    document.addEventListener('keydown', function (e) {
-      if (!overlay.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      else if (e.key === 'ArrowLeft') show(index - 1);
-      else if (e.key === 'ArrowRight') show(index + 1);
+  });
+
+  // teaser strip on the work panel jumps to the method tab
+  var teaser = document.querySelector('.tab-teaser');
+  if (teaser) {
+    teaser.addEventListener('click', function () {
+      show(teaser.dataset.goto, true);
+      document.getElementById('panel-method').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-  })();
+  }
+
+  narrow.addEventListener('change', place);
+  place();
+
+  show((location.hash || '').replace('#', '') || 'work', false);
+
+})();
+
+/* ---------------- lightbox for the photo piles ---------------- */
+(function () {
+  var lb = document.getElementById('lb'), img = document.getElementById('lbImg'),
+      cnt = document.getElementById('lbCount');
+  var set = [], idx = 0;
+
+  function render() {
+    img.src = set[idx].dataset.full || set[idx].src; img.alt = set[idx].alt;
+    cnt.textContent = (idx + 1) + ' / ' + set.length;
+  }
+  function open(pileEl, startAt) {
+    set = Array.prototype.slice.call(pileEl.querySelectorAll('img'));
+    idx = startAt; render();
+    lb.classList.add('on'); lb.setAttribute('aria-hidden', 'false');
+  }
+  function close() { lb.classList.remove('on'); lb.setAttribute('aria-hidden', 'true'); }
+  function step(d) { idx = (idx + d + set.length) % set.length; render(); }
+
+  document.querySelectorAll('.pile').forEach(function (pileEl) {
+    pileEl.addEventListener('click', function (e) {
+      var imgs = Array.prototype.slice.call(pileEl.querySelectorAll('img'));
+      var hit = imgs.indexOf(e.target);
+      open(pileEl, hit > -1 ? hit : 0);
+    });
+  });
+
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+  document.getElementById('lbNext').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('on')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+})();
 </script>
-
 </body>
 </html>

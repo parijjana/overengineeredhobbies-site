@@ -1,0 +1,96 @@
+/* Shared palettes for every page on overengineeredhobbies.dev.
+   Edit here only — index.html and all project/legal pages link this file.
+   Theme is applied by assets/theme.js from localStorage('oeh-theme'). */
+
+:root {
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono: 'Fira Code', ui-monospace, monospace;
+  --font-body: 'Lora', Georgia, serif;
+  --rail-w: 330px;
+  --gutter: 44px;
+}
+
+/* 1. BLUEPRINT — your current scheme, unchanged */
+[data-theme="blueprint"] {
+  --panel-soft: rgba(13,26,46,0.55);   --panel-strong: rgba(8,17,31,0.92);
+  --bg: #08111f;          --surface: #0d1a2e;      --surface-raised: #112238;
+  --grid-major: rgba(78,140,220,0.10);             --grid-minor: rgba(78,140,220,0.05);
+  --border: rgba(78,140,220,0.20);                 --border-bright: rgba(78,140,220,0.45);
+  --text: #8aaed0;        --text-dim: #3f5f85;     --text-bright: #ddeeff;
+  --accent: #e8a020;      --accent-dim: rgba(232,160,32,0.10);
+  --accent-glow: rgba(232,160,32,0.22);            --on-accent: #08111f;
+  --tag: rgba(78,140,220,0.13);                    --tag-text: #5ba0e8;
+  --ok: #4ec9a0;          --warn: #e8a020;
+  --print: #ece7dc;       --print-shadow: rgba(0,0,0,0.55);
+  --pile-bed: rgba(2,8,18,0.55);   --pile-edge: rgba(78,140,220,0.28);
+  --llm: #5ba0e8;          --tool: #4ec9a0;
+}
+
+/* 2. DRAFTING PAPER — the light counterpart, same idiom */
+[data-theme="paper"] {
+  --panel-soft: rgba(255,253,248,0.78); --panel-strong: rgba(251,248,241,0.96);
+  --bg: #f2eee4;          --surface: #fbf8f1;      --surface-raised: #ffffff;
+  --grid-major: rgba(40,70,110,0.10);              --grid-minor: rgba(40,70,110,0.05);
+  --border: rgba(40,70,110,0.22);                  --border-bright: rgba(40,70,110,0.45);
+  --text: #4a5769;        --text-dim: #8d97a6;     --text-bright: #131e2c;
+  --accent: #a8620a;      --accent-dim: rgba(168,98,10,0.10);
+  --accent-glow: rgba(168,98,10,0.20);             --on-accent: #fbf8f1;
+  --tag: rgba(40,70,110,0.09);                     --tag-text: #37628f;
+  --ok: #1d7a5c;          --warn: #a8620a;
+  --print: #ffffff;       --print-shadow: rgba(40,60,90,0.34);
+  --pile-bed: #c9c0ab;             --pile-edge: rgba(40,70,110,0.30);
+  --llm: #2f6597;          --tool: #1d7a5c;
+}
+
+/* 3. TERMINAL — phosphor on black */
+[data-theme="terminal"] {
+  --panel-soft: rgba(11,16,13,0.60);   --panel-strong: rgba(6,8,7,0.94);
+  --bg: #060807;          --surface: #0b100d;      --surface-raised: #101713;
+  --grid-major: rgba(110,220,150,0.09);            --grid-minor: rgba(110,220,150,0.04);
+  --border: rgba(110,220,150,0.20);                --border-bright: rgba(110,220,150,0.45);
+  --text: #7fae8f;        --text-dim: #3f6a51;     --text-bright: #d6ffe4;
+  --accent: #ffb000;      --accent-dim: rgba(255,176,0,0.10);
+  --accent-glow: rgba(255,176,0,0.22);             --on-accent: #060807;
+  --tag: rgba(110,220,150,0.12);                   --tag-text: #63c98c;
+  --ok: #4ade80;          --warn: #ffb000;
+  --print: #d8d2c4;       --print-shadow: rgba(0,0,0,0.70);
+  --pile-bed: rgba(0,0,0,0.60);    --pile-edge: rgba(110,220,150,0.26);
+  --llm: #63c98c;          --tool: #bfe9ff;
+}
+
+/* ---------- theme switcher: global control, pinned top-right ---------- */
+.theme-dock {
+  position: fixed; top: 14px; right: 16px; z-index: 60;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px; border: 1px solid var(--border);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.theme-dock .dock-label {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: .16em;
+  color: var(--text-dim); text-transform: uppercase; padding: 0 4px 0 2px;
+}
+.theme-btn {
+  cursor: pointer; width: 24px; height: 24px; padding: 0;
+  border: 1px solid var(--border-bright); position: relative; transition: .15s;
+  font-size: 0;
+}
+.theme-btn::after {                       /* accent pip, so each swatch is identifiable */
+  content: ''; position: absolute; inset: auto 3px 3px auto;
+  width: 7px; height: 7px;
+}
+.theme-btn:hover { transform: translateY(-1px); }
+.theme-btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.theme-btn[data-set="blueprint"] { background: #08111f; }
+.theme-btn[data-set="blueprint"]::after { background: #e8a020; }
+.theme-btn[data-set="paper"]     { background: #f2eee4; }
+.theme-btn[data-set="paper"]::after     { background: #a8620a; }
+.theme-btn[data-set="terminal"]  { background: #060807; }
+.theme-btn[data-set="terminal"]::after  { background: #ffb000; }
+
+@media (max-width: 640px) {
+  .theme-dock { top: 8px; right: 8px; padding: 4px; }
+  .theme-dock .dock-label { display: none; }
+}

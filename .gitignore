@@ -9,3 +9,6 @@ projects/*.html
 
 # Environment variables
 .env
+.wrangler/
+.DS_Store
+**/.DS_Store

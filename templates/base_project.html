@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="paper">
 <head>
+  <link rel="stylesheet" href="/assets/theme.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title} — {site_title_suffix}</title>
@@ -9,23 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #08111f;
-      --surface: #0d1a2e;
-      --surface-raised: #112238;
-      --grid-major: rgba(78,140,220,0.10);
-      --grid-minor: rgba(78,140,220,0.05);
-      --border: rgba(78,140,220,0.20);
-      --border-bright: rgba(78,140,220,0.45);
-      --text: #8aaed0;
-      --text-dim: #3f5f85;
-      --text-bright: #ddeeff;
-      --accent: {accent_color};
-      --accent-dim: {accent_dim_color};
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-mono: 'Fira Code', monospace;
-      --font-body: 'Lora', serif;
-    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -45,7 +29,7 @@
 
     nav {
       height: 60px;
-      background: rgba(8,17,31,0.92);
+      background: var(--panel-strong);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
@@ -68,7 +52,7 @@
     .about-section {
       padding: 4rem;
       border-right: 1px solid var(--border);
-      background: rgba(13, 26, 46, 0.4);
+      background: var(--panel-soft);
       overflow-y: auto;
       height: 100%;
       -ms-overflow-style: none;  /* IE/Edge */
@@ -80,7 +64,7 @@
 
     .timeline-section {
       padding: 4rem;
-      background: rgba(8, 17, 31, 0.6);
+      background: var(--panel-soft);
       overflow-y: auto;
       height: 100%;
       -ms-overflow-style: none;  /* IE/Edge */
@@ -231,7 +215,7 @@
       position: fixed; inset: 0; z-index: 1000;
       display: none; align-items: center; justify-content: center;
       padding: 4vh 4vw;
-      background: rgba(4, 9, 17, 0.92);
+      background: var(--panel-strong);
       backdrop-filter: blur(6px);
       cursor: zoom-out;
     }
@@ -251,7 +235,7 @@
       z-index: 1001;
       width: 48px; height: 48px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(13, 26, 46, 0.7);
+      background: var(--panel-soft);
       border: 1px solid var(--border-bright);
       color: var(--text-bright);
       font-family: var(--font-mono); font-size: 26px; line-height: 1;
@@ -378,5 +362,12 @@
   })();
 </script>
 
+<div class="theme-dock" role="group" aria-label="Colour scheme">
+  <span class="dock-label">Display</span>
+  <button class="theme-btn" data-set="blueprint" aria-pressed="false" title="Blueprint" aria-label="Blueprint theme">Blueprint</button>
+  <button class="theme-btn" data-set="paper" aria-pressed="true" title="Drafting paper" aria-label="Paper theme">Paper</button>
+  <button class="theme-btn" data-set="terminal" aria-pressed="false" title="Terminal" aria-label="Terminal theme">Terminal</button>
+</div>
+<script src="/assets/theme.js"></script>
 </body>
 </html>

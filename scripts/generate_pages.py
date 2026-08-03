@@ -3,6 +3,14 @@ import os
 import re
 import db
 
+# ---------------------------------------------------------------------------
+# GUARD (2026-08-03): index.html is hand-maintained while the new landing page
+# is in place. This generator still builds it from templates/base_index.html,
+# which is the OLD design — running it silently destroys the homepage.
+# Remove this guard only once base_index.html has been updated.
+# ---------------------------------------------------------------------------
+SKIP_INDEX = True
+
 def hex_to_rgba(hex_color, alpha):
     hex_color = hex_color.lstrip('#')
     lv = len(hex_color)
@@ -349,8 +357,11 @@ def generate_pages():
 
     compiled_index = render_template(index_template, index_tokens)
 
-    with open(index_path, "w", encoding="utf-8") as f:
-        f.write(compiled_index)
+    if SKIP_INDEX:
+        print("SKIPPED index.html — hand-maintained (see GUARD in this file)")
+    else:
+        with open(index_path, "w", encoding="utf-8") as f:
+            f.write(compiled_index)
     print(f"Generated {index_path} successfully!")
 
 if __name__ == "__main__":

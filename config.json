@@ -23,8 +23,7 @@
       "kalkra",
       "pellucid",
       "contexthistory",
-      "lore",
-      "thesign"
+      "lore"
     ],
     "accent_colors": {
       "aulos": "#e8a020",
@@ -32,8 +31,7 @@
       "kalkra": "#e8a020",
       "pellucid": "#e8a020",
       "contexthistory": "#e8a020",
-      "gastrotator_android": "#e8a020",
-      "thesign": "#e8a020"
+      "gastrotator_android": "#e8a020"
     },
     "app_metadata": {
       "gastrotator_android": {
@@ -41,9 +39,13 @@
         "badge": "ANDROID",
         "version": "v1.0.0",
         "platform": "FLUTTER",
-        "extra": "★ —",
+        "extra": "\u2605 \u2014",
         "about": "AI-powered recipe manager. Turn cooking videos into organized recipes instantly with the power of AI. Built with Flutter and integrated with Gemini for video analysis.",
-        "tags": ["FOOD & DRINK", "AI", "FLUTTER"]
+        "tags": [
+          "FOOD & DRINK",
+          "AI",
+          "FLUTTER"
+        ]
       },
       "pellucid": {
         "title": "PELLUCID",
@@ -51,8 +53,12 @@
         "version": "v0.1.0",
         "platform": "FLUTTER",
         "extra": "DESKTOP",
-        "about": "The official desktop build of Pellucid. A minimalist writing environment for Windows featuring a translucent Ghost UI and versioned cloud sync via Google Drive.",
-        "tags": ["PRODUCTIVITY", "MINIMALIST", "DESKTOP"]
+        "about": "The official desktop build of Pellucid. A minimalist writing environment for Windows featuring a translucent Whisper UI and versioned cloud sync via Google Drive.",
+        "tags": [
+          "PRODUCTIVITY",
+          "MINIMALIST",
+          "DESKTOP"
+        ]
       },
       "contexthistory": {
         "title": "CONTEXTHISTORY",
@@ -61,7 +67,11 @@
         "platform": "PYTHON",
         "extra": "MCP",
         "about": "An evolutionary memory system for AI agents. Provides infrastructure for tracking, storing, and evolving context over time. Features automated environment validation and sandbox repair.",
-        "tags": ["AI AGENTS", "SQLITE", "UTILITY"]
+        "tags": [
+          "AI AGENTS",
+          "SQLITE",
+          "UTILITY"
+        ]
       }
     }
   }

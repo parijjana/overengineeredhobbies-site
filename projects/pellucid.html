@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="paper">
 <head>
+  <link rel="stylesheet" href="/assets/theme.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PELLUCID — overengineeredhobbies.dev</title>
@@ -9,23 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #08111f;
-      --surface: #0d1a2e;
-      --surface-raised: #112238;
-      --grid-major: rgba(78,140,220,0.10);
-      --grid-minor: rgba(78,140,220,0.05);
-      --border: rgba(78,140,220,0.20);
-      --border-bright: rgba(78,140,220,0.45);
-      --text: #8aaed0;
-      --text-dim: #3f5f85;
-      --text-bright: #ddeeff;
-      --accent: #e8a020;
-      --accent-dim: rgba(232, 160, 32, 0.1);
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-mono: 'Fira Code', monospace;
-      --font-body: 'Lora', serif;
-    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -45,7 +29,7 @@
 
     nav {
       height: 60px;
-      background: rgba(8,17,31,0.92);
+      background: var(--panel-strong);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
@@ -68,7 +52,7 @@
     .about-section {
       padding: 4rem;
       border-right: 1px solid var(--border);
-      background: rgba(13, 26, 46, 0.4);
+      background: var(--panel-soft);
       overflow-y: auto;
       height: 100%;
       -ms-overflow-style: none;  /* IE/Edge */
@@ -80,7 +64,7 @@
 
     .timeline-section {
       padding: 4rem;
-      background: rgba(8, 17, 31, 0.6);
+      background: var(--panel-soft);
       overflow-y: auto;
       height: 100%;
       -ms-overflow-style: none;  /* IE/Edge */
@@ -231,7 +215,7 @@
       position: fixed; inset: 0; z-index: 1000;
       display: none; align-items: center; justify-content: center;
       padding: 4vh 4vw;
-      background: rgba(4, 9, 17, 0.92);
+      background: var(--panel-strong);
       backdrop-filter: blur(6px);
       cursor: zoom-out;
     }
@@ -251,7 +235,7 @@
       z-index: 1001;
       width: 48px; height: 48px;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(13, 26, 46, 0.7);
+      background: var(--panel-soft);
       border: 1px solid var(--border-bright);
       color: var(--text-bright);
       font-family: var(--font-mono); font-size: 26px; line-height: 1;
@@ -285,7 +269,7 @@
     <h1>PELLUCID</h1>
     
     <div class="tech-stack">
-      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">MACOS</span><span class="tag">MARKDOWN</span><span class="tag">LOCAL-FIRST</span><span class="tag">GOOGLE_DRIVE_API</span><span class="tag">SQLITE</span>
+      <span class="tag">FLUTTER</span><span class="tag">DART</span><span class="tag">GOOGLE_DRIVE_API</span><span class="tag">SQLITE</span>
     </div>
 
     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -294,58 +278,41 @@
       <a href="../demos/pellucid/index.html" class="btn-github" style="color:var(--accent); border-color:var(--accent);">TRY WEB DEMO →</a>
       <a href="pellucid_privacy.html" class="btn-github">PRIVACY POLICY →</a>
       <a href="pellucid_terms.html" class="btn-github">TERMS OF SERVICE →</a>
+      <a href="pellucid_support.html" class="btn-github">SUPPORT →</a>
       <a href="../blog/posts/introduction-to-pellucid.html" class="btn-github">READ DEV BLOG →</a>
     </div>
 
-    <p>A local-first Markdown writing app for longform fiction. Pellucid keeps the manuscript at the center, storing work in ordinary project folders you own — never locked inside the app — with optional Google Drive backup. The interface uses <strong>Whisper UI</strong>: controls stay quiet until they are hovered, focused, or summoned by keyboard shortcut, so the writing surface feels calm without giving up power tools. macOS is the primary platform and its build is essentially release-ready; Windows, Linux, Android, and iOS follow.</p>
+    <p>A minimalist, distraction-free writing application designed for creative flow. Features a translucent "Whisper UI" and versioned local snapshots, with automatic backup to your own Google Drive.</p>
 
     <h2>CORE PHILOSOPHY</h2>
-    <p>Nothing should stand between the writer and the words, yet the tools should be a keystroke away when needed. Pellucid pairs a quiet, focused editor with structured research that lives beside the manuscript — categorized notes, bidirectional links, and an automated attribution workflow — while keeping every file in plain folders the writer controls.</p>
+    <p>Pellucid eliminates UI clutter to focus entirely on words, while providing structured research management through a bidirectional connection graph.</p>
 
     <h2>SYSTEM ARCHITECTURE</h2>
     <div class="architecture-box">
 <pre>
-Markdown Manuscript  (document.md)
-  ↓ autosave + rolling local snapshots (.history/)
-User-Owned Project Folder
-  ↓ optional backup
-Google Drive  (visible "Pellucid Vault")
-
-Research Notes  (categories · bidirectional links · attributions)
+Markdown Editor (Custom Controller)
+  ↓ auto-saves
+Local Files + SQLite
+  ↓ backed up to
+Google Drive (drive.file scope only)
 </pre>
     </div>
 
     <h2>KEY CAPABILITIES</h2>
-    <p>• Whisper UI: controls stay quiet until hovered, focused, or summoned by shortcut.<br>• Local-first storage: manuscripts live as Markdown in folders you own, with rolling local snapshots independent of the cloud.<br>• Optional Google Drive backup through a visible "Pellucid Vault" folder.<br>• Research notes with categories, bidirectional links, source URLs, and an automated attribution chapter.<br>• Focus tools: typewriter scrolling, paragraph focus, fullscreen, writing sprints, pomodoro, timers, and alarms.<br>• Table of contents with per-section word counts, plus search-and-replace with in-editor highlighting.<br>• PDF and EPUB export, theme presets, and a custom theme designer.</p>
-
-    <h2>CODEX LINKING</h2>
-    <p>Research notes double as a codex. Whenever a note's title appears in your manuscript, Pellucid quietly turns it into a live link back to that note — no special syntax, no manual tagging. Write a character or a place into a note once, and every mention of it across your prose becomes something you can act on. Hover a name to peek at the note without losing your place, or Cmd+Opt-click (Alt-click on Windows and Linux) to jump straight to it in the research sidebar.</p>
-    <p>Best of all, it stays out of your way. It links the character named "Mark" without lighting up every "mark" in the prose, always prefers the fullest name when notes overlap ("Salt Coast" over "Salt"), and ignores stray one- or two-letter titles so the page never fills with clutter. The payoff is a story bible that keeps itself wired to the text — so you spend your time writing instead of hunting back through your own notes to remember who someone was.</p>
+    <p>• Whisper UI: Low-contrast, highly-transparent interface for deep focus.<br>• Versioned Snapshots: Automatic local restore points for every manuscript.<br>• Private Drive Backup: Copies go to your own Drive using a scope that can only touch files the app itself created — it can never see the rest of your Drive.<br>• Knowledge Integration: Side-by-side research notes with automated attribution.</p>
   </section>
 
   <section class="timeline-section">
-    <div class="label">INTERFACE</div>
-    <div class="screenshot-cluster" style="margin-bottom: 3rem;">
+    <div class="label" style="margin-top: 2.5rem;">INTERFACE</div>
+      <div class="screenshot-cluster">
       <div class="shots-desktop"><img src="../assets/screenshots/pellucid/editor.png" alt="PELLUCID — editor" loading="lazy"><img src="../assets/screenshots/pellucid/research-notes.png" alt="PELLUCID — research notes" loading="lazy"><img src="../assets/screenshots/pellucid/snapshots.png" alt="PELLUCID — snapshots" loading="lazy"><img src="../assets/screenshots/pellucid/table-of-contents.png" alt="PELLUCID — table of contents" loading="lazy"></div>
       <div class="shots-mobile"><img src="../assets/screenshots/pellucid/mobile-editor.png" alt="PELLUCID — editor" loading="lazy"><img src="../assets/screenshots/pellucid/mobile-research-notes.png" alt="PELLUCID — research notes" loading="lazy"></div>
-    </div>
+      </div>
 
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
-
-      <div class="timeline-item">
-        <span class="timeline-date">2026-07-27</span>
-        <div class="timeline-content">
-          <h3>macOS-First Release Track: Prioritized the essentially-ready macOS build as the first distribution target, ahead of Windows and mobile.</h3>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <span class="timeline-date">2026-07-27</span>
-        <div class="timeline-content">
-          <h3>Store-Exact Screenshot Pipeline: In-app capture harness producing validated, store-ready screenshots for macOS, iOS, Windows, and Android.</h3>
-        </div>
-      </div>
+      
       <div class="timeline-item">
         <span class="timeline-date">2026-05-27</span>
         <div class="timeline-content">
@@ -415,31 +382,43 @@ Research Notes  (categories · bidirectional links · attributions)
       <div class="timeline-item">
         <span class="timeline-date">2026-05-21</span>
         <div class="timeline-content">
-          <h3>Minimalist Focus UI: Whisper UI with a centered editor and controls that stay quiet until summoned.</h3>
-        </div>
-      </div>
-      <div class="timeline-item planned">
-        <span class="timeline-date">NEXT</span>
-        <div class="timeline-content">
-          <h3>Mac App Store Release: First distribution target — the macOS build is essentially submission-ready.</h3>
+          <h3>Minimalist Focus UI: High-transparency "Whisper UI" with a centered editor and minimal distractions.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Google Drive Production Access: Publishing the OAuth consent screen from testing to production (non-sensitive scopes only — no verification video required).</h3>
+          <h3>Google Cloud Production Access: Elevating the Drive API integration from testing to a production-grade verified application.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>iOS App Store: Adapting the mobile build for App Store distribution after the macOS launch.</h3>
+          <h3>Microsoft Store Listing: Official distribution via the Windows Store for seamless installation and updates.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
         <span class="timeline-date">UPCOMING</span>
         <div class="timeline-content">
-          <h3>Microsoft Store & Google Play: Windows and Android store listings to follow the Apple platforms.</h3>
+          <h3>MSIX Packaging & Signing: Generating and signing secure Windows app packages for store distribution.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>IARC Certification: Completion of age rating questionnaire and store compliance reviews.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Visual Storefront Assets: Production of high-res screenshots and feature graphics for the Microsoft Store.</h3>
+        </div>
+      </div>
+      <div class="timeline-item planned">
+        <span class="timeline-date">UPCOMING</span>
+        <div class="timeline-content">
+          <h3>Project Categorization: Systematic tagging and filtering for genre-based project organization.</h3>
         </div>
       </div>
       <div class="timeline-item planned">
@@ -505,5 +484,12 @@ Research Notes  (categories · bidirectional links · attributions)
   })();
 </script>
 
+<div class="theme-dock" role="group" aria-label="Colour scheme">
+  <span class="dock-label">Display</span>
+  <button class="theme-btn" data-set="blueprint" aria-pressed="false" title="Blueprint" aria-label="Blueprint theme">Blueprint</button>
+  <button class="theme-btn" data-set="paper" aria-pressed="true" title="Drafting paper" aria-label="Paper theme">Paper</button>
+  <button class="theme-btn" data-set="terminal" aria-pressed="false" title="Terminal" aria-label="Terminal theme">Terminal</button>
+</div>
+<script src="/assets/theme.js"></script>
 </body>
 </html>

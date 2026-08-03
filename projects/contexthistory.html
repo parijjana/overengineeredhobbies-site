@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="paper">
 <head>
+  <link rel="stylesheet" href="/assets/theme.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CONTEXTHISTORY — overengineeredhobbies.dev</title>
@@ -9,23 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #08111f;
-      --surface: #0d1a2e;
-      --surface-raised: #112238;
-      --grid-major: rgba(78,140,220,0.10);
-      --grid-minor: rgba(78,140,220,0.05);
-      --border: rgba(78,140,220,0.20);
-      --border-bright: rgba(78,140,220,0.45);
-      --text: #8aaed0;
-      --text-dim: #3f5f85;
-      --text-bright: #ddeeff;
-      --accent: #e8a020;
-      --accent-dim: rgba(232, 160, 32, 0.1);
-      --font-display: 'Bebas Neue', sans-serif;
-      --font-mono: 'Fira Code', monospace;
-      --font-body: 'Lora', serif;
-    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
@@ -45,7 +29,7 @@
 
     nav {
       height: 60px;
-      background: rgba(8,17,31,0.92);
+      background: var(--panel-strong);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
@@ -68,7 +52,7 @@
     .about-section {
       padding: 4rem;
       border-right: 1px solid var(--border);
-      background: rgba(13, 26, 46, 0.4);
+      background: var(--panel-soft);
       overflow-y: auto;
       height: 100%;
       -ms-overflow-style: none;  /* IE/Edge */
@@ -80,7 +64,7 @@
 
     .timeline-section {
       padding: 4rem;
-      background: rgba(8, 17, 31, 0.6);
+      background: var(--panel-soft);
       overflow-y: auto;
       height: 100%;
       -ms-overflow-style: none;  /* IE/Edge */
@@ -205,6 +189,63 @@
       margin-top: 2rem;
     }
 
+    /* ── SCREENSHOT CLUSTER ──────────────────────────── */
+    .screenshot-cluster { margin: 1rem 0 0.5rem; }
+    .screenshot-cluster .shots-desktop {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .screenshot-cluster .shots-mobile {
+      display: flex; gap: 10px; justify-content: center; margin-top: 10px;
+    }
+    .screenshot-cluster img {
+      display: block; width: 100%; height: auto;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: zoom-in;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .screenshot-cluster .shots-mobile img { width: auto; max-height: 240px; }
+    .screenshot-cluster img:hover {
+      border-color: var(--border-bright);
+      box-shadow: 0 0 15px var(--accent-dim);
+    }
+
+    /* ── LIGHTBOX ────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      display: none; align-items: center; justify-content: center;
+      padding: 4vh 4vw;
+      background: var(--panel-strong);
+      backdrop-filter: blur(6px);
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-overlay img {
+      max-width: 100%; max-height: 92vh; width: auto; height: auto;
+      border: 1px solid var(--border-bright);
+      box-shadow: 0 0 45px rgba(0, 0, 0, 0.6);
+    }
+    .lightbox-hint {
+      position: fixed; bottom: 18px; left: 0; right: 0;
+      text-align: center; font-family: var(--font-mono);
+      font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em;
+    }
+    .lightbox-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      z-index: 1001;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--panel-soft);
+      border: 1px solid var(--border-bright);
+      color: var(--text-bright);
+      font-family: var(--font-mono); font-size: 26px; line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .lightbox-nav:hover { background: var(--accent-dim); box-shadow: 0 0 15px var(--accent-dim); }
+    .lightbox-prev { left: 3vw; }
+    .lightbox-next { right: 3vw; }
+
     @media (max-width: 1000px) {
       main { grid-template-columns: 1fr; height: auto; overflow: visible; }
       .about-section { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; overflow-y: visible; height: auto; }
@@ -237,6 +278,8 @@
       
       
       
+      
+      
     </div>
 
     <p>Evolutionary memory infrastructure for AI agents. It tracks and evolves project context over time, allowing agents to "remember" architectural decisions across multiple sessions.</p>
@@ -260,6 +303,8 @@ Memory Databases (Archeology/Orchestration)
   </section>
 
   <section class="timeline-section">
+    
+
     <div class="label">PROJECT TIMELINE</div>
     
     <div class="timeline">
@@ -346,5 +391,65 @@ Memory Databases (Archeology/Orchestration)
   </section>
 </main>
 
+<div class="lightbox-overlay" id="lightbox" aria-hidden="true">
+  <button class="lightbox-nav lightbox-prev" type="button" aria-label="Previous image">&lsaquo;</button>
+  <img alt="Expanded screenshot" src="">
+  <button class="lightbox-nav lightbox-next" type="button" aria-label="Next image">&rsaquo;</button>
+  <div class="lightbox-hint">&larr; / &rarr; TO BROWSE &middot; CLICK OUTSIDE OR PRESS ESC TO CLOSE</div>
+</div>
+
+<script>
+  (function () {
+    const overlay = document.getElementById('lightbox');
+    if (!overlay) return;
+    const full = overlay.querySelector('img');
+    const thumbs = Array.prototype.slice.call(document.querySelectorAll('.screenshot-cluster img'));
+    if (thumbs.length === 0) return;
+    let index = -1;
+
+    function show(i) {
+      index = (i + thumbs.length) % thumbs.length; // wrap around
+      full.src = thumbs[index].src;
+      full.alt = thumbs[index].alt;
+    }
+    function open(i) {
+      show(i);
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function close() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      full.removeAttribute('src');
+      index = -1;
+    }
+
+    thumbs.forEach(function (thumb, i) {
+      thumb.addEventListener('click', function () { open(i); });
+    });
+    overlay.addEventListener('click', close);
+    full.addEventListener('click', function (e) { e.stopPropagation(); });
+    overlay.querySelector('.lightbox-prev').addEventListener('click', function (e) {
+      e.stopPropagation(); show(index - 1);
+    });
+    overlay.querySelector('.lightbox-next').addEventListener('click', function (e) {
+      e.stopPropagation(); show(index + 1);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'ArrowRight') show(index + 1);
+    });
+  })();
+</script>
+
+<div class="theme-dock" role="group" aria-label="Colour scheme">
+  <span class="dock-label">Display</span>
+  <button class="theme-btn" data-set="blueprint" aria-pressed="false" title="Blueprint" aria-label="Blueprint theme">Blueprint</button>
+  <button class="theme-btn" data-set="paper" aria-pressed="true" title="Drafting paper" aria-label="Paper theme">Paper</button>
+  <button class="theme-btn" data-set="terminal" aria-pressed="false" title="Terminal" aria-label="Terminal theme">Terminal</button>
+</div>
+<script src="/assets/theme.js"></script>
 </body>
 </html>

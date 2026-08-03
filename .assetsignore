@@ -35,3 +35,10 @@ node_modules/
 # Redundant duplicate page: projects/gastrotator.html is canonical.
 # Generated from repo_name in portfolio.db; untracked and never deployed.
 projects/gastrotator_android.html
+
+# local wrangler dev cache
+.wrangler/
+
+# Screenshot masters. The site serves only the generated thumb/ and full/
+# derivatives; these originals are kept in the repo as sources.
+assets/screenshots/*/*.png
