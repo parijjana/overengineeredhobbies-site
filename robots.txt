@@ -1,0 +1,40 @@
+# overengineeredhobbies.dev
+#
+# AI crawlers are explicitly welcome. This site exists to be read — by people
+# and by the agents that increasingly do the first pass of hiring research.
+# Content signals below are permissive on purpose.
+
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+
+User-agent: *
+Allow: /
+
+# Named AI crawlers, stated explicitly so there is no ambiguity.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://overengineeredhobbies.dev/sitemap.xml
