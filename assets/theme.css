@@ -94,3 +94,9 @@
   .theme-dock { top: 8px; right: 8px; padding: 4px; }
   .theme-dock .dock-label { display: none; }
 }
+
+/* landscape 5th/6th prints (piles with no portrait shots) */
+.pile img:nth-child(5):not(.portrait) { transform: translate(-50%,-50%) rotate(-8deg) translate(-30px,-4px); z-index: 5; }
+.pile img:nth-child(6):not(.portrait) { transform: translate(-50%,-50%) rotate(8deg)  translate(30px,6px);   z-index: 6; }
+.pile:hover img:nth-child(5):not(.portrait) { transform: translate(-50%,-50%) rotate(-12deg) translate(-92px,-10px); }
+.pile:hover img:nth-child(6):not(.portrait) { transform: translate(-50%,-50%) rotate(12deg)  translate(92px,14px);  }

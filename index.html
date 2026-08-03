@@ -327,14 +327,14 @@ img { max-width: 100%; display: block; }
   border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent);
   z-index: 9;
 }
-.pile img {
+.build-shot .pile img, .pile img {
   position: absolute; left: 50%; top: 50%; width: 62%; height: auto;
   padding: 5px 5px 12px; background: var(--print); border-radius: 1px;
   box-shadow: 0 7px 18px var(--print-shadow);
   transform-origin: center center;
   transition: transform .28s ease, box-shadow .28s ease;
 }
-.pile img.portrait { width: 30%; }
+.build-shot .pile img.portrait, .pile img.portrait { width: 30%; }
 .pile img:nth-child(1) { transform: translate(-50%,-50%) rotate(-6deg) translate(-13px,-11px); z-index: 1; }
 .pile img:nth-child(2) { transform: translate(-50%,-50%) rotate(4deg)  translate(8px,-6px);    z-index: 2; }
 .pile img:nth-child(3) { transform: translate(-50%,-50%) rotate(-3deg) translate(-6px,8px);    z-index: 3; }
@@ -907,12 +907,15 @@ img { max-width: 100%; display: block; }
           shipped apps combined — and the reason they were quick to build.
         </p>
         <div class="build-body">
-          <figure class="build-shot shot-missing">
-            <div class="shot-placeholder">
-              <span>SCREENSHOTS COMING SOON</span>
-              <small>desktop captures in progress</small>
+          <figure class="build-shot" style="border:0;background:none">
+            <div class="pile">
+              <img src="/assets/screenshots/aulos/thumb/01_now_playing_music.jpg" data-full="/assets/screenshots/aulos/full/01_now_playing_music.jpg" alt="Aulos — now playing, music" loading="lazy">
+              <img src="/assets/screenshots/aulos/thumb/02_now_playing_audiobook.jpg" data-full="/assets/screenshots/aulos/full/02_now_playing_audiobook.jpg" alt="Aulos — now playing, audiobook" loading="lazy">
+              <img src="/assets/screenshots/aulos/thumb/03_library_album_grid.jpg" data-full="/assets/screenshots/aulos/full/03_library_album_grid.jpg" alt="Aulos — library" loading="lazy">
+              <img src="/assets/screenshots/aulos/thumb/04_mood_dashboard.jpg" data-full="/assets/screenshots/aulos/full/04_mood_dashboard.jpg" alt="Aulos — mood dashboard" loading="lazy">
+              <img src="/assets/screenshots/aulos/thumb/05_ambient_noise_mixer.jpg" data-full="/assets/screenshots/aulos/full/05_ambient_noise_mixer.jpg" alt="Aulos — ambient noise mixer" loading="lazy">
             </div>
-            <figcaption>LIBRARY — UNIFIED MEDIA VIEW</figcaption>
+            <figcaption class="pile-cap" style="border:0">5 SHOTS — CLICK TO ENLARGE</figcaption>
           </figure>
           <dl class="pas">
             <dt>Problem</dt>
@@ -1021,8 +1024,8 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="principle">
           <span class="pn">Principle<br>02</span>
-          <p>Why we are building it — and what it has to do — is settled
-             <strong>before a single line of code is written</strong>.
+          <p><strong>Why we are building it</strong> — and what it has to do — is settled
+             before a single line of code is written.
              <em>Four of the seven stages happen before implementation begins. The two
              where AI writes the most are the two that need the tightest direction,
              which is why judgment concentrates exactly where no tool can help.</em></p>
