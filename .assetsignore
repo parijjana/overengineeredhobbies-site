@@ -1,0 +1,37 @@
+# Files under this directory are published as the public website
+# (wrangler.jsonc sets assets.directory = ".").
+#
+# Anything listed here is NOT uploaded. Gitignore syntax.
+#
+# DO NOT add: assets/, projects/, blog/, demos/, index.html
+# The store-declared legal + support pages live under projects/ and must
+# keep resolving:
+#   projects/pellucid_privacy.html   projects/pellucid_support.html
+#   projects/pellucid_terms.html     projects/kalkra_privacy.html
+#   projects/kalkra_support.html
+
+# Version control internals. Serving .git republishes the whole history,
+# which would silently defeat ever making this repo private.
+.git/
+.gitignore
+.assetsignore
+
+# Build-time source and data. Nothing fetches these at runtime;
+# only assets/progress.json is read by the browser.
+scripts/
+templates/
+*.py
+*.db
+config.json
+wrangler.jsonc
+package.json
+package-lock.json
+node_modules/
+
+# OS noise
+.DS_Store
+**/.DS_Store
+
+# Redundant duplicate page: projects/gastrotator.html is canonical.
+# Generated from repo_name in portfolio.db; untracked and never deployed.
+projects/gastrotator_android.html
