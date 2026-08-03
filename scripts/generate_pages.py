@@ -218,6 +218,10 @@ def generate_pages():
         project_tokens = {
             "title": name,
             "project_id": repo_name.upper().replace("_ANDROID", ""),
+            # SEO: Cloudflare serves /projects/<slug>.html at the extensionless
+            # path, so the canonical must be the extensionless form.
+            "canonical_url": f"https://overengineeredhobbies.dev/projects/{repo_name.lower()}",
+            "meta_description": clean_text(proj.get("about") or "")[:155],
             "accent_color": accent,
             "accent_dim_color": accent_dim,
             "stack_html": stack_html,
