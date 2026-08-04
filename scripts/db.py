@@ -127,7 +127,11 @@ def get_all_projects():
     conn = get_connection()
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM projects")
+        # has_project_page = 0 means the project is a landing-page card only, with no
+        # generated page of its own (the site's own row, PRJ008). Without this filter
+        # the generator would emit a stray projects/overengineeredhobbies-site.html -
+        # the same duplicate-page class as gastrotator_android.html.
+        cursor.execute("SELECT * FROM projects WHERE has_project_page = 1")
         projects = []
         for row in cursor.fetchall():
             proj_dict = dict(row)
