@@ -350,7 +350,7 @@ def generate_pages():
         "owner_name": config["owner"]["name"],
         "owner_github_username": config["owner"]["github_username"],
         "owner_linkedin_url": config["owner"]["linkedin_url"],
-        "cv_path": config["owner"]["cv_download_path"],
+        "owner_email": config["owner"]["email"],
         "site_title_suffix": config["site"]["title_suffix"],
         "site_logo_text": config["site"]["logo_text"],
         "site_logo_sub": config["site"]["logo_sub"],

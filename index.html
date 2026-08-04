@@ -128,12 +128,7 @@ img { max-width: 100%; display: block; }
 .rail-links a { font-family: var(--font-mono); font-size: 12px; }
 .rail-links a::before { content: '→ '; color: var(--text-dim); }
 
-.btn-cv {
-  display: block; text-align: center; margin-top: auto;
-  background: var(--accent); color: var(--on-accent);
-  font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em;
-  padding: 11px; font-weight: 500;
-}
+.rail-links a.mail { word-break: break-all; }
 
 
 /* ============================================================
@@ -233,7 +228,7 @@ img { max-width: 100%; display: block; }
 /* third tab exists only on narrow screens */
 .tab-person { display: none; }
 
-/* compact identity strip — narrow screens only, keeps name + CV always visible */
+/* compact identity strip — narrow screens only, keeps name + contact always visible */
 .ident {
   display: none;
   align-items: center; gap: 14px; flex-wrap: wrap;
@@ -245,7 +240,10 @@ img { max-width: 100%; display: block; }
   color: var(--text-bright); letter-spacing: .02em; margin-right: auto;
 }
 .ident-name span { color: var(--accent); }
-.ident .btn-cv { margin-top: 0; padding: 9px 16px; }
+.ident-mail {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--accent); word-break: break-all;
+}
 
 @media (max-width: 1100px) {
   .tab-person { display: flex; }
@@ -676,7 +674,6 @@ img { max-width: 100%; display: block; }
     border-left: 0; border-bottom: 1px solid var(--border);
     padding: 32px 0 26px;
   }
-  .btn-cv { margin-top: 22px; }
   .main { padding-top: 34px; }
   .build-body { grid-template-columns: 1fr; }
 }
@@ -756,7 +753,7 @@ img { max-width: 100%; display: block; }
     <!-- compact identity strip — narrow screens only -->
     <div class="ident">
       <div class="ident-name">ANIMESH <span>SARKAR</span></div>
-      <a class="btn-cv" href="/assets/animesh_jun_2026.pdf">DOWNLOAD CV →</a>
+      <a class="ident-mail" href="mailto:overengineeredhobbies@gmail.com">overengineeredhobbies@gmail.com</a>
     </div>
 
     <!-- ==================== TAB BAR ==================== -->
@@ -1433,7 +1430,12 @@ img { max-width: 100%; display: block; }
       </div>
     </div>
 
-    <a class="btn-cv" href="/assets/animesh_jun_2026.pdf">DOWNLOAD CV →</a>
+    <div class="rail-block">
+      <div class="rail-label">Contact</div>
+      <div class="rail-links">
+        <a class="mail" href="mailto:overengineeredhobbies@gmail.com">overengineeredhobbies@gmail.com</a>
+      </div>
+    </div>
   </aside>
 
 </div>
