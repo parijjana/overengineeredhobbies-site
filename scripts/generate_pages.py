@@ -131,6 +131,8 @@ def generate_pages():
         github_url = proj["github_url"] or f"https://github.com/{config['owner']['github_username']}/{repo_name}"
         playstore_url = proj["playstore_url"]
         playstore_html = f'<a href="{playstore_url}" class="btn-github">VIEW ON PLAY STORE →</a>' if playstore_url else ""
+        appstore_url = proj["appstore_url"]
+        appstore_html = f'<a href="{appstore_url}" class="btn-github">VIEW ON THE APP STORE →</a>' if appstore_url else ""
         
         # Web Demo Link
         demo_html = f'<a href="../{demo_path}" class="btn-github" style="color:var(--accent); border-color:var(--accent);">TRY WEB DEMO →</a>' if demo_path else ""
@@ -227,6 +229,7 @@ def generate_pages():
             "stack_html": stack_html,
             "github_url": github_url,
             "playstore_html": playstore_html,
+            "appstore_html": appstore_html,
             "demo_html": demo_html,
             "privacy_html": privacy_html,
             "terms_html": terms_html,
