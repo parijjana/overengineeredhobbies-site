@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animesh Sarkar — AI-first Product Owner | overengineeredhobbies.dev</title>
+<title>Animesh Sarkar — deciding what gets built, and building it</title>
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="stylesheet" href="/assets/theme.css">
 <link rel="canonical" href="https://overengineeredhobbies.dev/">
 <meta property="og:image" content="https://overengineeredhobbies.dev/assets/screenshots/site/full/work-paper.jpg">
-<meta property="og:image:alt" content="overengineeredhobbies.dev — The Work">
+<meta property="og:image:alt" content="Screenshot of the overengineeredhobbies.dev homepage on cream graph paper: the headline &quot;Overengineered hobbies. Shipped.&quot; above a paragraph on owning products end to end, a row of counters reading 8 products owned end to end, 1 live on Google Play, 2 in store review, and a right-hand sidebar profile card for Animesh Sarkar listing what he owns, current focus and a technology list.">
 <meta property="og:site_name" content="overengineeredhobbies.dev">
 <meta name="twitter:image" content="https://overengineeredhobbies.dev/assets/screenshots/site/full/work-paper.jpg">
-<meta name="description" content="I own products end to end — deciding what is worth building, how it is architected, and what it takes to survive store review — directing LLMs through the implementation. Four products shipped or shipping.">
-<meta property="og:title" content="Animesh Sarkar — AI-first Product Owner">
+<meta name="description" content="Nineteen years in software: nine building it, ten owning what gets built. Independently, products taken from the kill decision to store review, directing LLMs through implementation.">
+<meta property="og:title" content="Animesh Sarkar — deciding what gets built, and building it">
 <meta property="og:description" content="Overengineered hobbies. Shipped. Finished is the hard part.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://overengineeredhobbies.dev/">
@@ -744,7 +744,7 @@ img { max-width: 100%; display: block; }
         lifecycle. The judgment is the job.
       </p>
       <div class="hero-facts">
-        <div><b>5</b><span>Products owned end to end</span></div>
+        <div><b>6</b><span>Products owned end to end</span></div>
         <div><b>2</b><span>Live in public app stores</span></div>
         <div><b>1</b><span>In store review</span></div>
       </div>
@@ -986,10 +986,65 @@ img { max-width: 100%; display: block; }
         </footer>
       </article>
 
-      <!-- ---------- BUILD 05 — this site ---------- -->
+      <!-- ---------- BUILD 05 — the LibriVox player ---------- -->
       <article class="build">
         <header class="build-head">
           <span class="build-idx">BUILD 05</span>
+          <h3 class="build-name">DIEGEMA</h3>
+          <span class="build-plat">macOS · Web</span>
+          <span class="status dev">In development — source public</span>
+        </header>
+        <p class="build-claim">
+          A free, ad-free player for LibriVox's public-domain audiobooks. Every
+          recording in it was read by a volunteer and given away; the software
+          around it should be given away too.
+        </p>
+        <div class="build-body">
+          <figure class="build-shot" style="border:0;background:none">
+            <div class="pile">
+              <img src="/assets/screenshots/diegema/thumb/now-playing.jpg" data-full="/assets/screenshots/diegema/full/now-playing.jpg" alt="Diegema — now playing" loading="lazy">
+              <img src="/assets/screenshots/diegema/thumb/discover.jpg" data-full="/assets/screenshots/diegema/full/discover.jpg" alt="Diegema — discover" loading="lazy">
+              <img src="/assets/screenshots/diegema/thumb/book-detail.jpg" data-full="/assets/screenshots/diegema/full/book-detail.jpg" alt="Diegema — book detail" loading="lazy">
+              <img class="portrait" src="/assets/screenshots/diegema/thumb/mobile-now-playing.jpg" data-full="/assets/screenshots/diegema/full/mobile-now-playing.jpg" alt="Diegema — now playing (phone)" loading="lazy">
+              <img class="portrait" src="/assets/screenshots/diegema/thumb/mobile-discover.jpg" data-full="/assets/screenshots/diegema/full/mobile-discover.jpg" alt="Diegema — discover (phone)" loading="lazy">
+            </div>
+            <figcaption class="pile-cap" style="border:0">5 SHOTS — CLICK TO ENLARGE</figcaption>
+          </figure>
+          <dl class="pas">
+            <dt>Problem</dt>
+            <dd>LibriVox holds tens of thousands of public-domain audiobooks, read by
+                volunteers and free forever. The apps around them are mostly
+                ad-supported wrappers, or general podcast players that lose your place
+                halfway through chapter four of eight.</dd>
+            <dt>Approach</dt>
+            <dd>Make it behave the way a listener expects. It remembers exactly where
+                you stopped — which book, which chapter, how far in — and picks up
+                there. Books can be downloaded and played with nothing connected at
+                all, and it browses the archive gently rather than greedily, because
+                the people hosting these recordings are giving them away. The demo on
+                this page is entirely self-contained: eighteen books and their cover
+                art are built into it, so browsing it never calls out to anyone.</dd>
+            <dt>Outcome</dt>
+            <dd>Free, open source, and in no store yet — it runs on a Mac or in a
+                browser, and that is all I claim so far. Even the name is a
+                placeholder: if the LibriVox community is receptive, the intention is
+                to let them choose the real one. Not affiliated with or endorsed by
+                LibriVox.</dd>
+          </dl>
+        </div>
+        <footer class="build-foot">
+          <div class="tags"><span>FLUTTER</span><span>DRIFT</span><span>MIT</span><span>PUBLIC DOMAIN</span></div>
+          <div class="build-links">
+            <a class="lnk primary" href="/demos/diegema/">Live demo</a>
+            <a class="lnk" href="https://github.com/parijjana/diegema">Source</a>
+          </div>
+        </footer>
+      </article>
+
+      <!-- ---------- BUILD 06 — this site ---------- -->
+      <article class="build">
+        <header class="build-head">
+          <span class="build-idx">BUILD 06</span>
           <h3 class="build-name">OVERENGINEEREDHOBBIES.DEV</h3>
           <span class="build-plat">Web</span>
           <span class="status live">Live — you're in it</span>
