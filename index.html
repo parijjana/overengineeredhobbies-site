@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/assets/theme.css">
 <link rel="canonical" href="https://overengineeredhobbies.dev/">
 <meta property="og:image" content="https://overengineeredhobbies.dev/assets/screenshots/site/full/work-paper.jpg">
-<meta property="og:image:alt" content="Screenshot of the overengineeredhobbies.dev homepage on cream graph paper: the headline &quot;Overengineered hobbies. Shipped.&quot; above a paragraph on owning products end to end, a row of counters for products owned, apps live in stores and apps in store review, and a right-hand sidebar profile card for Animesh Sarkar listing what he owns, his current focus, the technologies he works with and where to find him.">
+<meta property="og:image:alt" content="Screenshot of the overengineeredhobbies.dev homepage on cream graph paper: the headline &quot;Overengineered hobbies. Shipped.&quot; above a paragraph on owning products end to end, a row of counters for products owned, apps live in stores and platforms shipped to, and a right-hand sidebar profile card for Animesh Sarkar listing what he owns, his current focus, the technologies he works with and where to find him.">
 <meta property="og:site_name" content="overengineeredhobbies.dev">
 <meta name="twitter:image" content="https://overengineeredhobbies.dev/assets/screenshots/site/full/work-paper.jpg">
 <meta name="description" content="Nineteen years in software: nine building it, ten owning what gets built. Independently, products taken from the kill decision to store review, directing LLMs through implementation.">
@@ -284,7 +284,19 @@ img { max-width: 100%; display: block; }
   background: var(--surface);
   margin-bottom: 30px;
   position: relative;
+  scroll-margin-top: 90px;   /* clear the sticky tab bar on a deep link */
 }
+/* deep-link handle — copies the direct URL to this build */
+.build-anchor {
+  font-family: var(--font-mono); font-size: 14px; line-height: 1;
+  color: var(--text-dim); text-decoration: none;
+  padding: 3px 6px; border: 1px solid transparent;
+}
+.build-anchor:hover, .build-anchor:focus-visible { color: var(--accent); border-color: var(--border-bright); }
+.build-anchor.copied { color: var(--ok); border-color: currentColor; }
+.build-anchor.copied::after { content: ' LINK COPIED'; font-size: 9.5px; letter-spacing: .12em; }
+/* a build arrived at by deep link stays highlighted while the hash points at it */
+.build:target { border-color: var(--accent); }
 .build:hover { border-color: var(--border-bright); }
 .build::before {
   content: ''; position: absolute; top: -1px; left: -1px;
@@ -745,8 +757,8 @@ img { max-width: 100%; display: block; }
       </p>
       <div class="hero-facts">
         <div><b>6</b><span>Products owned end to end</span></div>
-        <div><b>2</b><span>Live in public app stores</span></div>
-        <div><b>1</b><span>In store review</span></div>
+        <div><b>3</b><span>Live in public app stores</span></div>
+        <div><b>4</b><span>Platforms live — Mac, iPhone, iPad, Android</span></div>
       </div>
     </section>
 
@@ -789,12 +801,14 @@ img { max-width: 100%; display: block; }
       </p>
 
       <!-- ---------- BUILD 01 ---------- -->
-      <article class="build">
+      <article class="build" id="kalkra">
         <header class="build-head">
           <span class="build-idx">BUILD 01</span>
           <h3 class="build-name">KALKRA</h3>
           <span class="build-plat">macOS · iOS · Windows</span>
           <span class="status live">Live on the App Store — Mac, iPhone &amp; iPad</span>
+          <a class="build-anchor" href="#kalkra" title="Copy a direct link to Kalkra"
+             aria-label="Copy a direct link to Kalkra">#</a>
         </header>
         <p class="build-claim">
           A mental-arithmetic trainer that reads how fast you actually solve, and
@@ -839,12 +853,14 @@ img { max-width: 100%; display: block; }
       </article>
 
       <!-- ---------- BUILD 02 ---------- -->
-      <article class="build">
+      <article class="build" id="gastrotator">
         <header class="build-head">
           <span class="build-idx">BUILD 02</span>
           <h3 class="build-name">GASTROTATOR</h3>
           <span class="build-plat">Android</span>
           <span class="status live">Live on Google Play</span>
+          <a class="build-anchor" href="#gastrotator" title="Copy a direct link to Gastrotator"
+             aria-label="Copy a direct link to Gastrotator">#</a>
         </header>
         <p class="build-claim">
           Turns a twelve-minute cooking video into a structured, editable recipe with
@@ -890,12 +906,14 @@ img { max-width: 100%; display: block; }
       </article>
 
       <!-- ---------- BUILD 03 ---------- -->
-      <article class="build">
+      <article class="build" id="pellucid">
         <header class="build-head">
           <span class="build-idx">BUILD 03</span>
           <h3 class="build-name">PELLUCID</h3>
           <span class="build-plat">macOS · Windows · iOS</span>
-          <span class="status review">In review</span>
+          <span class="status live">Live on the Mac App Store</span>
+          <a class="build-anchor" href="#pellucid" title="Copy a direct link to Pellucid"
+             aria-label="Copy a direct link to Pellucid">#</a>
         </header>
         <p class="build-claim">
           A distraction-free writing environment whose interface fades out of the
@@ -922,14 +940,17 @@ img { max-width: 100%; display: block; }
                 on disk. Versioned Google&nbsp;Drive sync using only the
                 <code>drive.file</code> scope — the app can touch nothing it didn't create.</dd>
             <dt>Outcome</dt>
-            <dd>Submitted to the Mac App Store; iOS and iPad builds green with
-                keyboard-first interaction and OAuth via ASWebAuthenticationSession.</dd>
+            <dd>Live on the Mac App Store as 1.0.1 — free, sandboxed, and shipping with
+                no entitlement it cannot justify. iOS and iPad builds are green with
+                keyboard-first interaction and OAuth via ASWebAuthenticationSession;
+                Windows follows.</dd>
           </dl>
         </div>
         <footer class="build-foot">
           <div class="tags"><span>FLUTTER</span><span>SQLITE</span><span>OAUTH 2.0</span><span>DESKTOP</span></div>
           <div class="build-links">
-            <a class="lnk primary" href="/demos/pellucid/">Live demo</a>
+            <a class="lnk primary" href="https://apps.apple.com/app/pellucid/id6795921473?mt=12">Mac App Store →</a>
+            <a class="lnk" href="/demos/pellucid/">Live demo</a>
             <a class="lnk" href="https://github.com/parijjana/pellucid">Source</a>
             <a class="lnk" href="/projects/pellucid.html">Project page</a>
           </div>
@@ -938,12 +959,14 @@ img { max-width: 100%; display: block; }
       </article>
 
       <!-- ---------- BUILD 04 — the research platform ---------- -->
-      <article class="build">
+      <article class="build" id="aulos">
         <header class="build-head">
           <span class="build-idx">BUILD 04</span>
           <h3 class="build-name">AULOS</h3>
           <span class="build-plat">Windows · macOS</span>
           <span class="status dev">Research — not for stores</span>
+          <a class="build-anchor" href="#aulos" title="Copy a direct link to Aulos"
+             aria-label="Copy a direct link to Aulos">#</a>
         </header>
         <p class="build-claim">
           The bedrock. At ~44,000 lines it is very nearly as much code as all three
@@ -988,12 +1011,14 @@ img { max-width: 100%; display: block; }
       </article>
 
       <!-- ---------- BUILD 05 — the LibriVox player ---------- -->
-      <article class="build">
+      <article class="build" id="diegema">
         <header class="build-head">
           <span class="build-idx">BUILD 05</span>
           <h3 class="build-name">DIEGEMA</h3>
           <span class="build-plat">macOS · Web</span>
           <span class="status dev">In development — source public</span>
+          <a class="build-anchor" href="#diegema" title="Copy a direct link to Diegema"
+             aria-label="Copy a direct link to Diegema">#</a>
         </header>
         <p class="build-claim">
           A free, ad-free player for LibriVox's public-domain audiobooks. Every
@@ -1043,12 +1068,14 @@ img { max-width: 100%; display: block; }
       </article>
 
       <!-- ---------- BUILD 06 — this site ---------- -->
-      <article class="build">
+      <article class="build" id="site">
         <header class="build-head">
           <span class="build-idx">BUILD 06</span>
           <h3 class="build-name">OVERENGINEEREDHOBBIES.DEV</h3>
           <span class="build-plat">Web</span>
           <span class="status live">Live — you're in it</span>
+          <a class="build-anchor" href="#site" title="Copy a direct link to this website"
+             aria-label="Copy a direct link to this website">#</a>
         </header>
         <p class="build-claim">
           This page. A portfolio that is itself a build — generated from a database,
@@ -1465,7 +1492,7 @@ img { max-width: 100%; display: block; }
 
     <div class="rail-block">
       <div class="rail-label">Current focus</div>
-      <p>Pellucid&nbsp;1.0 · Mac&nbsp;App&nbsp;Store review<br>Kalkra · Mac + iOS review<br>MCePtion&nbsp;v2 · in development</p>
+      <p>Pellucid&nbsp;1.0.1 · live on the Mac&nbsp;App&nbsp;Store<br>Pellucid · iPad build next<br>MCePtion&nbsp;v2 · in development</p>
     </div>
 
     <div class="rail-block">
@@ -1582,7 +1609,47 @@ img { max-width: 100%; display: block; }
   narrow.addEventListener('change', place);
   place();
 
-  show((location.hash || '').replace('#', '') || 'work', false);
+  /* ---- deep links ----------------------------------------------------
+     A hash is either a tab name (#work, #method, #person) or the id of
+     any element inside a panel (#pellucid, #diegema, #method...). For the
+     latter we open the panel that owns it — a hidden panel can't be
+     scrolled to — and then scroll to the element ourselves.
+     -------------------------------------------------------------------- */
+  function panelOf(el) {
+    for (var n = el; n; n = n.parentNode) {
+      if (n.classList && n.classList.contains('tab-panel')) {
+        return n.id.replace('panel-', '');
+      }
+    }
+    return null;
+  }
+
+  function route(hash, smooth) {
+    var id = (hash || '').replace(/^#/, '');
+    if (!id) { show('work', false); return; }
+    if (panels[id]) { show(id, false); return; }        // plain tab link
+
+    var target = document.getElementById(id);
+    if (!target) { show('work', false); return; }
+    show(panelOf(target) || 'work', false);             // never rewrite the hash
+    target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+  }
+
+  window.addEventListener('hashchange', function () { route(location.hash, true); });
+  route(location.hash, false);
+
+  /* the # handle on each build: copy the absolute URL, and let the click
+     fall through so the address bar shows the same link */
+  document.querySelectorAll('.build-anchor').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var url = location.origin + location.pathname + a.getAttribute('href');
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(url).then(function () {
+        a.classList.add('copied');
+        setTimeout(function () { a.classList.remove('copied'); }, 1600);
+      }, function () { /* clipboard denied — the address bar still has it */ });
+    });
+  });
 
 })();
 
