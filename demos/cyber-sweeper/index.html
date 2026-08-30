@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blueprint">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="Cyber Sweeper: AI-Infected Minesweeper with subterranean nanite robots, EMP shockwaves, rage time bombs, and a 5-floor campaign.">
+  <meta name="theme-color" content="#e8a020">
+  <meta property="og:title" content="Cyber Sweeper: KRONOS-9 Protocol — overengineeredhobbies.dev">
+  <meta property="og:description" content="Overengineered AI-Infected Minesweeper featuring subterranean nanite robots, deployable EMP shockwaves, and rage time bombs.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111f'/%3E%3Ccircle cx='32' cy='32' r='20' fill='%23e8a020'/%3E%3Cpath d='M32 16v32M16 32h32' stroke='%2308111f' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%23ddeeff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <title>Cyber Sweeper — overengineeredhobbies.dev</title>
+  <style>
+    /* ============================================================
+       OVERENGINEERED HOBBIES THEMES (Blueprint, Paper, Terminal)
+       ============================================================ */
+    :root {
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'Fira Code', ui-monospace, monospace;
+      --font-body: 'Lora', Georgia, serif;
+    }
+
+    [data-theme="blueprint"] {
+      --panel-soft: rgba(13,26,46,0.75);
+      --panel-strong: rgba(8,17,31,0.95);
+      --bg: #08111f;
+      --surface: #0d1a2e;
+      --surface-raised: #112238;
+      --grid-major: rgba(78,140,220,0.12);
+      --grid-minor: rgba(78,140,220,0.06);
+      --border: rgba(78,140,220,0.22);
+      --border-bright: rgba(78,140,220,0.50);
+      --text: #8aaed0;
+      --text-dim: #4a6d94;
+      --text-bright: #ddeeff;
+      --accent: #e8a020;
+      --accent-dim: rgba(232,160,32,0.12);
+      --accent-glow: rgba(232,160,32,0.25);
+      --on-accent: #08111f;
+      --tag: rgba(78,140,220,0.14);
+      --tag-text: #5ba0e8;
+      --ok: #4ec9a0;
+      --warn: #e8a020;
+      --err: #f87171;
+      --canvas-bg: #050b14;
+      --tile-unrev: #0d1a2e;
+      --tile-rev: #08111f;
+      --tile-border: rgba(78,140,220,0.30);
+    }
+
+    [data-theme="paper"] {
+      --panel-soft: rgba(255,253,248,0.85);
+      --panel-strong: rgba(251,248,241,0.98);
+      --bg: #f2eee4;
+      --surface: #fbf8f1;
+      --surface-raised: #ffffff;
+      --grid-major: rgba(40,70,110,0.12);
+      --grid-minor: rgba(40,70,110,0.06);
+      --border: rgba(40,70,110,0.24);
+      --border-bright: rgba(40,70,110,0.50);
+      --text: #4a5769;
+      --text-dim: #7f8a9a;
+      --text-bright: #131e2c;
+      --accent: #a8620a;
+      --accent-dim: rgba(168,98,10,0.12);
+      --accent-glow: rgba(168,98,10,0.22);
+      --on-accent: #fbf8f1;
+      --tag: rgba(40,70,110,0.10);
+      --tag-text: #2f5680;
+      --ok: #1d7a5c;
+      --warn: #a8620a;
+      --err: #dc2626;
+      --canvas-bg: #e5dfd3;
+      --tile-unrev: #fbf8f1;
+      --tile-rev: #ece6d8;
+      --tile-border: rgba(40,70,110,0.32);
+    }
+
+    [data-theme="terminal"] {
+      --panel-soft: rgba(11,16,13,0.75);
+      --panel-strong: rgba(6,8,7,0.96);
+      --bg: #060807;
+      --surface: #0b100d;
+      --surface-raised: #101713;
+      --grid-major: rgba(110,220,150,0.12);
+      --grid-minor: rgba(110,220,150,0.06);
+      --border: rgba(110,220,150,0.24);
+      --border-bright: rgba(110,220,150,0.50);
+      --text: #7fae8f;
+      --text-dim: #3f6a51;
+      --text-bright: #d6ffe4;
+      --accent: #ffb000;
+      --accent-dim: rgba(255,176,0,0.12);
+      --accent-glow: rgba(255,176,0,0.25);
+      --on-accent: #060807;
+      --tag: rgba(110,220,150,0.14);
+      --tag-text: #63c98c;
+      --ok: #4ade80;
+      --warn: #ffb000;
+      --err: #ef4444;
+      --canvas-bg: #030504;
+      --tile-unrev: #0b100d;
+      --tile-rev: #050806;
+      --tile-border: rgba(110,220,150,0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px);
+      background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 14px 18px;
+      overflow-x: hidden;
+      transition: background-color .25s, color .25s;
+    }
+
+    /* ---------- Header Banner with Blueprint Corner Ticks ---------- */
+    header {
+      width: 100%;
+      max-width: 1140px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 10px 18px;
+      background: var(--panel-strong);
+      border: 1px solid var(--border-bright);
+      position: relative;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 9px;
+      height: 9px;
+      border-top: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 9px;
+      height: 9px;
+      border-bottom: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+    }
+
+    .title-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stamp {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .18em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      line-height: .95;
+      color: var(--text-bright);
+      letter-spacing: .02em;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .title span {
+      color: var(--accent);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ---------- Theme Switcher Dock (Blueprint / Paper / Terminal) ---------- */
+    .theme-dock {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .theme-dock .dock-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      padding-right: 2px;
+    }
+
+    .theme-btn {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      border: 1px solid var(--border-bright);
+      position: relative;
+      transition: .15s;
+    }
+
+    .theme-btn::after {
+      content: '';
+      position: absolute;
+      inset: auto 2px 2px auto;
+      width: 5px;
+      height: 5px;
+    }
+
+    .theme-btn:hover { transform: translateY(-1px); }
+    .theme-btn[aria-pressed="true"] {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .theme-btn[data-set="blueprint"] { background: #08111f; }
+    .theme-btn[data-set="blueprint"]::after { background: #e8a020; }
+    .theme-btn[data-set="paper"] { background: #f2eee4; }
+    .theme-btn[data-set="paper"]::after { background: #a8620a; }
+    .theme-btn[data-set="terminal"] { background: #060807; }
+    .theme-btn[data-set="terminal"]::after { background: #ffb000; }
+
+    /* ---------- Main Shell & Canvas Container ---------- */
+    .main-layout {
+      display: flex;
+      gap: 14px;
+      max-width: 1140px;
+      width: 100%;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    #canvas-container {
+      position: relative;
+      background: var(--canvas-bg);
+      border: 1px solid var(--border-bright);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Standing Mandate 15: Game-Centric Fullscreen Standard */
+    #canvas-container:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      border: none;
+      box-shadow: none;
+    }
+    #canvas-container:-webkit-full-screen {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      border: none;
+    }
+    #canvas-container:fullscreen canvas,
+    #canvas-container:-webkit-full-screen canvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    #canvas-container::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 11px;
+      height: 11px;
+      border-top: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+      z-index: 10;
+    }
+
+    #canvas-container::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 11px;
+      height: 11px;
+      border-bottom: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+      z-index: 10;
+    }
+
+    canvas {
+      display: block;
+      cursor: crosshair;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ---------- Tactical Rail / Sidebar ---------- */
+    .sidebar {
+      width: 310px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+
+    .sidebar.collapsed {
+      display: none;
+    }
+
+    .panel {
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      position: relative;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      width: 7px;
+      height: 7px;
+      border-top: 1.5px solid var(--accent);
+      border-left: 1.5px solid var(--accent);
+    }
+
+    .panel h3 {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: .16em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    button {
+      background: var(--surface);
+      color: var(--text-bright);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    button:hover {
+      background: var(--surface-raised);
+      border-color: var(--accent);
+      color: var(--text-bright);
+    }
+
+    button.btn-accent {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+      width: 100%;
+      font-weight: 600;
+    }
+
+    button.btn-accent:hover {
+      background: var(--accent-glow);
+    }
+
+    #event-log {
+      height: 100px;
+      overflow-y: auto;
+      font-size: 10px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 3px;
+    }
+
+    .log-line {
+      line-height: 1.3;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 2px;
+    }
+
+    .key-badge {
+      display: inline-block;
+      background: var(--tag);
+      color: var(--tag-text);
+      padding: 1px 5px;
+      border: 1px solid var(--border);
+      font-size: 9.5px;
+      letter-spacing: .04em;
+      margin: 0 1px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .stats-val {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ---------- Floating Touch Bar for Mobile / Tablet Devices ---------- */
+    .touch-dock {
+      display: none;
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--panel-strong);
+      border: 1px solid var(--accent);
+      padding: 6px 12px;
+      gap: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
+      z-index: 999;
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    .dock-btn {
+      padding: 8px 16px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-bright);
+      cursor: pointer;
+    }
+
+    .dock-btn.active-dig {
+      background: var(--tag);
+      border-color: var(--tag-text);
+      color: var(--tag-text);
+    }
+
+    .dock-btn.active-flag {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .dock-btn.btn-emp-dock {
+      border-color: var(--warn);
+      color: var(--warn);
+    }
+
+    @media (max-width: 960px) {
+      .main-layout { flex-direction: column; align-items: center; }
+      .sidebar { width: 100%; max-width: 800px; }
+      .touch-dock { display: flex; }
+      body { padding-bottom: 74px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Banner -->
+  <header>
+    <div class="title-group">
+      <div class="stamp">OVERENGINEERED HOBBIES // LAB 09</div>
+      <div class="title">CYBER <span>SWEEPER</span></div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Theme Switcher Dock -->
+      <div class="theme-dock" role="toolbar" aria-label="Theme switcher">
+        <span class="dock-label">Theme</span>
+        <button class="theme-btn" data-set="blueprint" title="Blueprint theme" aria-pressed="true"></button>
+        <button class="theme-btn" data-set="paper" title="Drafting Paper theme" aria-pressed="false"></button>
+        <button class="theme-btn" data-set="terminal" title="Terminal theme" aria-pressed="false"></button>
+      </div>
+
+      <button id="btn-sound" title="Toggle Sound (M)">🔊 SFX: ON</button>
+      <button id="btn-drone" title="Toggle Synth Drone">🎵 DRONE: ON</button>
+      <button id="btn-toggle-sidebar" title="Tactical Rail Console (T)">⚙️ RAIL</button>
+      <button id="btn-fullscreen" title="Toggle Fullscreen">⛶</button>
+    </div>
+  </header>
+
+  <!-- Main Game Shell -->
+  <div class="main-layout">
+    <div id="canvas-container">
+      <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <!-- Collapsible Tactical Sidebar Rail -->
+    <div id="sidebar-drawer" class="sidebar">
+      <div class="panel">
+        <h3>🤖 Subterranean Nanite Telemetry</h3>
+        <p style="font-size: 11px; color: var(--text); line-height: 1.45; margin-bottom: 8px;">
+          Autonomous AI units scout and relocate mines. Corner them mathematically to trigger a frustration tantrum (<code style="color:var(--accent);">💢 ?#@!</code>) and arm 1 Overheat Bomb!
+        </p>
+        <button id="btn-force-swap" class="btn-accent">⚡ Force Immediate Relocation</button>
+        <button id="btn-emp" class="btn-accent" style="margin-top: 6px;">🔋 Deploy EMP Shockwave [Q]</button>
+      </div>
+
+      <div class="panel">
+        <h3>🗺️ Campaign Floor Select</h3>
+        <div class="btn-grid">
+          <button id="btn-f1">F1</button>
+          <button id="btn-f2">F2</button>
+          <button id="btn-f3">F3</button>
+          <button id="btn-f4">F4</button>
+          <button id="btn-f5">F5</button>
+        </div>
+        <button id="btn-reset" style="width:100%; margin-top:6px; color:var(--warn); border-color:var(--warn);">🔄 Reset Floor</button>
+      </div>
+
+      <div class="panel">
+        <h3>🏆 Records & Career Stats</h3>
+        <div class="stats-row"><span>High Score:</span><span id="stat-high-score" class="stats-val">0</span></div>
+        <div class="stats-row"><span>Floors Cleared:</span><span id="stat-floors-cleared" class="stats-val">0</span></div>
+        <div class="stats-row"><span>Glitch Flags Defused:</span><span id="stat-flags-defused" class="stats-val">0</span></div>
+        <div class="stats-row"><span>EMP Blasts Fired:</span><span id="stat-emp-fired" class="stats-val">0</span></div>
+      </div>
+
+      <div class="panel">
+        <h3>📜 Tactical Comms Stream</h3>
+        <div id="event-log"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Touch Action Switcher Dock -->
+  <div class="touch-dock">
+    <button id="dock-mode-dig" class="dock-btn active-dig">🔦 DIG MODE</button>
+    <button id="dock-mode-flag" class="dock-btn">🚩 FLAG MODE</button>
+    <button id="dock-btn-emp" class="dock-btn btn-emp-dock">🔋 EMP [Q]</button>
+  </div>
+
+  <script>
+    // --- Theme Switcher (Blueprint, Paper, Terminal) ---
+    const THEME_STORAGE_KEY = 'oeh-theme';
+    let currentTheme = 'blueprint';
+
+    try {
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+      if (savedTheme && ['blueprint', 'paper', 'terminal'].includes(savedTheme)) {
+        currentTheme = savedTheme;
+      }
+    } catch (e) {}
+
+    function applyTheme(themeName) {
+      currentTheme = themeName;
+      document.documentElement.setAttribute('data-theme', themeName);
+      try { localStorage.setItem(THEME_STORAGE_KEY, themeName); } catch (e) {}
+
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.setAttribute('aria-pressed', btn.getAttribute('data-set') === themeName ? 'true' : 'false');
+      });
+    }
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(btn.getAttribute('data-set')));
+    });
+
+    applyTheme(currentTheme);
+
+    // --- Persistent LocalStorage Manager ---
+    const STATS_STORAGE_KEY = 'cyber_sweeper_v1';
+    const stats = {
+      highScore: 0,
+      floorsCleared: 0,
+      flagsDefused: 0,
+      empFired: 0,
+      soundEnabled: true,
+      droneEnabled: true
+    };
+
+    function loadStats() {
+      try {
+        const saved = localStorage.getItem(STATS_STORAGE_KEY);
+        if (saved) Object.assign(stats, JSON.parse(saved));
+      } catch (e) {}
+      updateStatsUI();
+    }
+
+    function saveStats() {
+      try { localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(stats)); } catch (e) {}
+      updateStatsUI();
+    }
+
+    function updateStatsUI() {
+      const elHigh = document.getElementById('stat-high-score');
+      const elFloors = document.getElementById('stat-floors-cleared');
+      const elFlags = document.getElementById('stat-flags-defused');
+      const elEmp = document.getElementById('stat-emp-fired');
+      if (elHigh) elHigh.textContent = stats.highScore;
+      if (elFloors) elFloors.textContent = stats.floorsCleared;
+      if (elFlags) elFlags.textContent = stats.flagsDefused;
+      if (elEmp) elEmp.textContent = stats.empFired;
+    }
+
+    loadStats();
+
+    // --- Web Audio Synthesizer & Procedural Cyber Drone ---
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.droneOsc1 = null;
+        this.droneOsc2 = null;
+        this.droneGain = null;
+        this.droneFilter = null;
+        this.isMuted = !stats.soundEnabled;
+        this.isDroneOn = stats.droneEnabled;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+            this.setupDrone();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      setupDrone() {
+        if (!this.ctx) return;
+        try {
+          this.droneGain = this.ctx.createGain();
+          this.droneGain.gain.setValueAtTime(this.isDroneOn && !this.isMuted ? 0.035 : 0, this.ctx.currentTime);
+
+          this.droneFilter = this.ctx.createBiquadFilter();
+          this.droneFilter.type = 'lowpass';
+          this.droneFilter.frequency.setValueAtTime(220, this.ctx.currentTime);
+
+          this.droneOsc1 = this.ctx.createOscillator();
+          this.droneOsc1.type = 'sawtooth';
+          this.droneOsc1.frequency.setValueAtTime(55, this.ctx.currentTime);
+
+          this.droneOsc2 = this.ctx.createOscillator();
+          this.droneOsc2.type = 'sine';
+          this.droneOsc2.frequency.setValueAtTime(110, this.ctx.currentTime);
+
+          this.droneOsc1.connect(this.droneFilter);
+          this.droneOsc2.connect(this.droneFilter);
+          this.droneFilter.connect(this.droneGain);
+          this.droneGain.connect(this.ctx.destination);
+
+          this.droneOsc1.start();
+          this.droneOsc2.start();
+        } catch (e) {}
+      }
+
+      setDrone(enabled) {
+        this.isDroneOn = enabled;
+        stats.droneEnabled = enabled;
+        saveStats();
+        if (this.droneGain && this.ctx) {
+          this.droneGain.gain.setTargetAtTime(enabled && !this.isMuted ? 0.035 : 0, this.ctx.currentTime, 0.1);
+        }
+      }
+
+      setMute(muted) {
+        this.isMuted = muted;
+        stats.soundEnabled = !muted;
+        saveStats();
+        if (this.droneGain && this.ctx) {
+          this.droneGain.gain.setTargetAtTime(!muted && this.isDroneOn ? 0.035 : 0, this.ctx.currentTime, 0.1);
+        }
+      }
+
+      playTone(freq, dur = 0.08, type = 'sine', gainVal = 0.15) {
+        if (this.isMuted) return;
+        this.init();
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + dur);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + dur);
+        } catch (e) {}
+      }
+
+      playExplosion() {
+        if (this.isMuted) return;
+        this.playTone(80, 0.5, 'sawtooth', 0.4);
+      }
+
+      playGlitch() {
+        if (this.isMuted) return;
+        this.playTone(840, 0.06, 'sawtooth', 0.2);
+        setTimeout(() => this.playTone(420, 0.08, 'square', 0.2), 60);
+      }
+
+      playFrustration() {
+        if (this.isMuted) return;
+        this.playTone(280, 0.1, 'sawtooth', 0.25);
+        setTimeout(() => this.playTone(160, 0.35, 'sawtooth', 0.3), 100);
+      }
+
+      playPowerup() {
+        if (this.isMuted) return;
+        [440, 554, 659, 880].forEach((freq, idx) => {
+          setTimeout(() => this.playTone(freq, 0.12, 'triangle', 0.2), idx * 55);
+        });
+      }
+    }
+
+    const sfx = new SoundEngine();
+
+    // --- Particle System ---
+    class ParticleSystem {
+      constructor() {
+        this.particles = [];
+      }
+
+      emitSparks(x, y, count = 12, color = '#e8a020') {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 40 + Math.random() * 140;
+          this.particles.push({
+            x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            life: 0.6 + Math.random() * 0.4, maxLife: 0.8, color, size: 2 + Math.random() * 2
+          });
+        }
+      }
+
+      emitExplosion(x, y, count = 35, color = '#f87171') {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 60 + Math.random() * 220;
+          this.particles.push({
+            x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            life: 0.8 + Math.random() * 0.6, maxLife: 1.2, color, size: 3 + Math.random() * 3
+          });
+        }
+      }
+
+      emitFloatingText(x, y, text, color = '#4ec9a0') {
+        this.particles.push({
+          x, y, vx: 0, vy: -38, life: 1.3, maxLife: 1.3,
+          color, text, isText: true
+        });
+      }
+
+      update(dt) {
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.life -= dt;
+          if (p.life <= 0) {
+            this.particles.splice(i, 1);
+            continue;
+          }
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          if (!p.isText) {
+            p.vx *= 0.94;
+            p.vy *= 0.94;
+          }
+        }
+      }
+
+      render(ctx) {
+        for (const p of this.particles) {
+          const alpha = Math.max(0, p.life / p.maxLife);
+          ctx.save();
+          if (p.isText) {
+            ctx.font = 'bold 12px "Fira Code", monospace';
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = alpha;
+            ctx.textAlign = 'center';
+            ctx.fillText(p.text, p.x, p.y);
+          } else {
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+      }
+    }
+
+    const particles = new ParticleSystem();
+
+    function appendLog(msg) {
+      const el = document.getElementById('event-log');
+      if (!el) return;
+      const row = document.createElement('div');
+      row.className = 'log-line';
+      const time = new Date().toTimeString().split(' ')[0];
+      row.textContent = `[${time}] ${msg}`;
+      el.prepend(row);
+      while (el.children.length > 25) el.removeChild(el.lastChild);
+    }
+
+    // --- Standalone Cyber Sweeper Game Engine ---
+    class CyberSweeper {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.floor = 1;
+        this.cols = 6;
+        this.rows = 6;
+        this.totalMines = 4;
+        this.tileSize = 48;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.cursorX = 0;
+        this.cursorY = 0;
+        this.grid = [];
+        this.revealedCount = 0;
+        this.tickingTiles = [];
+        this.score = 0;
+        this.isGameOver = false;
+        this.isVictory = false;
+        this.isFloorCleared = false;
+        this.floorClearBonus = 0;
+        this.restartCooldown = 0;
+        this.empCharges = 0;
+        this.empBlastTimer = 0;
+        this.touchActionMode = 'DIG';
+
+        this.playerRover = {
+          x: 400, y: 300, targetX: 400, targetY: 300, angle: -Math.PI / 2,
+          speed: 0, forkHeight: 0, forkAnimTimer: 0, leftLightActiveTimer: 0,
+          rightLightActiveTimer: 0, wheelRot: 0
+        };
+
+        this.startFloor(1);
+      }
+
+      get aiBot() {
+        return this.aiBots && this.aiBots.length > 0 ? this.aiBots[0] : null;
+      }
+
+      recalculateLayout() {
+        const maxAvailableW = this.canvas.width * 0.88;
+        const maxAvailableH = this.canvas.height - 140;
+        const maxDim = Math.min(maxAvailableW, maxAvailableH);
+        this.tileSize = Math.max(30, Math.min(76, Math.floor(maxDim / Math.max(this.rows, this.cols))));
+        this.offsetX = Math.floor((this.canvas.width - this.cols * this.tileSize) / 2);
+        this.offsetY = Math.floor((this.canvas.height - this.rows * this.tileSize) / 2 + 18);
+      }
+
+      onResize(w, h) {
+        this.canvas.width = w;
+        this.canvas.height = h;
+        this.recalculateLayout();
+
+        if (this.playerRover) {
+          this.playerRover.targetX = this.offsetX + this.cursorX * this.tileSize + this.tileSize / 2;
+          this.playerRover.targetY = this.offsetY + this.cursorY * this.tileSize + this.tileSize / 2;
+          this.playerRover.x = this.playerRover.targetX;
+          this.playerRover.y = this.playerRover.targetY;
+        }
+        if (this.aiBots) {
+          for (const b of this.aiBots) {
+            b.targetX = this.offsetX + b.targetC * this.tileSize + this.tileSize / 2;
+            b.targetY = this.offsetY + b.targetR * this.tileSize + this.tileSize / 2;
+            b.x = b.targetX;
+            b.y = b.targetY;
+          }
+        }
+      }
+
+      startFloor(floorNum) {
+        this.floor = floorNum;
+        this.cursorX = 0;
+        this.cursorY = 0;
+        this.revealedCount = 0;
+        this.tickingTiles = [];
+        this.isGameOver = false;
+        this.isVictory = false;
+        this.isFloorCleared = false;
+        this.floorClearBonus = 0;
+        this.restartCooldown = 0;
+        this.empBlastTimer = 0;
+
+        if (this.floor === 1) { this.cols = 6; this.rows = 6; this.totalMines = 4; }
+        else if (this.floor === 2) { this.cols = 8; this.rows = 8; this.totalMines = 8; }
+        else if (this.floor === 3) { this.cols = 10; this.rows = 10; this.totalMines = 16; }
+        else if (this.floor === 4) { this.cols = 12; this.rows = 12; this.totalMines = 24; }
+        else if (this.floor >= 5) { this.cols = 14; this.rows = 14; this.totalMines = 36; }
+
+        this.recalculateLayout();
+
+        if (this.playerRover) {
+          this.playerRover.x = this.offsetX + this.tileSize / 2;
+          this.playerRover.y = this.offsetY + this.tileSize / 2;
+          this.playerRover.targetX = this.playerRover.x;
+          this.playerRover.targetY = this.playerRover.y;
+          this.playerRover.angle = -Math.PI / 2;
+        }
+
+        this.aiBots = [];
+        const botAlphaInterval = this.floor === 1 ? 4.5 : (this.floor === 2 ? 4.0 : (this.floor === 3 ? 3.5 : 3.0));
+
+        this.aiBots.push({
+          id: 'alpha', name: 'ALPHA', color: '#5ba0e8', secondaryColor: '#e8a020',
+          x: this.offsetX + (this.cols * this.tileSize) / 2, y: this.offsetY + (this.rows * this.tileSize) / 2,
+          targetX: this.offsetX + (this.cols * this.tileSize) / 2, targetY: this.offsetY + (this.rows * this.tileSize) / 2,
+          targetR: Math.floor(this.rows / 2), targetC: Math.floor(this.cols / 2),
+          currentR: Math.floor(this.rows / 2), currentC: Math.floor(this.cols / 2),
+          angle: -Math.PI / 2, state: 'PERAMBULATING', timer: botAlphaInterval, interval: botAlphaInterval,
+          patrolTimer: 0.9, radarAngle: 0, treadRoll: 0, mutationCount: 0, scanPulse: 0,
+          lastSwapSrc: null, lastSwapDst: null, swapGlowTimer: 0, isFrustrated: false,
+          frustrationAnimTimer: 0, steamPuffTimer: 0, stunnedTimer: 0, fogTimer: 0
+        });
+
+        if (this.floor >= 4) {
+          const botBetaInterval = this.floor === 4 ? 4.8 : 4.0;
+          this.aiBots.push({
+            id: 'beta', name: 'BETA', color: '#e8a020', secondaryColor: '#4ec9a0',
+            x: this.offsetX + this.tileSize * 1.5, y: this.offsetY + this.tileSize * 1.5,
+            targetX: this.offsetX + this.tileSize * 1.5, targetY: this.offsetY + this.tileSize * 1.5,
+            targetR: 1, targetC: 1, currentR: 1, currentC: 1,
+            angle: Math.PI / 4, state: 'PERAMBULATING', timer: botBetaInterval, interval: botBetaInterval,
+            patrolTimer: 1.4, radarAngle: Math.PI, treadRoll: 0, mutationCount: 0, scanPulse: 1.5,
+            lastSwapSrc: null, lastSwapDst: null, swapGlowTimer: 0, isFrustrated: false,
+            frustrationAnimTimer: 0, steamPuffTimer: 0, stunnedTimer: 0, fogTimer: 0
+          });
+        }
+
+        this.generateBoard();
+        appendLog(`Floor ${this.floor} Started (${this.cols}x${this.rows}) | Mines: ${this.totalMines}`);
+      }
+
+      generateBoard() {
+        this.grid = [];
+        for (let r = 0; r < this.rows; r++) {
+          this.grid[r] = [];
+          for (let c = 0; c < this.cols; c++) {
+            this.grid[r][c] = {
+              isMine: false, isRevealed: false, isFlagged: false,
+              isBrokenFlag: false, isEmpCell: false, isGlitchFog: false,
+              adjacentMines: 0, isTicking: false, countdown: 0
+            };
+          }
+        }
+
+        let placed = 0;
+        while (placed < this.totalMines) {
+          const r = Math.floor(Math.random() * this.rows);
+          const c = Math.floor(Math.random() * this.cols);
+          if (!this.grid[r][c].isMine) {
+            this.grid[r][c].isMine = true;
+            placed++;
+          }
+        }
+
+        if (this.floor >= 3) {
+          const empCellCount = this.floor === 3 ? 2 : (this.floor === 4 ? 2 : 3);
+          let empPlaced = 0;
+          while (empPlaced < empCellCount) {
+            const r = Math.floor(Math.random() * this.rows);
+            const c = Math.floor(Math.random() * this.cols);
+            if (!this.grid[r][c].isMine && !this.grid[r][c].isEmpCell) {
+              this.grid[r][c].isEmpCell = true;
+              empPlaced++;
+            }
+          }
+        }
+
+        this.recalculateHiddenAdjacentCounts();
+      }
+
+      recalculateHiddenAdjacentCounts() {
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            if (!this.grid[r][c].isMine) {
+              let cnt = 0;
+              for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                  const nr = r + dr, nc = c + dc;
+                  if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols && this.grid[nr][nc].isMine) cnt++;
+                }
+              }
+              this.grid[r][c].adjacentMines = cnt;
+            }
+          }
+        }
+      }
+
+      stepCountdownTiles() {
+        for (const t of this.tickingTiles) {
+          const tile = this.grid[t.r][t.c];
+          if (!tile.isRevealed && !tile.isFlagged) {
+            t.countdown--;
+            tile.countdown = t.countdown;
+            if (t.countdown <= 0) {
+              sfx.playExplosion();
+              particles.emitExplosion(this.offsetX + t.c * this.tileSize + this.tileSize / 2, this.offsetY + t.r * this.tileSize + this.tileSize / 2, 40, '#f87171');
+              this.triggerGameOver();
+              return;
+            }
+          }
+        }
+      }
+
+      armAngryTimeBomb(bot = (this.aiBots && this.aiBots.length > 0 ? this.aiBots[0] : null)) {
+        if (this.tickingTiles.length > 0) return false;
+
+        const candidates = [];
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const tile = this.grid[r][c];
+            if (tile.isMine && !tile.isRevealed && !tile.isTicking) {
+              candidates.push({ r, c, isFlagged: tile.isFlagged });
+            }
+          }
+        }
+        if (candidates.length === 0) return false;
+
+        candidates.sort((a, b) => (a.isFlagged ? 1 : 0) - (b.isFlagged ? 1 : 0) + (Math.random() - 0.5));
+        const target = candidates[0];
+        const tile = this.grid[target.r][target.c];
+
+        tile.isTicking = true;
+        tile.countdown = 28;
+        this.tickingTiles.push({ r: target.r, c: target.c, countdown: tile.countdown });
+
+        sfx.playTone(220, 0.3, 'sawtooth');
+        const px = this.offsetX + target.c * this.tileSize + this.tileSize / 2;
+        const py = this.offsetY + target.r * this.tileSize + this.tileSize / 2;
+        particles.emitFloatingText(px, py - 16, '⏰ RAGE BOMB ARMED (28 STEPS)!', '#e8a020');
+        particles.emitExplosion(px, py, 20, '#e8a020');
+        appendLog(`🤖 ${bot ? bot.name : 'AI'} armed 1 Rage Time Bomb at (${target.c},${target.r}) (28 steps)!`);
+        return true;
+      }
+
+      triggerEMPBlast() {
+        if (this.empCharges <= 0) {
+          appendLog('⚠️ No EMP charges! Excavate 🔋 EMP cells first.');
+          return false;
+        }
+        this.empCharges--;
+        this.empBlastTimer = 0.8;
+        stats.empFired++;
+        saveStats();
+
+        for (const bot of this.aiBots) {
+          bot.stunnedTimer = 8.0;
+          bot.state = 'STUNNED';
+          particles.emitSparks(bot.x, bot.y, 20, '#5ba0e8');
+        }
+
+        for (const t of this.tickingTiles) {
+          t.countdown += 10;
+          const tile = this.grid[t.r][t.c];
+          if (tile) tile.countdown = t.countdown;
+        }
+
+        sfx.playPowerup();
+        particles.emitExplosion(this.canvas.width / 2, this.canvas.height / 2, 60, '#5ba0e8');
+        particles.emitFloatingText(this.canvas.width / 2, this.canvas.height / 2 - 40, '⚡ EMP SHOCKWAVE! AI ROBOTS STUNNED (8s)! +10 TICKS', '#5ba0e8');
+        appendLog('⚡ EMP Shockwave deployed! AI robots stunned for 8s; Detonators extended +10.');
+        return true;
+      }
+
+      update(dt) {
+        if (this.restartCooldown > 0) this.restartCooldown -= dt;
+        this.updatePlayerRover(dt);
+        if (this.isGameOver || this.isVictory || this.isFloorCleared) return;
+        if (this.empBlastTimer > 0) this.empBlastTimer -= dt;
+        this.updateAIBots(dt);
+      }
+
+      updatePlayerRover(dt) {
+        if (!this.playerRover) return;
+        this.playerRover.targetX = this.offsetX + this.cursorX * this.tileSize + this.tileSize / 2;
+        this.playerRover.targetY = this.offsetY + this.cursorY * this.tileSize + this.tileSize / 2;
+
+        const dx = this.playerRover.targetX - this.playerRover.x;
+        const dy = this.playerRover.targetY - this.playerRover.y;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > 1.5) {
+          const targetAngle = Math.atan2(dy, dx);
+          let diff = targetAngle - this.playerRover.angle;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          this.playerRover.angle += diff * Math.min(1.0, dt * 12.0);
+
+          const moveSpeed = Math.min(dist, 320 * dt);
+          this.playerRover.x += (dx / dist) * moveSpeed;
+          this.playerRover.y += (dy / dist) * moveSpeed;
+
+          this.playerRover.wheelRot += dt * 14;
+          this.playerRover.forkHeight = Math.sin(this.playerRover.wheelRot * 2) * 2.5;
+        } else {
+          this.playerRover.forkHeight = 0;
+        }
+
+        if (this.playerRover.forkAnimTimer > 0) this.playerRover.forkAnimTimer -= dt;
+        if (this.playerRover.leftLightActiveTimer > 0) this.playerRover.leftLightActiveTimer -= dt;
+        if (this.playerRover.rightLightActiveTimer > 0) this.playerRover.rightLightActiveTimer -= dt;
+      }
+
+      updateAIBots(dt) {
+        if (!this.aiBots || this.aiBots.length === 0) return;
+        const canSwap = this.canAnyMineRelocate();
+
+        for (const bot of this.aiBots) {
+          bot.scanPulse += dt * 4;
+          bot.radarAngle += dt * 3.5;
+          if (bot.swapGlowTimer > 0) bot.swapGlowTimer -= dt;
+
+          if (bot.stunnedTimer > 0) {
+            bot.stunnedTimer -= dt;
+            bot.state = 'STUNNED';
+            if (Math.random() < 0.25) particles.emitSparks(bot.x, bot.y, 2, '#5ba0e8');
+            continue;
+          }
+
+          if (!canSwap) {
+            if (!bot.isFrustrated) {
+              bot.isFrustrated = true;
+              bot.frustrationAnimTimer = 0;
+              bot.state = 'FRUSTRATED';
+              sfx.playFrustration();
+              particles.emitFloatingText(bot.x, bot.y - 18, '💢 THWARTED! LOGIC LOCKED! ⚠️', '#f87171');
+              particles.emitSparks(bot.x, bot.y, 16, '#f87171');
+              appendLog(`🤖 ${bot.name} is THWARTED! It is mathematically impossible to relocate any mines.`);
+              this.armAngryTimeBomb(bot);
+            }
+          } else {
+            if (bot.isFrustrated) {
+              bot.isFrustrated = false;
+              bot.state = 'PERAMBULATING';
+            }
+          }
+
+          if (bot.isFrustrated) {
+            bot.frustrationAnimTimer += dt;
+            bot.steamPuffTimer -= dt;
+            if (bot.steamPuffTimer <= 0) {
+              particles.emitSparks(bot.x + (Math.random() - 0.5) * 12, bot.y - 10, 4, '#e8a020');
+              bot.steamPuffTimer = 0.35;
+            }
+          }
+
+          // Relocation
+          bot.timer -= dt;
+          if (bot.timer <= 0) {
+            if (!bot.isFrustrated) {
+              const swapped = this.attemptAIMineRelocation(bot);
+              if (swapped) bot.patrolTimer = 1.2;
+            }
+            bot.timer = bot.interval;
+          }
+
+          // Perambulation
+          bot.patrolTimer -= dt;
+          if (bot.patrolTimer <= 0) {
+            this.pickNextPatrolWaypoint(bot);
+            bot.patrolTimer = 0.8 + Math.random() * 0.7;
+          }
+
+          // Kinematics
+          const targetPxX = this.offsetX + bot.targetC * this.tileSize + this.tileSize / 2;
+          const targetPxY = this.offsetY + bot.targetR * this.tileSize + this.tileSize / 2;
+          const dx = targetPxX - bot.x;
+          const dy = targetPxY - bot.y;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist > 1.5) {
+            const targetAngle = Math.atan2(dy, dx);
+            let diff = targetAngle - bot.angle;
+            while (diff < -Math.PI) diff += Math.PI * 2;
+            while (diff > Math.PI) diff -= Math.PI * 2;
+            bot.angle += diff * Math.min(1.0, dt * 10.0);
+
+            const moveSpeed = bot.swapGlowTimer > 0 ? 240 : (bot.isFrustrated ? 35 : 80);
+            bot.x += (dx / dist) * Math.min(dist, moveSpeed * dt);
+            bot.y += (dy / dist) * Math.min(dist, moveSpeed * dt);
+            bot.treadRoll += dt * (moveSpeed / 8);
+
+            bot.currentC = Math.floor((bot.x - this.offsetX) / this.tileSize);
+            bot.currentR = Math.floor((bot.y - this.offsetY) / this.tileSize);
+          }
+
+          // Glitch Fog on Floor 5
+          if (this.floor >= 5) {
+            bot.fogTimer += dt;
+            if (bot.fogTimer >= 2.5) {
+              bot.fogTimer = 0;
+              if (this.grid[bot.currentR] && this.grid[bot.currentR][bot.currentC]) {
+                this.grid[bot.currentR][bot.currentC].isGlitchFog = true;
+              }
+            }
+          }
+        }
+      }
+
+      canAnyMineRelocate() {
+        const mineCandidates = [];
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const tile = this.grid[r][c];
+            if (tile.isMine && !tile.isRevealed) mineCandidates.push({ r, c });
+          }
+        }
+        if (mineCandidates.length === 0) return false;
+
+        for (const src of mineCandidates) {
+          for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+              if (r === src.r && c === src.c) continue;
+              const dstTile = this.grid[r][c];
+              if (!dstTile.isRevealed && !dstTile.isMine && !dstTile.isFlagged) {
+                if (this.isValidBoardStateAfterSwap(src.r, src.c, r, c)) return true;
+              }
+            }
+          }
+        }
+        return false;
+      }
+
+      pickNextPatrolWaypoint(bot = this.aiBots[0]) {
+        if (!bot) return;
+        const candidates = [];
+        const currR = bot.targetR || 0;
+        const currC = bot.targetC || 0;
+
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+            const nr = currR + dr, nc = currC + dc;
+            if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols && !this.grid[nr][nc].isRevealed) {
+              candidates.push({ r: nr, c: nc, priority: this.grid[nr][nc].isFlagged ? 3 : 1 });
+            }
+          }
+        }
+
+        if (candidates.length === 0) {
+          for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+              if (!this.grid[r][c].isRevealed) candidates.push({ r, c, priority: this.grid[r][c].isFlagged ? 3 : 1 });
+            }
+          }
+        }
+
+        if (candidates.length > 0) {
+          candidates.sort((a, b) => b.priority - a.priority + (Math.random() - 0.5));
+          bot.targetR = candidates[0].r;
+          bot.targetC = candidates[0].c;
+        }
+      }
+
+      attemptAIMineRelocation(bot = this.aiBots[0]) {
+        const flaggedMines = [];
+        const unflaggedMines = [];
+
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const tile = this.grid[r][c];
+            if (tile.isMine && !tile.isRevealed) {
+              if (tile.isFlagged) flaggedMines.push({ r, c });
+              else unflaggedMines.push({ r, c });
+            }
+          }
+        }
+
+        const candidates = flaggedMines.length > 0 ? flaggedMines : unflaggedMines;
+        if (candidates.length === 0) return false;
+
+        candidates.sort(() => Math.random() - 0.5);
+        for (const src of candidates) {
+          const validDsts = [];
+          for (let r = 0; r < this.rows; r++) {
+            for (let c = 0; c < this.cols; c++) {
+              if (r === src.r && c === src.c) continue;
+              const dstTile = this.grid[r][c];
+              if (!dstTile.isRevealed && !dstTile.isMine && !dstTile.isFlagged) {
+                if (this.isValidBoardStateAfterSwap(src.r, src.c, r, c)) validDsts.push({ r, c });
+              }
+            }
+          }
+          if (validDsts.length > 0) {
+            const dst = validDsts[Math.floor(Math.random() * validDsts.length)];
+            this.relocateMine(src.r, src.c, dst.r, dst.c, bot);
+            return true;
+          }
+        }
+        return false;
+      }
+
+      isValidBoardStateAfterSwap(srcR, srcC, dstR, dstC) {
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const tile = this.grid[r][c];
+            if (tile.isRevealed && !tile.isMine) {
+              const expectedCount = tile.adjacentMines;
+              let calculatedCount = 0;
+              for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                  const nr = r + dr, nc = c + dc;
+                  if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                    if (nr === srcR && nc === srcC) continue;
+                    else if (nr === dstR && nc === dstC) calculatedCount++;
+                    else if (this.grid[nr][nc].isMine) calculatedCount++;
+                  }
+                }
+              }
+              if (calculatedCount !== expectedCount) return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      relocateMine(srcR, srcC, dstR, dstC, bot = this.aiBots[0]) {
+        const srcTile = this.grid[srcR][srcC];
+        const dstTile = this.grid[dstR][dstC];
+
+        srcTile.isMine = false;
+        dstTile.isMine = true;
+
+        if (srcTile.isFlagged) {
+          srcTile.isFlagged = false;
+          srcTile.isBrokenFlag = true;
+        }
+
+        if (srcTile.isTicking) {
+          dstTile.isTicking = true;
+          dstTile.countdown = srcTile.countdown;
+          srcTile.isTicking = false;
+          const tIdx = this.tickingTiles.findIndex(t => t.r === srcR && t.c === srcC);
+          if (tIdx !== -1) { this.tickingTiles[tIdx].r = dstR; this.tickingTiles[tIdx].c = dstC; }
+        }
+
+        this.recalculateHiddenAdjacentCounts();
+        bot.targetR = srcR;
+        bot.targetC = srcC;
+        bot.lastSwapSrc = { r: srcR, c: srcC };
+        bot.lastSwapDst = { r: dstR, c: dstC };
+        bot.swapGlowTimer = 2.5;
+        bot.mutationCount++;
+
+        sfx.playGlitch();
+        const srcPx = this.offsetX + srcC * this.tileSize + this.tileSize / 2;
+        const srcPy = this.offsetY + srcR * this.tileSize + this.tileSize / 2;
+        particles.emitSparks(srcPx, srcPy, 14, '#e8a020');
+        particles.emitFloatingText(srcPx, srcPy - 12, '⚡ MINE RELOCATED! ⚑', '#e8a020');
+        appendLog(`🤖 ${bot.name} shifted mine from (${srcC},${srcR}) -> (${dstC},${dstR})! Flag shattered.`);
+      }
+
+      revealTile(c, r) {
+        const tile = this.grid[r][c];
+        if (tile.isRevealed || tile.isFlagged) return;
+
+        if (tile.isBrokenFlag) {
+          tile.isBrokenFlag = false;
+          this.score += 50;
+          stats.flagsDefused++;
+          saveStats();
+          sfx.playPowerup();
+          const px = this.offsetX + c * this.tileSize + this.tileSize / 2;
+          const py = this.offsetY + r * this.tileSize + this.tileSize / 2;
+          particles.emitFloatingText(px, py - 12, '⚡ DEFUSED GLITCH! +50', '#4ec9a0');
+          particles.emitSparks(px, py, 12, '#4ec9a0');
+        }
+
+        if (tile.isEmpCell) {
+          tile.isEmpCell = false;
+          this.empCharges = Math.min(3, this.empCharges + 1);
+          sfx.playPowerup();
+          const px = this.offsetX + c * this.tileSize + this.tileSize / 2;
+          const py = this.offsetY + r * this.tileSize + this.tileSize / 2;
+          particles.emitSparks(px, py, 16, '#5ba0e8');
+          particles.emitFloatingText(px, py - 14, '🔋 EMP CELL ACQUIRED! [Q] READY', '#5ba0e8');
+          appendLog('🔋 EMP Power Cell acquired! Press [Q] or click Deploy EMP.');
+        }
+
+        tile.isGlitchFog = false;
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr, nc = c + dc;
+            if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) this.grid[nr][nc].isGlitchFog = false;
+          }
+        }
+
+        tile.isRevealed = true;
+        if (tile.isMine) {
+          sfx.playExplosion();
+          particles.emitExplosion(this.offsetX + c * this.tileSize + this.tileSize / 2, this.offsetY + r * this.tileSize + this.tileSize / 2, 40, '#f87171');
+          this.revealAllMines();
+          this.triggerGameOver();
+          return;
+        }
+
+        this.revealedCount++;
+        this.score += 10 * this.floor;
+        if (this.score > stats.highScore) {
+          stats.highScore = this.score;
+          saveStats();
+        }
+
+        sfx.playTone(380 + tile.adjacentMines * 65, 0.05, 'triangle');
+
+        if (tile.adjacentMines === 0) {
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              const nr = r + dr, nc = c + dc;
+              if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols && !this.grid[nr][nc].isRevealed) {
+                this.revealTile(nc, nr);
+              }
+            }
+          }
+        }
+
+        this.checkFloorCleared();
+      }
+
+      toggleFlag(c, r) {
+        const tile = this.grid[r][c];
+        if (tile.isRevealed) return;
+        if (tile.isBrokenFlag) { tile.isBrokenFlag = false; tile.isFlagged = true; }
+        else tile.isFlagged = !tile.isFlagged;
+        sfx.playTone(320, 0.04, 'square');
+        if (navigator.vibrate) navigator.vibrate(25);
+      }
+
+      revealAllMines() {
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            if (this.grid[r][c].isMine) this.grid[r][c].isRevealed = true;
+          }
+        }
+      }
+
+      triggerGameOver() {
+        this.isGameOver = true;
+        this.restartCooldown = 1.0;
+        this.revealAllMines();
+        appendLog('💥 MINE DETONATED! Floor Failed. Detonation Lock 1.0s.');
+      }
+
+      checkFloorCleared() {
+        const safe = this.cols * this.rows - this.totalMines;
+        if (this.revealedCount >= safe) {
+          if (this.isFloorCleared || this.isVictory) return;
+          this.floorClearBonus = 200 * this.floor;
+          this.score += this.floorClearBonus;
+          stats.floorsCleared++;
+          if (this.score > stats.highScore) stats.highScore = this.score;
+          saveStats();
+
+          sfx.playPowerup();
+          particles.emitExplosion(this.canvas.width / 2, this.canvas.height / 2, 45, '#4ec9a0');
+          particles.emitFloatingText(this.canvas.width / 2, this.canvas.height / 2 - 30, `🌟 FLOOR ${this.floor} CLEARED! +${this.floorClearBonus}`, '#4ec9a0');
+
+          if (this.floor < 5) {
+            this.isFloorCleared = true;
+            appendLog(`🏆 Floor ${this.floor} Cleared! Press SPACE/ENTER or Click to advance to Floor ${this.floor + 1}.`);
+          } else {
+            this.isVictory = true;
+            appendLog('🎉 KRONOS MAINFRAME DISARMED! All 5 Floors Cleared!');
+          }
+        }
+      }
+
+      render() {
+        const ctx = this.ctx;
+        const styles = getComputedStyle(document.documentElement);
+        const colBg = styles.getPropertyValue('--canvas-bg').trim() || '#08111f';
+        const colTileUnrev = styles.getPropertyValue('--tile-unrev').trim() || '#0d1a2e';
+        const colTileRev = styles.getPropertyValue('--tile-rev').trim() || '#08111f';
+        const colBorder = styles.getPropertyValue('--tile-border').trim() || 'rgba(78,140,220,0.3)';
+        const colText = styles.getPropertyValue('--text-bright').trim() || '#ddeeff';
+        const colAccent = styles.getPropertyValue('--accent').trim() || '#e8a020';
+        const colOk = styles.getPropertyValue('--ok').trim() || '#4ec9a0';
+        const colErr = styles.getPropertyValue('--err').trim() || '#f87171';
+
+        ctx.fillStyle = colBg;
+        ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Technical Grid Underlay
+        ctx.save();
+        ctx.strokeStyle = currentTheme === 'paper' ? 'rgba(40,70,110,0.06)' : 'rgba(78,140,220,0.06)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x < this.canvas.width; x += 20) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, this.canvas.height); ctx.stroke();
+        }
+        for (let y = 0; y < this.canvas.height; y += 20) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(this.canvas.width, y); ctx.stroke();
+        }
+        ctx.restore();
+
+        // EMP Shockwave Ripple
+        if (this.empBlastTimer > 0) {
+          ctx.save();
+          const radius = (1.0 - this.empBlastTimer / 0.8) * 450;
+          ctx.strokeStyle = `rgba(91, 160, 232, ${this.empBlastTimer / 0.8})`;
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.arc(this.canvas.width / 2, this.canvas.height / 2, radius, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // Header HUD
+        const fontScale = Math.max(1.0, this.canvas.height / 600);
+        ctx.fillStyle = colText;
+        ctx.font = `bold ${Math.round(13 * fontScale)}px "Fira Code", monospace`;
+        ctx.textAlign = 'left';
+        ctx.fillText(`SCORE: ${this.score}`, 22 * fontScale, 26 * fontScale);
+        ctx.textAlign = 'center';
+
+        const bots = this.aiBots && this.aiBots.length > 0 ? this.aiBots : [this.aiBot];
+        if (bots.length === 1) {
+          const b = bots[0];
+          if (b.stunnedTimer > 0) {
+            ctx.fillStyle = colAccent;
+            ctx.fillText(`FLOOR ${this.floor}/5 | 🤖 AI: STUNNED (${b.stunnedTimer.toFixed(1)}s)`, this.canvas.width / 2, 26 * fontScale);
+          } else if (b.isFrustrated) {
+            ctx.fillStyle = colErr;
+            ctx.fillText(`FLOOR ${this.floor}/5 | 🤖 AI: THWARTED (RAGE BOMB)`, this.canvas.width / 2, 26 * fontScale);
+          } else {
+            ctx.fillStyle = b.timer <= 1.5 ? colErr : colText;
+            ctx.fillText(`FLOOR ${this.floor}/5 | 🤖 AI CYCLE: ${Math.max(0, b.timer).toFixed(1)}s`, this.canvas.width / 2, 26 * fontScale);
+          }
+        } else {
+          const bA = bots[0], bB = bots[1];
+          const textA = bA.stunnedTimer > 0 ? `⚡${bA.stunnedTimer.toFixed(1)}s` : (bA.isFrustrated ? `💢` : `${Math.max(0, bA.timer).toFixed(1)}s`);
+          const textB = bB.stunnedTimer > 0 ? `⚡${bB.stunnedTimer.toFixed(1)}s` : (bB.isFrustrated ? `💢` : `${Math.max(0, bB.timer).toFixed(1)}s`);
+          ctx.fillStyle = colText;
+          ctx.fillText(`FL ${this.floor}/5 | 🤖 ALPHA: ${textA} | 👾 BETA: ${textB}`, this.canvas.width / 2, 26 * fontScale);
+        }
+
+        ctx.textAlign = 'right';
+        ctx.fillStyle = colAccent;
+        ctx.fillText(`🔋 EMP: ${this.empCharges}/3 [Q]  |  RECORD: ${stats.highScore}`, this.canvas.width - 22 * fontScale, 26 * fontScale);
+
+        // Subterranean Relocation Glow Tracks
+        for (const b of bots) {
+          if (b.swapGlowTimer > 0 && b.lastSwapSrc && b.lastSwapDst) {
+            const srcPx = this.offsetX + b.lastSwapSrc.c * this.tileSize + this.tileSize / 2;
+            const srcPy = this.offsetY + b.lastSwapSrc.r * this.tileSize + this.tileSize / 2;
+            const dstPx = this.offsetX + b.lastSwapDst.c * this.tileSize + this.tileSize / 2;
+            const dstPy = this.offsetY + b.lastSwapDst.r * this.tileSize + this.tileSize / 2;
+
+            ctx.save();
+            ctx.strokeStyle = `rgba(232, 160, 32, ${Math.min(1.0, b.swapGlowTimer)})`;
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath(); ctx.moveTo(srcPx, srcPy); ctx.lineTo(dstPx, dstPy); ctx.stroke();
+            ctx.restore();
+          }
+        }
+
+        // Render Grid
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const tile = this.grid[r][c];
+            const x = this.offsetX + c * this.tileSize;
+            const y = this.offsetY + r * this.tileSize;
+
+            ctx.save();
+            ctx.fillStyle = tile.isRevealed ? (tile.isMine ? colErr : colTileRev) : colTileUnrev;
+            ctx.fillRect(x + 1, y + 1, this.tileSize - 2, this.tileSize - 2);
+
+            ctx.strokeStyle = colBorder;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x + 1, y + 1, this.tileSize - 2, this.tileSize - 2);
+
+            if (tile.isRevealed) {
+              if (tile.isMine) {
+                ctx.fillStyle = tile.isTicking ? colAccent : colErr;
+                ctx.fillRect(x + 1, y + 1, this.tileSize - 2, this.tileSize - 2);
+                ctx.fillStyle = '#000';
+                ctx.font = `bold ${Math.max(12, this.tileSize * 0.45)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.fillText(tile.isTicking ? '⏰' : '💣', x + this.tileSize / 2, y + this.tileSize / 2 + this.tileSize * 0.15);
+              } else if (tile.isGlitchFog) {
+                ctx.fillStyle = 'rgba(232, 160, 32, 0.2)';
+                ctx.fillRect(x + 1, y + 1, this.tileSize - 2, this.tileSize - 2);
+                ctx.fillStyle = colAccent;
+                ctx.font = `bold ${Math.max(10, this.tileSize * 0.4)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.fillText('??', x + this.tileSize / 2, y + this.tileSize / 2 + this.tileSize * 0.14);
+              } else if (tile.adjacentMines > 0) {
+                const numColors = ['', '#5ba0e8', '#4ec9a0', '#e8a020', '#a855f7', '#f97316', '#06b6d4', '#e2e8f0', '#94a3b8'];
+                ctx.fillStyle = currentTheme === 'paper' ? (tile.adjacentMines === 1 ? '#2f6597' : (tile.adjacentMines === 2 ? '#1d7a5c' : '#a8620a')) : (numColors[tile.adjacentMines] || colText);
+                ctx.font = `bold ${Math.max(12, this.tileSize * 0.45)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.fillText(String(tile.adjacentMines), x + this.tileSize / 2, y + this.tileSize / 2 + this.tileSize * 0.15);
+              }
+            } else {
+              if (tile.isBrokenFlag) {
+                this.drawBrokenFlag(ctx, x + this.tileSize / 2, y + this.tileSize / 2);
+                ctx.strokeStyle = colAccent;
+                ctx.lineWidth = 1.5;
+                ctx.strokeRect(x + 2, y + 2, this.tileSize - 4, this.tileSize - 4);
+              } else if (tile.isFlagged) {
+                ctx.fillStyle = colAccent;
+                ctx.font = `bold ${Math.max(12, this.tileSize * 0.45)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.fillText('🚩', x + this.tileSize / 2, y + this.tileSize / 2 + this.tileSize * 0.14);
+              } else if (tile.isTicking) {
+                ctx.fillStyle = tile.countdown <= 8 ? colErr : colAccent;
+                ctx.font = `bold ${Math.max(10, this.tileSize * 0.35)}px monospace`;
+                ctx.textAlign = 'center';
+                ctx.fillText(`⏰${tile.countdown}`, x + this.tileSize / 2, y + this.tileSize / 2 + this.tileSize * 0.12);
+              }
+            }
+
+            if (c === this.cursorX && r === this.cursorY) {
+              ctx.strokeStyle = colAccent;
+              ctx.lineWidth = 2.5;
+              ctx.strokeRect(x, y, this.tileSize, this.tileSize);
+            }
+            ctx.restore();
+          }
+        }
+
+        // Render Subterranean AI Robot Crawlers
+        for (const b of bots) {
+          this.drawSubterraneanRobot(ctx, b);
+        }
+
+        // Render Player Forklift Excavator
+        if (this.playerRover) {
+          this.drawForkliftPlayer(ctx, this.playerRover);
+        }
+
+        // Bottom Tactical Keyboard Controls Legend Bar
+        const barW = Math.min(600 * fontScale, this.canvas.width - 48);
+        ctx.fillStyle = colBg;
+        ctx.fillRect(this.canvas.width / 2 - barW / 2, this.canvas.height - 36 * fontScale, barW, 26 * fontScale);
+        ctx.strokeStyle = colBorder;
+        ctx.lineWidth = 1;
+        ctx.strokeRect(this.canvas.width / 2 - barW / 2, this.canvas.height - 36 * fontScale, barW, 26 * fontScale);
+
+        ctx.font = `${Math.round(11 * fontScale)}px "Fira Code", monospace`;
+        ctx.textAlign = 'center';
+        ctx.fillStyle = styles.getPropertyValue('--text-dim').trim() || '#8aaed0';
+        ctx.fillText(`🚜 [WASD] Move  |  🔦 [SPACE] Dig  |  🚩 [F] Flag  |  ⚡ [Q] EMP Shockwave (${this.empCharges}/3)`, this.canvas.width / 2, this.canvas.height - 19 * fontScale);
+
+        particles.render(ctx);
+
+        // Level Success Modal (Mandate 14)
+        if (this.isFloorCleared) {
+          ctx.save();
+          const mWidth = Math.min(500 * fontScale, this.canvas.width * 0.85);
+          const mHeight = 180 * fontScale;
+          ctx.fillStyle = colBg;
+          ctx.fillRect(this.canvas.width / 2 - mWidth / 2, this.canvas.height / 2 - mHeight / 2, mWidth, mHeight);
+          ctx.strokeStyle = colOk;
+          ctx.lineWidth = 2.5;
+          ctx.strokeRect(this.canvas.width / 2 - mWidth / 2, this.canvas.height / 2 - mHeight / 2, mWidth, mHeight);
+
+          ctx.fillStyle = colOk;
+          ctx.font = `bold ${Math.round(24 * fontScale)}px "Bebas Neue", sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.fillText(`🌟 FLOOR ${this.floor} CLEARED!`, this.canvas.width / 2, this.canvas.height / 2 - 45 * fontScale);
+
+          ctx.fillStyle = colText;
+          ctx.font = `${Math.round(13 * fontScale)}px "Fira Code", monospace`;
+          ctx.fillText(`Mines Disarmed: ${this.totalMines}  |  Bonus: +${this.floorClearBonus} PTS`, this.canvas.width / 2, this.canvas.height / 2 - 15 * fontScale);
+          ctx.fillStyle = colAccent;
+          ctx.fillText(`Cumulative Score: ${this.score}`, this.canvas.width / 2, this.canvas.height / 2 + 15 * fontScale);
+
+          ctx.fillStyle = styles.getPropertyValue('--tag-text').trim() || '#5ba0e8';
+          ctx.font = `bold ${Math.round(12 * fontScale)}px "Fira Code", monospace`;
+          ctx.fillText(`PRESS [SPACE / ENTER / CLICK] FOR FLOOR ${this.floor + 1}`, this.canvas.width / 2, this.canvas.height / 2 + 55 * fontScale);
+          ctx.restore();
+        }
+
+        if (this.isVictory || this.isGameOver) {
+          ctx.save();
+          const mWidth = Math.min(460 * fontScale, this.canvas.width * 0.85);
+          const mHeight = 130 * fontScale;
+          ctx.fillStyle = colBg;
+          ctx.fillRect(this.canvas.width / 2 - mWidth / 2, this.canvas.height / 2 - mHeight / 2, mWidth, mHeight);
+          ctx.strokeStyle = this.isVictory ? colOk : colErr;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(this.canvas.width / 2 - mWidth / 2, this.canvas.height / 2 - mHeight / 2, mWidth, mHeight);
+
+          ctx.fillStyle = this.isVictory ? colOk : colErr;
+          ctx.font = `bold ${Math.round(26 * fontScale)}px "Bebas Neue", sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.fillText(this.isVictory ? 'MAINFRAME DISARMED!' : 'MINE DETONATED!', this.canvas.width / 2, this.canvas.height / 2 - 15 * fontScale);
+          ctx.font = `${Math.round(13 * fontScale)}px "Fira Code", monospace`;
+          ctx.fillStyle = this.restartCooldown > 0 ? styles.getPropertyValue('--text-dim').trim() : colText;
+          ctx.fillText(this.restartCooldown > 0 ? `Detonation Lock: ${this.restartCooldown.toFixed(1)}s` : 'Press SPACE or Click to Retry Floor', this.canvas.width / 2, this.canvas.height / 2 + 25 * fontScale);
+          ctx.restore();
+        }
+      }
+
+      drawSubterraneanRobot(ctx, botOrX, y, state, timer, scanPulse, angle = -Math.PI / 2, radarAngle = 0, isFrustrated = false, frustrationAnimTimer = 0) {
+        let bot;
+        if (typeof botOrX === 'object') {
+          bot = botOrX;
+        } else {
+          bot = {
+            x: botOrX, y, state, timer, scanPulse, angle, radarAngle,
+            isFrustrated, frustrationAnimTimer, color: '#5ba0e8', secondaryColor: '#e8a020', stunnedTimer: 0
+          };
+        }
+
+        ctx.save();
+        let renderX = bot.x;
+        let renderY = bot.y;
+        if (bot.isFrustrated) {
+          renderX += Math.sin(bot.frustrationAnimTimer * 40) * 3;
+          renderY += Math.cos(bot.frustrationAnimTimer * 45) * 2;
+        }
+        ctx.translate(renderX, renderY);
+
+        if (bot.stunnedTimer > 0) {
+          ctx.strokeStyle = '#5ba0e8';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([2, 2]);
+          ctx.beginPath();
+          ctx.arc(0, 0, 24 + Math.sin(Date.now() * 0.02) * 4, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.fillStyle = 'rgba(91, 160, 232, 0.2)';
+          ctx.fill();
+        } else {
+          ctx.save();
+          ctx.rotate(bot.radarAngle);
+          const radarGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 36);
+          if (bot.isFrustrated) {
+            radarGrad.addColorStop(0, 'rgba(248, 113, 113, 0.65)');
+            radarGrad.addColorStop(1, 'rgba(248, 113, 113, 0)');
+          } else {
+            radarGrad.addColorStop(0, bot.id === 'beta' ? 'rgba(232, 160, 32, 0.45)' : 'rgba(91, 160, 232, 0.45)');
+            radarGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          }
+          ctx.fillStyle = radarGrad;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.arc(0, 0, 36, -0.4, 0.4);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        if (bot.isFrustrated) {
+          ctx.save();
+          const bubbleFloat = Math.sin(bot.frustrationAnimTimer * 8) * 3;
+          ctx.fillStyle = currentTheme === 'paper' ? '#ffffff' : '#08111f';
+          ctx.strokeStyle = '#f87171';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(-24, -40 + bubbleFloat, 48, 18, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = '#f87171';
+          ctx.font = 'bold 11px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('💢 ?#@!', 0, -27 + bubbleFloat);
+          ctx.restore();
+        } else if (bot.stunnedTimer > 0) {
+          ctx.save();
+          ctx.fillStyle = '#5ba0e8';
+          ctx.font = 'bold 12px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('⚡ STUNNED', 0, -22);
+          ctx.restore();
+        }
+
+        ctx.rotate(bot.angle + Math.PI / 2);
+
+        // Dual Tank Treads
+        ctx.fillStyle = bot.isFrustrated ? '#450a0a' : '#112238';
+        ctx.strokeStyle = bot.isFrustrated ? '#f87171' : '#4a6d94';
+        ctx.lineWidth = 1.2;
+        ctx.fillRect(-13, -11, 5, 22);
+        ctx.strokeRect(-13, -11, 5, 22);
+        ctx.fillRect(8, -11, 5, 22);
+        ctx.strokeRect(8, -11, 5, 22);
+
+        // Grooves
+        ctx.fillStyle = bot.isFrustrated ? '#e8a020' : '#8aaed0';
+        const treadOffset = (bot.treadRoll || bot.scanPulse * 4) % 5;
+        for (let i = -9 + treadOffset; i <= 9; i += 5) {
+          ctx.fillRect(-13, i, 5, 1.5);
+          ctx.fillRect(8, i, 5, 1.5);
+        }
+
+        // Body Chassis
+        ctx.fillStyle = bot.isFrustrated ? '#7f1d1d' : '#0d1a2e';
+        ctx.fillRect(-7, -9, 14, 18);
+        ctx.strokeStyle = bot.isFrustrated ? '#f87171' : (bot.color || '#5ba0e8');
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-7, -9, 14, 18);
+
+        // Drill Head
+        ctx.fillStyle = bot.isFrustrated ? '#e8a020' : '#8aaed0';
+        ctx.beginPath();
+        ctx.moveTo(-4, -9);
+        ctx.lineTo(4, -9);
+        ctx.lineTo(0, -17 + (bot.isFrustrated ? Math.sin(bot.frustrationAnimTimer * 25) * 4 : Math.sin(bot.scanPulse * 8) * 2));
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = bot.isFrustrated ? '#f87171' : (bot.secondaryColor || '#e8a020');
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Eyes
+        if (bot.isFrustrated) {
+          ctx.fillStyle = '#f87171';
+          ctx.fillRect(-5, -4, 10, 4);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 9px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('><', 0, 0);
+        } else if (bot.stunnedTimer > 0) {
+          ctx.fillStyle = '#5ba0e8';
+          ctx.fillRect(-5, -4, 10, 4);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 9px monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('~~', 0, 0);
+        } else {
+          ctx.fillStyle = bot.secondaryColor || '#e8a020';
+          ctx.fillRect(-5, -4, 10, 4);
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(-3 + Math.sin(bot.scanPulse * 2.5) * 2, -3, 2, 2);
+        }
+
+        // Antennas
+        ctx.strokeStyle = bot.isFrustrated ? '#fca5a5' : '#8aaed0';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(-5, -9); ctx.lineTo(-8, -15);
+        ctx.moveTo(5, -9); ctx.lineTo(8, -15);
+        ctx.stroke();
+
+        ctx.fillStyle = bot.isFrustrated ? '#f87171' : (Math.sin(bot.scanPulse * 6) > 0 ? (bot.color || '#5ba0e8') : '#ddeeff');
+        ctx.beginPath(); ctx.arc(-8, -15, 2, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(8, -15, 2, 0, Math.PI * 2); ctx.fill();
+
+        ctx.restore();
+      }
+
+      drawForkliftPlayer(ctx, rover) {
+        ctx.save();
+        ctx.translate(rover.x, rover.y);
+        ctx.rotate(rover.angle + Math.PI / 2);
+
+        const tineLift = rover.forkAnimTimer > 0 ? 5 : (rover.forkHeight || 0);
+
+        ctx.fillStyle = '#8aaed0'; ctx.strokeStyle = '#4a6d94'; ctx.lineWidth = 1;
+        ctx.fillRect(-9, -23 - tineLift, 4, 15); ctx.strokeRect(-9, -23 - tineLift, 4, 15);
+        ctx.fillRect(5, -23 - tineLift, 4, 15); ctx.strokeRect(5, -23 - tineLift, 4, 15);
+        ctx.fillStyle = '#0d1a2e'; ctx.fillRect(-11, -9 - tineLift, 22, 4);
+
+        ctx.fillStyle = '#08111f'; ctx.strokeStyle = '#3f5f85';
+        ctx.fillRect(-15, -11, 4, 7); ctx.fillRect(11, -11, 4, 7);
+        ctx.fillRect(-15, 6, 4, 7); ctx.fillRect(11, 6, 4, 7);
+
+        ctx.fillStyle = '#e8a020'; ctx.fillRect(-11, -7, 22, 21);
+        ctx.strokeStyle = '#a8620a'; ctx.lineWidth = 1.5; ctx.strokeRect(-11, -7, 22, 21);
+
+        ctx.fillStyle = '#08111f'; ctx.fillRect(-9, 10, 4, 3); ctx.fillRect(-1, 10, 4, 3); ctx.fillRect(6, 10, 3, 3);
+
+        ctx.fillStyle = '#112238'; ctx.fillRect(-7, -3, 14, 11);
+        ctx.strokeStyle = '#5ba0e8'; ctx.lineWidth = 1; ctx.strokeRect(-7, -3, 14, 11);
+
+        // Left Indicator Light (DIG Spotlight - Cyan/Blue)
+        const leftActive = rover.leftLightActiveTimer > 0;
+        ctx.fillStyle = leftActive ? '#5ba0e8' : 'rgba(91, 160, 232, 0.4)';
+        ctx.beginPath(); ctx.arc(-8, -9, 3, 0, Math.PI * 2); ctx.fill();
+        if (leftActive) {
+          ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1; ctx.stroke();
+          ctx.fillStyle = 'rgba(91, 160, 232, 0.35)';
+          ctx.beginPath(); ctx.moveTo(-8, -9); ctx.lineTo(-20, -30); ctx.lineTo(4, -30); ctx.closePath(); ctx.fill();
+        }
+
+        // Right Indicator Light (FLAG Beacon - Amber)
+        const rightActive = rover.rightLightActiveTimer > 0;
+        ctx.fillStyle = rightActive ? '#e8a020' : 'rgba(232, 160, 32, 0.4)';
+        ctx.beginPath(); ctx.arc(8, -9, 3, 0, Math.PI * 2); ctx.fill();
+        if (rightActive) {
+          ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1; ctx.stroke();
+          ctx.fillStyle = 'rgba(232, 160, 32, 0.35)';
+          ctx.beginPath(); ctx.arc(8, -9, 12, 0, Math.PI * 2); ctx.fill();
+        }
+
+        ctx.restore();
+      }
+
+      drawBrokenFlag(ctx, cx, cy) {
+        ctx.save();
+        ctx.strokeStyle = '#8aaed0'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(cx - 7, cy + 12); ctx.lineTo(cx - 7, cy - 2); ctx.lineTo(cx - 5, cy - 4); ctx.lineTo(cx - 5, cy - 14); ctx.stroke();
+        ctx.fillStyle = '#5ba0e8';
+        ctx.beginPath(); ctx.moveTo(cx - 5, cy - 14); ctx.lineTo(cx + 9, cy - 8); ctx.lineTo(cx + 3, cy - 4); ctx.lineTo(cx + 7, cy - 2); ctx.lineTo(cx - 5, cy - 2); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = '#e8a020'; ctx.lineWidth = 1.8;
+        ctx.beginPath(); ctx.moveTo(cx - 1, cy - 16); ctx.lineTo(cx - 4, cy - 7); ctx.lineTo(cx + 2, cy - 6); ctx.lineTo(cx - 1, cy + 4); ctx.stroke();
+        ctx.fillStyle = '#ddeeff'; ctx.fillRect(cx + 6, cy - 12, 2, 2);
+        ctx.fillStyle = '#e8a020'; ctx.fillRect(cx - 9, cy - 5, 2, 2);
+        ctx.restore();
+      }
+    }
+
+    const canvas = document.getElementById('gameCanvas');
+    const game = new CyberSweeper(canvas);
+
+    // Coordinates mapping
+    function getTileFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mx = (clientX - rect.left) * scaleX;
+      const my = (clientY - rect.top) * scaleY;
+      const c = Math.floor((mx - game.offsetX) / game.tileSize);
+      const r = Math.floor((my - game.offsetY) / game.tileSize);
+      if (r >= 0 && r < game.rows && c >= 0 && c < game.cols) {
+        return { r, c };
+      }
+      return null;
+    }
+
+    // Mouse movement
+    canvas.addEventListener('mousemove', (e) => {
+      const tile = getTileFromEvent(e);
+      if (tile) {
+        game.cursorX = tile.c;
+        game.cursorY = tile.r;
+      }
+    });
+
+    // Touch movement
+    canvas.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      const tile = getTileFromEvent(e);
+      if (tile) {
+        game.cursorX = tile.c;
+        game.cursorY = tile.r;
+      }
+    }, { passive: false });
+
+    // Action handling
+    function handleAction(tile, forceFlag = false) {
+      sfx.init();
+      if (game.isGameOver || game.isVictory) {
+        if (game.restartCooldown <= 0) game.startFloor(1);
+        return;
+      }
+      if (game.isFloorCleared) {
+        game.startFloor(game.floor + 1);
+        return;
+      }
+      if (!tile) return;
+
+      const isFlagAction = forceFlag || (game.touchActionMode === 'FLAG');
+      if (isFlagAction) {
+        if (game.playerRover) game.playerRover.rightLightActiveTimer = 0.45;
+        game.toggleFlag(tile.c, tile.r);
+      } else {
+        if (game.playerRover) {
+          game.playerRover.leftLightActiveTimer = 0.45;
+          game.playerRover.forkAnimTimer = 0.35;
+        }
+        game.revealTile(tile.c, tile.r);
+      }
+      game.stepCountdownTiles();
+    }
+
+    canvas.addEventListener('click', (e) => {
+      const tile = getTileFromEvent(e);
+      handleAction(tile, false);
+    });
+
+    canvas.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      const tile = getTileFromEvent(e);
+      handleAction(tile, true);
+    });
+
+    // Long press for mobile flagging
+    let touchTimer = null;
+    canvas.addEventListener('touchstart', (e) => {
+      sfx.init();
+      const tile = getTileFromEvent(e);
+      if (tile) {
+        game.cursorX = tile.c;
+        game.cursorY = tile.r;
+        touchTimer = setTimeout(() => {
+          handleAction(tile, true);
+          touchTimer = null;
+        }, 350);
+      }
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', () => {
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+      }
+    });
+
+    // Keyboard Controls
+    window.addEventListener('keydown', (e) => {
+      sfx.init();
+      if (game.isGameOver || game.isVictory) {
+        if (e.code === 'Space' || e.code === 'Enter') {
+          if (game.restartCooldown <= 0) game.startFloor(1);
+          return;
+        }
+      }
+
+      if (game.isFloorCleared) {
+        if (e.code === 'Space' || e.code === 'Enter' || e.code === 'KeyE' || e.code === 'KeyJ' || e.code === 'KeyZ') {
+          game.startFloor(game.floor + 1);
+          return;
+        }
+      }
+
+      if (e.code === 'KeyQ') { game.triggerEMPBlast(); return; }
+      if (e.code === 'KeyM') { toggleSound(); return; }
+      if (e.code === 'KeyT') { toggleSidebar(); return; }
+      if (e.code === 'Tab') { e.preventDefault(); toggleTouchMode(); return; }
+
+      // Movement
+      if (e.code === 'KeyW' || e.code === 'ArrowUp') game.cursorY = Math.max(0, game.cursorY - 1);
+      else if (e.code === 'KeyS' || e.code === 'ArrowDown') game.cursorY = Math.min(game.rows - 1, game.cursorY + 1);
+      else if (e.code === 'KeyA' || e.code === 'ArrowLeft') game.cursorX = Math.max(0, game.cursorX - 1);
+      else if (e.code === 'KeyD' || e.code === 'ArrowRight') game.cursorX = Math.min(game.cols - 1, game.cursorX + 1);
+
+      // Dig: Space, Enter, E, J, Z
+      else if (e.code === 'Space' || e.code === 'Enter' || e.code === 'KeyE' || e.code === 'KeyJ' || e.code === 'KeyZ') {
+        if (game.playerRover) {
+          game.playerRover.leftLightActiveTimer = 0.45;
+          game.playerRover.forkAnimTimer = 0.35;
+        }
+        game.revealTile(game.cursorX, game.cursorY);
+        game.stepCountdownTiles();
+      }
+
+      // Flag: F, X, K, C, Shift
+      else if (e.code === 'KeyF' || e.code === 'KeyX' || e.code === 'KeyK' || e.code === 'KeyC' || e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
+        if (game.playerRover) game.playerRover.rightLightActiveTimer = 0.45;
+        game.toggleFlag(game.cursorX, game.cursorY);
+        game.stepCountdownTiles();
+      }
+    });
+
+    // Touch Dock Wiring
+    const btnDigDock = document.getElementById('dock-mode-dig');
+    const btnFlagDock = document.getElementById('dock-mode-flag');
+    function setTouchMode(mode) {
+      game.touchActionMode = mode;
+      if (mode === 'DIG') {
+        btnDigDock.className = 'dock-btn active-dig';
+        btnFlagDock.className = 'dock-btn';
+      } else {
+        btnDigDock.className = 'dock-btn';
+        btnFlagDock.className = 'dock-btn active-flag';
+      }
+    }
+    function toggleTouchMode() {
+      setTouchMode(game.touchActionMode === 'DIG' ? 'FLAG' : 'DIG');
+    }
+    btnDigDock.addEventListener('click', () => setTouchMode('DIG'));
+    btnFlagDock.addEventListener('click', () => setTouchMode('FLAG'));
+    document.getElementById('dock-btn-emp').addEventListener('click', () => { sfx.init(); game.triggerEMPBlast(); });
+
+    // Header Controls
+    const btnSound = document.getElementById('btn-sound');
+    function toggleSound() {
+      sfx.setMute(!sfx.isMuted);
+      btnSound.textContent = sfx.isMuted ? '🔇 SFX: OFF' : '🔊 SFX: ON';
+      btnSound.style.color = sfx.isMuted ? 'var(--text-dim)' : 'var(--text-bright)';
+    }
+    btnSound.addEventListener('click', toggleSound);
+
+    const btnDrone = document.getElementById('btn-drone');
+    btnDrone.addEventListener('click', () => {
+      sfx.setDrone(!sfx.isDroneOn);
+      btnDrone.textContent = sfx.isDroneOn ? '🎵 DRONE: ON' : '🎵 DRONE: OFF';
+      btnDrone.style.color = sfx.isDroneOn ? 'var(--text-bright)' : 'var(--text-dim)';
+    });
+
+    const sidebarDrawer = document.getElementById('sidebar-drawer');
+    function toggleSidebar() {
+      sidebarDrawer.classList.toggle('collapsed');
+    }
+    document.getElementById('btn-toggle-sidebar').addEventListener('click', toggleSidebar);
+
+    function handleResize() {
+      if (document.fullscreenElement === canvasContainer || document.webkitFullscreenElement === canvasContainer) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      } else {
+        canvas.width = 800;
+        canvas.height = 600;
+      }
+      game.onResize(canvas.width, canvas.height);
+    }
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('fullscreenchange', handleResize);
+    document.addEventListener('webkitfullscreenchange', handleResize);
+
+    document.getElementById('btn-fullscreen').addEventListener('click', () => {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (canvasContainer.requestFullscreen) {
+          canvasContainer.requestFullscreen().catch(() => {});
+        } else if (canvasContainer.webkitRequestFullscreen) {
+          canvasContainer.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+    });
+
+    // Sidebar Controls
+    document.getElementById('btn-force-swap').addEventListener('click', () => {
+      sfx.init();
+      const success = game.attemptAIMineRelocation();
+      if (success) appendLog('⚡ Forced Robot Relocation executed!');
+      else appendLog('⚠️ No valid relocation path found. Flag a mine first!');
+    });
+
+    document.getElementById('btn-emp').addEventListener('click', () => { sfx.init(); game.triggerEMPBlast(); });
+    document.getElementById('btn-f1').addEventListener('click', () => { sfx.init(); game.startFloor(1); });
+    document.getElementById('btn-f2').addEventListener('click', () => { sfx.init(); game.startFloor(2); });
+    document.getElementById('btn-f3').addEventListener('click', () => { sfx.init(); game.startFloor(3); });
+    document.getElementById('btn-f4').addEventListener('click', () => { sfx.init(); game.startFloor(4); });
+    document.getElementById('btn-f5').addEventListener('click', () => { sfx.init(); game.startFloor(5); });
+    document.getElementById('btn-reset').addEventListener('click', () => { sfx.init(); game.startFloor(game.floor); });
+
+    // Animation Loop
+    let lastTime = performance.now();
+    function loop(now) {
+      const dt = Math.min(0.1, (now - lastTime) / 1000);
+      lastTime = now;
+
+      game.update(dt);
+      particles.update(dt);
+      game.render();
+
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
