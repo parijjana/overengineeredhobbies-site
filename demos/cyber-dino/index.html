@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="description" content="Cyber Dino Badlands Joyride: High-detail sprites, Mech walker exoskeleton, high jump & glide, Pterodactyl team up, seekbar with mini Dino marker, and Flying Mech Boss.">
+  <meta name="description" content="Cyber Dino: Badlands Run: High-detail sprites, Mech walker exoskeleton, high jump & glide, Pterodactyl team up, seekbar with mini Dino marker, and Flying Mech Boss.">
   <meta name="theme-color" content="#e8a020">
-  <meta property="og:title" content="Cyber Dino: Badlands Joyride — overengineeredhobbies.dev">
+  <meta property="og:title" content="Cyber Dino: Badlands Run — overengineeredhobbies.dev">
   <meta property="og:description" content="Dynamic widescreen desert runner: high-detail Mech walker, Chrome Dino, Ptero duo flight, and Flying Mech Boss!">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308111f'/%3E%3Cpath d='M20 44V24h16v-8h16v12h-8v8h8v8H36v8z' fill='%2322c55e'/%3E%3Crect x='12' y='28' width='8' height='16' fill='%23e8a020'/%3E%3C/svg%3E">
@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <title>Cyber Dino: Badlands Joyride — overengineeredhobbies.dev</title>
+  <title>Cyber Dino: Badlands Run — overengineeredhobbies.dev</title>
   <style>
     /* ============================================================
        OVERENGINEERED HOBBIES THEMES (Blueprint, Paper, Terminal)
@@ -257,15 +257,15 @@
       border-top: 1.5px solid var(--accent); border-left: 1.5px solid var(--accent);
     }
     .panel h3 {
-      font-size: 10.5px; letter-spacing: .16em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px;
+      font-family: var(--font-display); font-size: 15px; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px;
       display: flex; align-items: center; justify-content: space-between;
     }
 
     .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 6px; }
 
     button {
-      background: var(--surface); color: var(--text-bright); border: 1px solid var(--border); padding: 6px 10px;
-      font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .04em; cursor: pointer;
+      background: var(--surface); color: var(--text-bright); border: 1px solid var(--border); padding: 7px 10px;
+      font-family: var(--font-display); font-size: 15px; font-weight: 500; letter-spacing: .06em; cursor: pointer;
       transition: all 0.15s ease; display: flex; align-items: center; justify-content: center; gap: 4px;
     }
     button:hover { background: var(--surface-raised); border-color: var(--accent); color: var(--text-bright); }
@@ -276,8 +276,8 @@
     }
     .log-line { line-height: 1.3; border-bottom: 1px dashed var(--border); padding-bottom: 2px; }
 
-    .stats-row { display: flex; justify-content: space-between; font-size: 11px; color: var(--text); margin-bottom: 4px; }
-    .stats-val { font-weight: 600; color: var(--accent); }
+    .stats-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text); margin-bottom: 4px; }
+    .stats-val { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--accent); letter-spacing: .04em; }
 
     /* Mobile Touch Control Dock */
     .touch-dock {
@@ -286,7 +286,7 @@
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65); z-index: 999; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
     }
     .dock-btn {
-      padding: 8px 16px; font-size: 11.5px; font-weight: 600; letter-spacing: .06em;
+      padding: 8px 16px; font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: .06em;
       display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text-bright); cursor: pointer;
     }
     .dock-btn.active-thrust { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
@@ -404,7 +404,7 @@
     applyTheme(currentTheme);
 
     // --- Persistent Stats Manager ---
-    const STATS_STORAGE_KEY = 'dino_joyride_v2';
+    const STATS_STORAGE_KEY = 'cyber_dino_v2';
     const stats = {
       highScore: 0,
       bestDist: 0,
@@ -1621,7 +1621,7 @@
           ctx.fillStyle = this.boss.isRaged ? colErr : colAccent;
           ctx.fillRect(W / 2 - barW / 2, 48, (this.boss.hp / this.boss.maxHp) * barW, 16);
           ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1; ctx.strokeRect(W / 2 - barW / 2, 48, barW, 16);
-          ctx.fillStyle = '#ffffff'; ctx.font = `bold ${Math.round(11 * fontScale)}px monospace`; ctx.textAlign = 'center';
+          ctx.fillStyle = '#ffffff'; ctx.font = `bold ${Math.round(14 * fontScale)}px "Bebas Neue", sans-serif`; ctx.textAlign = 'center';
           ctx.fillText(`KRONOS FLYING MECH SUIT: ${this.boss.hp}%`, W / 2, 60);
         }
 
@@ -1643,8 +1643,8 @@
         ctx.restore();
 
         // Top HUD
-        const hudSize = Math.round(14 * fontScale);
-        ctx.fillStyle = colText; ctx.font = `bold ${hudSize}px "Fira Code", monospace`; ctx.textAlign = 'left';
+        const hudSize = Math.round(18 * fontScale);
+        ctx.fillStyle = colText; ctx.font = `bold ${hudSize}px "Bebas Neue", sans-serif`; ctx.textAlign = 'left';
         ctx.fillText(`SCORE: ${this.score}`, 24, 28 * fontScale);
         ctx.textAlign = 'center';
         ctx.fillText(`SECTOR ${this.sector}/3 | MODE: ${this.activeVehicle === 'ON_FOOT' ? 'DINO RUNNER 🦖' : (this.activeVehicle === 'CYBER_PTERO' ? 'PTERO DUO 🦅' : this.activeVehicle)}`, W / 2, 28 * fontScale);
@@ -1658,27 +1658,27 @@
         // Modals
         if (this.isSectorCleared) {
           ctx.save();
-          const mWidth = Math.min(500, W * 0.8);
+          const mWidth = Math.min(500 * fontScale, W * 0.85);
           ctx.fillStyle = colBg; ctx.fillRect(W / 2 - mWidth / 2, H / 2 - 90, mWidth, 180);
           ctx.strokeStyle = colOk; ctx.lineWidth = 2.5; ctx.strokeRect(W / 2 - mWidth / 2, H / 2 - 90, mWidth, 180);
-          ctx.fillStyle = colOk; ctx.font = `bold ${Math.round(26 * fontScale)}px "Bebas Neue", sans-serif`; ctx.textAlign = 'center';
+          ctx.fillStyle = colOk; ctx.font = `bold ${Math.round(32 * fontScale)}px "Bebas Neue", sans-serif`; ctx.textAlign = 'center';
           ctx.fillText(`🌟 SECTOR ${this.sector} CLEARED!`, W / 2, H / 2 - 45);
-          ctx.fillStyle = colText; ctx.font = `${Math.round(14 * fontScale)}px "Fira Code", monospace`;
+          ctx.fillStyle = colText; ctx.font = `${Math.round(18 * fontScale)}px "Bebas Neue", sans-serif`;
           ctx.fillText(`Distance: ${this.targetDistances[this.sector]}m  |  Clear Bonus: +${this.sectorClearBonus}`, W / 2, H / 2 - 15);
-          ctx.fillStyle = '#5ba0e8'; ctx.font = `bold ${Math.round(13 * fontScale)}px "Fira Code", monospace`;
+          ctx.fillStyle = '#5ba0e8'; ctx.font = `bold ${Math.round(16 * fontScale)}px "Bebas Neue", sans-serif`;
           ctx.fillText(`PRESS [SPACE / ENTER] FOR SECTOR ${this.sector + 1}`, W / 2, H / 2 + 50);
           ctx.restore();
         }
 
         if (this.isGameOver || this.isVictory) {
           ctx.save();
-          const mWidth = Math.min(460, W * 0.8);
+          const mWidth = Math.min(460 * fontScale, W * 0.85);
           ctx.fillStyle = colBg; ctx.fillRect(W / 2 - mWidth / 2, H / 2 - 70, mWidth, 140);
           ctx.strokeStyle = this.isVictory ? colOk : colErr; ctx.lineWidth = 3; ctx.strokeRect(W / 2 - mWidth / 2, H / 2 - 70, mWidth, 140);
           ctx.fillStyle = this.isVictory ? colOk : colErr;
-          ctx.font = `bold ${Math.round(28 * fontScale)}px "Bebas Neue", sans-serif`; ctx.textAlign = 'center';
+          ctx.font = `bold ${Math.round(36 * fontScale)}px "Bebas Neue", sans-serif`; ctx.textAlign = 'center';
           ctx.fillText(this.isVictory ? 'AI MENACE PURIFIED!' : 'DINO CRASHED!', W / 2, H / 2 - 15);
-          ctx.font = `${Math.round(15 * fontScale)}px "Fira Code", monospace`; ctx.fillStyle = colText;
+          ctx.font = `${Math.round(18 * fontScale)}px "Bebas Neue", sans-serif`; ctx.fillStyle = colText;
           ctx.fillText('Press SPACE or Click to Retry Run', W / 2, H / 2 + 25);
           ctx.restore();
         }
@@ -1713,8 +1713,8 @@
         const pct = Math.round(progress * 100);
 
         ctx.save();
-        const lblSize = Math.round(12 * fontScale);
-        ctx.fillStyle = colText; ctx.font = `bold ${lblSize}px "Fira Code", monospace`; ctx.textAlign = 'left';
+        const lblSize = Math.round(16 * fontScale);
+        ctx.fillStyle = colText; ctx.font = `bold ${lblSize}px "Bebas Neue", sans-serif`; ctx.textAlign = 'left';
         ctx.fillText(`► ${Math.round(this.distance)}m / ${targetDist}m`, barX + 16, barY - 6);
         ctx.textAlign = 'right'; ctx.fillText(`${pct}% // SECTOR 0${this.sector}`, barX + barW, barY - 6);
 
